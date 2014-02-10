@@ -1,0 +1,4 @@
+- To start server : python manage.py runserver
+  -> server will be on localhost:8000
+
+- Don't push *.pyc
