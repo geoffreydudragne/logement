@@ -1,0 +1,23 @@
+3 pages : 
+
+Recherche et consultation :
+- Voir sketch
+- Recherches et tri asynchrones (AJAX JQuery) (A voir si rendu html traité en Javascript ou en django)
+- Resultat sous forme de tableau comme rue du commerce
+
+
+Détail logement :
+- Voir sketch
+- slide show
+
+
+Modification création logement :
+- Page unique
+- upload des photos (asynchrone ou page suivante), donner un titre à chaque photo
+- Sauvegarde régulère en AJAX des modification faites
+
+
+Critères supplémentaires :
+- Authentification
+- Lien personne/logement  --> changement personne possible et facile, à pouvoir implémenter
+
