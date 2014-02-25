@@ -53,9 +53,10 @@ ROOT_URLCONF = 'src.urls'
 WSGI_APPLICATION = 'src.wsgi.application'
 
 ADMINS = (
-  ('nobu42', 'achard@eurecom.fr'),
-  ('gd', 'dudragne@eurecom.fr'),
-  ('gp5', 'piatte@eurecom.fr'),
+    ('nobu42', 'achard@eurecom.fr'),
+    ('rem92', 'decouzon@eurecom.fr'),
+    ('gd', 'dudragne@eurecom.fr'),
+    ('gp5', 'piatte@eurecom.fr'),
 )
 
 # Database
@@ -64,9 +65,9 @@ ADMINS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'housing', # os.path.join(BASE_DIR, 'db.sqlite3'),
-        'USER' : 'root',
-        'PASSWORD' : 'bib',
+        'NAME': 'housing',
+        'USER' : 'wtfo',
+        'PASSWORD' : 'company',
         'HOST' : '127.0.0.1',
     }
 }
