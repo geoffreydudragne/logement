@@ -19,7 +19,7 @@ class Photo(models.Model):
     house = models.ForeignKey(House)
     
     def current_dir(self):
-        return "/home/bib/Images"
+        return "."
     
     def __unicode__(self):
         """ 
