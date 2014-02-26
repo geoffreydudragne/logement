@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Titre</title>
+  </head>
+
+  <body>
+    <p> House ID : {{house.id}} </p>
+    <p> House Name : {{house.name}} </p>
+    <p> House Surface : {{house.surface}} </p>
+    <p> House Price : {{house.price}} € </p>
+    <section> House Contributors :
+    <ul>
+      {% for contributor in contributors %}
+        <li> {{ contributor.user.username }} </li>
+        {% empty %}
+        <p>No Contributor</p>
+      {% endfor %}
+    </ul>
+    </section>
+    <section> House Photos :
+    <ul>
+      {% for photo in photos %}
+        <img src="{{ photo.img }}" alt="{{ photo.descr }}" />
+        {% empty %}
+        <p>No Contributor</p>
+      {% endfor %}
+    </ul>
+    </section>
+  </body>
+</html>
