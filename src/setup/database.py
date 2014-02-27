@@ -1,4 +1,4 @@
-from housing.models import House, Photo, Contributor
+from housing.models import House, Photo, Contributor, GPScoordinates
 from django.contrib.auth.models import User
 
 # ADMIN
@@ -7,7 +7,9 @@ u.set_password("company")
 u.save()
 
 # DATAS
-h1 = House(name="Mougins", surface=95, price=1995)
+gps1=GPScoordinates(x=43.608522,y=7.012347)
+gps1.save()
+h1 = House(name="Mougins", surface=95, price=1995, gps=gps1)
 h1.save()
 p1 = Photo(descr="SWAG!", house=h1)
 p1.save()
@@ -20,7 +22,9 @@ c1.save()
 c1_2 = Contributor(user=u1_2, house=h1)
 c1_2.save()
 
-h2 = House(name="Antibes", surface=95, price=2995)
+gps2=GPScoordinates(x=43.590214,y=7.096295)
+gps2.save()
+h2 = House(name="Antibes", surface=95, price=2995, gps=gps2)
 h2.save()
 p2 = Photo(descr="bof", house=h2)
 p2.save()
