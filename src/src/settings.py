@@ -95,3 +95,11 @@ TEMPLATE_DIRS = (
 STATIC_URL = '/static/'
 
 APPEND_SLASH = True  # Ajoute un slash en fin d'URL
+
+# File storage related
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+STATIC_DOC_ROOT = os.path.join(BASE_DIR, 'media')

@@ -14,12 +14,9 @@ class House(models.Model):
 
 class Photo(models.Model):
     
-    img = models.ImageField(upload_to='self.current_dir')
+    img = models.ImageField(upload_to='housing')
     descr = models.CharField(max_length=30, verbose_name="Description")
     house = models.ForeignKey(House)
-    
-    def current_dir(self):
-        return "."
     
     def __unicode__(self):
         """ 
