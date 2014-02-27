@@ -14,3 +14,6 @@ def house(request, id_house):
         raise Http404
     
     return render(request, 'housing/house.html', {'house':house, 'contributors':contributors, 'photos':photos})
+
+def map(request):
+    return render(request, 'housing/map.html')

@@ -5,6 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('housing.views',
     url(r'^house/(?P<id_house>[0-9]+)', 'house'),
+    url(r'^map$', 'map'),
 )
 
 
