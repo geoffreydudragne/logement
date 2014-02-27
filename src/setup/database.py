@@ -2,7 +2,7 @@ from housing.models import House, Photo, Contributor, GPScoordinates
 from django.contrib.auth.models import User
 
 # ADMIN
-u = User(username="WTFO", is_staff=True)
+u = User(username="WTFO", is_staff=True, is_superuser=True)
 u.set_password("company")
 u.save()
 

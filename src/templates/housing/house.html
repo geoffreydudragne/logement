@@ -22,7 +22,7 @@
     <section> House Photos :
     <ul>
       {% for photo in photos %}
-        <img src="{{ photo.img }}" alt="{{ photo.descr }}" />
+      <img src="{{MEDIA_URL}}{{ photo.img }}" alt="{{ photo.descr }}" />
         {% empty %}
         <p>No Contributor</p>
       {% endfor %}

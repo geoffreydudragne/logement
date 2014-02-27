@@ -92,12 +92,16 @@ TEMPLATE_DIRS = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_ROOT = '/home/geoffrey/logement/logement/src/staticFiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 
 APPEND_SLASH = True  # Ajoute un slash en fin d'URL
 
-MEDIA_ROOT='/home/geoffrey/logement/logement/media/'
+# File storage related
 
-MEDIA_URL='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+STATIC_DOC_ROOT = os.path.join(BASE_DIR, 'media')
