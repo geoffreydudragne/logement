@@ -1,6 +1,12 @@
 from housing.models import House, Photo, Contributor
 from django.contrib.auth.models import User
 
+# ADMIN
+u = User(username="WTFO", is_staff=True)
+u.set_password("company")
+u.save()
+
+# DATAS
 h1 = House(name="Mougins", surface=95, price=1995)
 h1.save()
 p1 = Photo(descr="SWAG!", house=h1)
