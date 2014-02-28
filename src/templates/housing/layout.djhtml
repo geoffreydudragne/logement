@@ -25,6 +25,9 @@
           Sponsored by SexOnTheBED
 	</p>
       </footer>
+
+      {% block scripts %}
+      {% endblock %}
   </head>
 
 
