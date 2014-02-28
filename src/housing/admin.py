@@ -1,5 +1,5 @@
 from django.contrib import admin
-from housing.models import House, Photo, Contributor
+from housing.models import House, GPSCoordinate, Furniture, Photo, Contributor
 
 class HouseAdmin(admin.ModelAdmin):
     list_display = ('name','surface','price',)
@@ -7,6 +7,16 @@ class HouseAdmin(admin.ModelAdmin):
     ordering = ('name',)
     search_fields = ('name',)
 
+class FurnitureAdmin(admin.ModelAdmin):
+    list_display = ('house','oven','fridge',)
+    list_filter = ('house','oven','fridge',)
+    ordering = ('house',)
+    
+class GPSCoordinateAdmin(admin.ModelAdmin):
+    list_display = ('x','y',)
+    list_filter = ('x','y',)
+    ordering = ('x','y',)
+        
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('img','descr','house',)
     list_filter = ('house',)
@@ -14,13 +24,12 @@ class PhotoAdmin(admin.ModelAdmin):
     search_fields = ('house',)
 
 class ContributorAdmin(admin.ModelAdmin):
-    list_display = ('user','house',)
-    list_filter = ('house',)
-    ordering = ('house',)
-    search_fields = ('house',)
+    list_display = ('user',)
 
     
 admin.site.register(House, HouseAdmin)
+admin.site.register(Furniture, FurnitureAdmin)
+admin.site.register(GPSCoordinate, GPSCoordinateAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Contributor, ContributorAdmin)
 

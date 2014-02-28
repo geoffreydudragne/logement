@@ -1,27 +1,28 @@
 {% extends "housing/layout.djhtml" %}
 
 {% block main %}
-    <p> House ID : {{house.id}} </p>
-    <p> House Name : {{house.name}} </p>
-    <p> House Surface : {{house.surface}} </p>
-    <p> House Price : {{house.price}} € </p>
-    <section> House Contributors :
+
+  <p> House ID : {{house.id}} </p>
+  <p> House Name : {{house.name}} </p>
+  <p> House Surface : {{house.surface}} </p>
+  <p> House Price : {{house.price}} € </p>
+  <section> House Contributors :
     <ul>
       {% for contributor in contributors %}
         <li> {{ contributor.user.username }} </li>
-        {% empty %}
+      {% empty %}
         <p>No Contributor</p>
       {% endfor %}
     </ul>
-    </section>
-    <section> House Photos :
+  </section>
+  <section> House Photos :
     <ul>
       {% for photo in photos %}
-      <img src="{{MEDIA_URL}}{{ photo.img }}" alt="{{ photo.descr }}" />
-        {% empty %}
+        <img src="{{MEDIA_URL}}{{ photo.img }}" alt="{{ photo.descr }}" />
+      {% empty %}
         <p>No Contributor</p>
       {% endfor %}
     </ul>
-    </section>
+  </section>
 
 {% endblock %}

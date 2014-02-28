@@ -4,27 +4,28 @@
     <meta charset="utf-8" />
     <title>{% block title %}Eurecom housing{% endblock %}</title> 
     <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" type="text/css" />
-
-    <body>
-        <header>
-        <h1>Eurecom Housing</h1>
-        </header>
-
-        <section class="main">
-         {% block main %}
-            <p>prototype page, nothing to see here !</p>
-         {% endblock %}
-        </section>
-
-      <footer>
-        <br>
-	<p>
-	  WTFO Company 2014
-	</p>
-	<p>
-          Sponsored by SexOnTheBED
-	</p>
-      </footer>
   </head>
+  <body>
+    <header>
+      <h1>Eurecom Housing</h1>
+    </header>
+
+    <section id="main">
+      {% block main %}
+        <p>prototype page, nothing to see here !</p>
+      {% endblock %}
+    </section>
+    
+    <footer>
+      <br>
+      <p>
+	WTFO Company 2014
+      </p>
+      <p>
+        Sponsored by SexOnTheBED
+      </p>
+    </footer>
+  </body>
+</html>
 
 

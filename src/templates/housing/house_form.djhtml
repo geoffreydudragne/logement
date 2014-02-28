@@ -2,13 +2,27 @@
 
 {% block main %}
 
-    {% if added %} House added!{% endif %}
-    
-    <form action="." method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      {{ contributor_form.as_p }}
-    <input type="submit" value="Submit" />
-    </form>
+  {% if added %} 
+    House added! 
+
+  {% else  %}
+  <form enctype="multipart/form-data" action="" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <legend>General info</legend>
+      {{ house_form.as_p }}
+    </fieldset>
+    <fieldset>
+      <legend>Furniture</legend>
+      {{ furniture_form.as_p }}
+    </fieldset>
+    <fieldset>
+      <legend>Photos</legend>
+      {{ photo_form.as_p }}
+    </fieldset>
+    <button>Submit</button>
+  </form>
+
+  {% endif %}
 
 {% endblock %}
