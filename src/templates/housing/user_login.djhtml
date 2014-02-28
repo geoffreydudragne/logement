@@ -1,0 +1,15 @@
+<h1>Connection</h1>
+
+{% if error %}
+  <p>Wrong username or password</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+  Welcome {{ user.username }} !
+{% else %}
+  <form method="post" action="."> 
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" />
+  </form>
+{% endif %}

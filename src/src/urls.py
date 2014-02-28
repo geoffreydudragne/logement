@@ -12,6 +12,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^housing/', include('housing.urls')),
+    url(r'^login/$', 'housing.views.user_login', name='login'),
+    url(r'^logout/$', 'housing.views.user_logout', name='logout'),
     
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True)
 #to use media files in developpement
