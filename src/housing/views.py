@@ -4,9 +4,11 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
-from housing.models import House, Photo, Contributor
-from housing.forms import HouseForm, ContributorForm, LoginForm
+from housing.models import House, Furniture, Photo, Contributor
+from housing.forms import HouseForm, FurnitureForm, PhotoForm, ContributorForm, LoginForm
 
 # Create your views here.
 def home(request):
@@ -56,14 +58,58 @@ def form_house(request, id_house=0):
 
     return render(request, 'housing/house_form.djhtml', locals())
 
+@login_required
+def house_form(request):
+    """
+
+    """
+    if request.method == 'POST': 
+
+        house_form = HouseForm(request.POST, instance=House())
+        furniture_form = FurnitureForm(request.POST, instance=Furniture())
+        photo_form = PhotoForm(request.POST, request.FILES, instance=Photo())
+        
+        if house_form.is_valid() and furniture_form.is_valid() and photo_form.is_valid():
+
+            house = house_form.save()
+            furniture = furniture_form.save(commit=False)
+            furniture.house = house
+            furniture.save()
+            photo = photo_form.save(commit=False)
+            photo.house = house
+            photo.save()
+
+            try:
+                contributor = Contributor.objects.get(user=request.user)
+                contributor.houses.add(house)
+                contributor.save()
+            except:
+                raise Http404
+
+            added = True
+
+    else:
+        house_form = HouseForm()
+        furniture_form = FurnitureForm()
+        photo_form = PhotoForm()
+        print request.user.username
+
+    return render(request, 'housing/house_form.djhtml', locals())
+
+class FurnitureCreate(CreateView):
+    model = Furniture
+    template_name = 'housing/form.djhtml'
+    form_class = FurnitureForm
+    success_url = reverse_lazy(home)
 
 class HouseCreate(CreateView):
     model = House
-    template_name = 'housing/house_form.djhtml'
+    template_name = 'housing/form.djhtml'
     form_class = HouseForm
-    success_url = reverse_lazy(home)
+    success_url = reverse_lazy(FurnitureCreate.as_view)
     
-    
+
+        
 def map(request):
     """
     

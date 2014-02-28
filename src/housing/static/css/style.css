@@ -14,3 +14,18 @@ footer {
     height: 400px;
 }
 
+#main {
+    display:block;
+    margin:auto;
+    width:1000px;
+    padding:25px;
+    background-color:#eeeeee;
+}
+
+fieldset {
+    margin-bottom:25px;
+}
+
+button {
+    float:right;
+}
