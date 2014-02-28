@@ -1,3 +1,7 @@
+{% extends "housing/layout.djhtml" %}
+
+{% block main %}
+
 <h1>Connection</h1>
 
 {% if error %}
@@ -13,3 +17,5 @@
     <input type="submit" />
   </form>
 {% endif %}
+
+{% endblock %}

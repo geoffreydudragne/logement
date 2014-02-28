@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Titre</title>
-  </head>
+{% extends "housing/layout.djhtml" %}
 
-  <body>
+{% block main %}
+
     {% if added %} House added!{% endif %}
     
     <form action="." method="post">
@@ -14,5 +10,5 @@
       {{ contributor_form.as_p }}
     <input type="submit" value="Submit" />
     </form>
-  </body>
-</html>
+
+{% endblock %}

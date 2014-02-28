@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Titre</title>
-  </head>
+{% extends "housing/layout.djhtml" %}
 
-  <body>
+{% block main %}
     <p> House ID : {{house.id}} </p>
     <p> House Name : {{house.name}} </p>
     <p> House Surface : {{house.surface}} </p>
@@ -28,5 +23,5 @@
       {% endfor %}
     </ul>
     </section>
-  </body>
-</html>
+
+{% endblock %}
