@@ -9,6 +9,11 @@ footer {
     margin-top: 20px
 }
 
+#map_canvas {
+    width: 600px;
+    height: 400px;
+}
+
 #main {
     display:block;
     margin:auto;
