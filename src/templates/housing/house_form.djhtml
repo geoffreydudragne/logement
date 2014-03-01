@@ -3,27 +3,41 @@
 {% block main %}
 
   {% if added %} 
-    House added! 
-
+    <h2>House added!</h2>
   {% else  %}
-  <form enctype="multipart/form-data" action="" method="post">
-    {% csrf_token %}
-    <fieldset>
-      <legend>General info</legend>
-      {{ house_form.as_p }}
-    </fieldset>
-    <fieldset>
-      <legend>Furniture</legend>
-      {{ furniture_form.as_p }}
-    </fieldset>
-    {% if photo_form %}
-      <fieldset>
-        <legend>Photos</legend>
-        {{ photo_form.as_p }}
-      </fieldset>
+    {% if updated %}
+      <h2>House updated!</h2>
     {% endif %}
-    <button>Submit</button>
-  </form>
+    <form enctype="multipart/form-data" action="" method="post">
+      {% csrf_token %}
+      <fieldset>
+        <legend>General info</legend>
+        {{ house_form.as_p }}
+      </fieldset>
+      <fieldset>
+        <legend>Furniture</legend>
+        {{ furniture_form.as_p }}
+      </fieldset>
+      {% if photos %}
+        <fieldset>
+          <legend>Photos</legend>
+          {% for photo in photos %}
+            <img src="{{ MEDIA_URL }}{{ photo.img }}" alt="{{ photo.descr }}"/>
+          {% endfor %}
+          <p><a href="{% url 'housing.views.add_photo' house.id %}">Add a photo</a></p>
+        </fieldset>
+      {% endif %}
+      {% if contributors %}
+        <fieldset>
+          <legend>Contributors</legend>
+          {% for contributor in contributors %}
+            {{ contributor.user.username }}
+          {% endfor %}
+          <p><a href="#">Add a contributor</a></p>
+        </fieldset>
+      {% endif %}
+      <button>Submit</button>
+    </form>
 
   {% endif %}
 
