@@ -16,6 +16,7 @@ urlpatterns = patterns('housing.views',
     #url(r'^house/create/furniture/$', 'house_furniture'),
     url(r'^map$', 'map'),
     url(r'^map/(?P<id_house>[0-9]+)$', 'mapMarkers'),
+    url(r'^map/all$', 'mapMarkersAll'),
 )
 
 
