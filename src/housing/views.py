@@ -91,31 +91,69 @@ def house_update(request, id_house):
         if request.method == 'POST': 
             house = get_object_or_404(House, id=id_house)
             furniture = get_object_or_404(Furniture, house=house)
+            photos = house.photo_set.all()
+            contributors = house.contributor_set.all()
             house_form = HouseForm(request.POST, instance=house)
             furniture_form = FurnitureForm(request.POST, instance=furniture)
+            # photo_form = PhotoForm(request.POST, request.FILES, instance=Photo())
+            # contributor_form = ContributorForm(request.POST, instance=Contributor())
             
-            if house_form.is_valid() and furniture_form.is_valid():
+            if house_form.is_valid() and furniture_form.is_valid() and photo_form.is_valid():
                 house = house_form.save()
                 furniture = furniture_form.save(commit=False)
                 furniture.house = house
                 furniture.save()
-    
-                try:
-                    contributor = Contributor.objects.get(user=request.user)
-                    contributor.houses.add(house)
+                """
+                photo = photo_form.save(commit=False)
+                photo.house = house
+                photo.save()
+                """
+                """
+                if contributor_form.is_valid():
+                    contributor = contributor_form.save(commit=False)
+                    contributor.house = house
                     contributor.save()
-                except:
-                    raise Http404
-    
-                added = True
-    
+                """
+                updated = True
         else:
             house = get_object_or_404(House, id=id_house)
             furniture = get_object_or_404(Furniture, house=house)
+            photos = house.photo_set.all()
+            contributors = house.contributor_set.all()
             house_form = HouseForm(instance=house)
             furniture_form = FurnitureForm(instance=furniture)
+            # photo_form = PhotoForm()
+            # contributor_form = ContributorForm()
             
         return render(request, 'housing/house_form.djhtml', locals())
+    else:
+        return redirect('/login/')
+
+def add_photo(request, id_house):
+    """
+
+    """
+    user = request.user
+    print user.has_perm('housing.update_house_{0}'.format(id_house))
+    if user.has_perm('housing.update_house_{0}'.format(id_house)):
+        if request.method == 'POST': 
+            house = get_object_or_404(House, id=id_house)
+            photos = house.photo_set.all()
+            photo_form = PhotoForm(request.POST, request.FILES, instance=Photo())
+                        
+            if photo_form.is_valid():
+                photo = photo_form.save(commit=False)
+                photo.house = house
+                photo.save()
+                
+                updated = True
+        else:
+            house = get_object_or_404(House, id=id_house)
+            photos = house.photo_set.all()
+            contributors = house.contributor_set.all()
+            photo_form = PhotoForm()
+                        
+        return render(request, 'housing/add_photo.djhtml', locals())
     else:
         return redirect('/login/')
 

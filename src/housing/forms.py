@@ -9,14 +9,17 @@ class HouseForm(forms.ModelForm):
 class FurnitureForm(forms.ModelForm):
     class Meta:
         model = Furniture
+        exclude = ('house',)
         
 class ContributorForm(forms.ModelForm):
     class Meta:
         model = Contributor
+        exclude = ('houses',)
 
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
+        exclude = ('house',)
         
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", max_length=30)
