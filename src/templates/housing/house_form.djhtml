@@ -16,10 +16,12 @@
       <legend>Furniture</legend>
       {{ furniture_form.as_p }}
     </fieldset>
-    <fieldset>
-      <legend>Photos</legend>
-      {{ photo_form.as_p }}
-    </fieldset>
+    {% if photo_form %}
+      <fieldset>
+        <legend>Photos</legend>
+        {{ photo_form.as_p }}
+      </fieldset>
+    {% endif %}
     <button>Submit</button>
   </form>
 

@@ -1,14 +1,16 @@
 #-*- coding: utf-8 -*-
 from django.http import Http404
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Permission
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.contenttypes.models import ContentType
 from django.views.generic import CreateView
 from housing.models import House, Furniture, Photo, Contributor
 from housing.forms import HouseForm, FurnitureForm, PhotoForm, ContributorForm, LoginForm
+
 
 # Create your views here.
 def home(request):
@@ -32,45 +34,20 @@ def house(request, id_house):
     return render(request, 'housing/house.djhtml', locals())
 
 
-def form_house(request, id_house=0):
-    """
-
-    """
-    if request.method == 'POST': 
-        house_form = HouseForm(request.POST, instance=House())
-        
-        if form.is_valid(): 
-
-            name = house_form.cleaned_data['name']
-            surface = house_form.cleaned_data['surface']
-            price = house_form.cleaned_data['price']
-
-            house_form.save()
-            
-            added = True
-
-    else:
-        if id_house:
-            house = House.objects.get(id=id_house)
-            house_form = HouseForm(instance=house)
-        else:
-            house_form = HouseForm()
-
-    return render(request, 'housing/house_form.djhtml', locals())
-
 @login_required
-def house_form(request):
+def house_create(request):
     """
 
     """
     if request.method == 'POST': 
 
+        user = request.user
         house_form = HouseForm(request.POST, instance=House())
         furniture_form = FurnitureForm(request.POST, instance=Furniture())
         photo_form = PhotoForm(request.POST, request.FILES, instance=Photo())
         
         if house_form.is_valid() and furniture_form.is_valid() and photo_form.is_valid():
-
+            
             house = house_form.save()
             furniture = furniture_form.save(commit=False)
             furniture.house = house
@@ -79,6 +56,13 @@ def house_form(request):
             photo.house = house
             photo.save()
 
+            # Adding permission to contributor
+            content_type = ContentType.objects.get(app_label='housing', model='House')
+            permission = Permission.objects.create(codename='update_house_{0}'.format(house.id),
+                                                   name='Update house "{0}"'.format(house.name),
+                                                   content_type=content_type)
+            user.user_permissions.add(permission)
+    
             try:
                 contributor = Contributor.objects.get(user=request.user)
                 contributor.houses.add(house)
@@ -92,22 +76,60 @@ def house_form(request):
         house_form = HouseForm()
         furniture_form = FurnitureForm()
         photo_form = PhotoForm()
-        print request.user.username
 
     return render(request, 'housing/house_form.djhtml', locals())
 
-class FurnitureCreate(CreateView):
-    model = Furniture
-    template_name = 'housing/form.djhtml'
-    form_class = FurnitureForm
-    success_url = reverse_lazy(home)
 
-class HouseCreate(CreateView):
-    model = House
-    template_name = 'housing/form.djhtml'
-    form_class = HouseForm
-    success_url = reverse_lazy(FurnitureCreate.as_view)
+def house_update(request, id_house):
+    """
+
+    """
+    user = request.user
+    print user.has_perm('housing.update_house_{0}'.format(id_house))
+    if user.has_perm('housing.update_house_{0}'.format(id_house)):
+        if request.method == 'POST': 
+            house = get_object_or_404(House, id=id_house)
+            furniture = get_object_or_404(Furniture, house=house)
+            house_form = HouseForm(request.POST, instance=house)
+            furniture_form = FurnitureForm(request.POST, instance=furniture)
+            
+            if house_form.is_valid() and furniture_form.is_valid():
+                house = house_form.save()
+                furniture = furniture_form.save(commit=False)
+                furniture.house = house
+                furniture.save()
     
+                try:
+                    contributor = Contributor.objects.get(user=request.user)
+                    contributor.houses.add(house)
+                    contributor.save()
+                except:
+                    raise Http404
+    
+                added = True
+    
+        else:
+            house = get_object_or_404(House, id=id_house)
+            furniture = get_object_or_404(Furniture, house=house)
+            house_form = HouseForm(instance=house)
+            furniture_form = FurnitureForm(instance=furniture)
+            
+        return render(request, 'housing/house_form.djhtml', locals())
+    else:
+        return redirect('/login/')
+
+# class FurnitureCreate(CreateView):
+#     model = Furniture
+#     template_name = 'housing/form.djhtml'
+#     form_class = FurnitureForm
+#     success_url = reverse_lazy(home)
+# 
+# class HouseCreate(CreateView):
+#     model = House
+#     template_name = 'housing/form.djhtml'
+#     form_class = HouseForm
+#     success_url = reverse_lazy(FurnitureCreate.as_view)
+#     
 
         
 def map(request):
