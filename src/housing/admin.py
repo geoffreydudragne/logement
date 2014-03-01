@@ -13,9 +13,9 @@ class FurnitureAdmin(admin.ModelAdmin):
     ordering = ('house',)
     
 class GPSCoordinateAdmin(admin.ModelAdmin):
-    list_display = ('x','y',)
-    list_filter = ('x','y',)
-    ordering = ('x','y',)
+    list_display = ('latitude','longitude',)
+    list_filter = ('latitude','longitude',)
+    ordering = ('latitude','longitude',)
         
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('img','descr','house',)

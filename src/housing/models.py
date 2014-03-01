@@ -31,12 +31,12 @@ class Contributor(models.Model):
 
 class GPSCoordinate(models.Model):
     house = models.OneToOneField(House)
-    x = models.FloatField(verbose_name="x")
-    y = models.FloatField(verbose_name="y")
+    latitude = models.FloatField(verbose_name="latitude")
+    longitude = models.FloatField(verbose_name="longitude")
 
 
     def __unicode__(self):
-        return u"(%s,%s)"%(self.x, self.y)
+        return u"(%s,%s)"%(self.latitude, self.longitude)
 
 
 class Furniture(models.Model):

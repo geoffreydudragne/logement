@@ -4,9 +4,9 @@
       <h>Map tests are here</h>
       <p>here's a photo of my roommate, SWAG !
        <img src="{{STATIC_URL}}img/bastien.jpg"/>
-       <img src="{{MEDIA_URL}}housing/bastien.jpg"/>
       <button id="triggerButton"> get the markers</button>
       </p>
+      <p>the result of the query is : <span id="result"></span></p>
       <div id="map_canvas"</div>
 {% endblock %}
 

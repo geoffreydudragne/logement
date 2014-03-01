@@ -8,7 +8,8 @@ from django.contrib.auth.models import User, Permission
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.contenttypes.models import ContentType
 from django.views.generic import CreateView
-from housing.models import House, Furniture, Photo, Contributor
+from django.utils import simplejson
+from housing.models import House, Furniture, Photo, Contributor, GPSCoordinate
 from housing.forms import HouseForm, FurnitureForm, PhotoForm, ContributorForm, LoginForm
 
 
@@ -138,6 +139,17 @@ def map(request):
     """
     return render(request, 'housing/map.djhtml')
 
+def mapMarkers(request, id_house):
+    """
+
+    """
+    house = get_object_or_404(House, id=id_house)
+    location=house.gpscoordinate
+    markers = []
+    markers.append({"latitude":location.latitude, "longitude":location.longitude, "content":house.name})
+    result = {"markers": markers}
+    
+    return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
 def user_login(request):
     """
