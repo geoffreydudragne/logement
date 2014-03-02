@@ -7,11 +7,11 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.contenttypes.models import ContentType
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import CreateView
 from django.utils import simplejson
 from housing.models import House, Furniture, Photo, Contributor, GPSCoordinate
 from housing.forms import HouseForm, FurnitureForm, PhotoForm, ContributorForm, LoginForm
-
 
 # Create your views here.
 def home(request):
@@ -129,6 +129,7 @@ def house_update(request, id_house):
     else:
         return redirect('/login/')
 
+@ensure_csrf_cookie    
 def add_photo(request, id_house):
     """
 
