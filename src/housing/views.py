@@ -178,6 +178,22 @@ def map(request):
     """
     return render(request, 'housing/map.djhtml')
 
+def mapMarkersAll(request):
+    """
+
+    """
+    #house = get_object_or_404(House, id=id_house)
+    houses = House.objects.all()
+    markers = []
+    rank=1
+    for house in houses:
+        location=house.gpscoordinate
+        markers.append({"latitude":location.latitude, "longitude":location.longitude, "content":house.name, "rank":rank})
+        rank+=1
+
+    result = {"markers": markers}
+    return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+
 def mapMarkers(request, id_house):
     """
 
