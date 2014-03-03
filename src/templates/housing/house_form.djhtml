@@ -21,12 +21,20 @@
       {% if photos %}
         <fieldset>
           <legend>Photos</legend>
-          {% for photo in photos %}
-            <img src="{{ MEDIA_URL }}{{ photo.img }}" alt="{{ photo.descr }}"/>
+          <ul>
+	  {% for photo in photos %}
+          <li>  
+	    <img src="{{ MEDIA_URL }}{{ photo.img }}" alt="{{ photo.descr }}"/>
+	  </li>
+	  <li>
+	    <label for="">Description</label><input id="descr" name="descr" />
+	  </li>
+	    
           {% endfor %}
           <!-- <p><a href="{% url 'housing.views.add_photo' house.id %}">Add a photo</a></p> -->
           
-          <p><a href="#" id="add_photo" data-id_house="{{ house.id }}">Add a photo</a></p>
+          <!-- <p><a href="#" id="add_photo" data-id_house="{{ house.id }}">Add a photo</a></p> -->
+	  <p><label for="id_img">Add photos </label><input id="id_img" type="file" name="img" data-url="/housing/house/add_photo_test/1" multiple /></p>
         </fieldset>
       {% endif %}
       {% if contributors %}
@@ -45,5 +53,22 @@
 
 {% endblock %}
 {% block scripts %}
-  <script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>
+<script type="text/javascript">
+$(function () {
+    $('#id_img').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+// local variables used in following scripts
+var add_photo_url = '{% url 'housing.views.add_photo' house.id %}'
+</script>
+<script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.fileupload.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.ui.widget.js"></script>
 {% endblock %}

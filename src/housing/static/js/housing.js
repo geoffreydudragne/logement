@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $("#add_photo").unbind().on('click', function() {
-        $.get('/housing/house/add_photo/1', function(data) {
+	$.get(add_photo_url, function(data) {
             $("body").append('<div id="test"></div>');
             $("#test").html(data).dialog({
                 width:800,
@@ -8,7 +8,7 @@ $(document).ready(function() {
                 buttons: {
                     Add: function() {
                         var form = $("#test form").serialize();
-                        $.post('/housing/house/add_photo/1', form, function(data) {
+                        $.post(add_photo_url, form, function(data) {
                             $("#test").html(data);
                         });
                     }

@@ -19,7 +19,7 @@ class ContributorForm(forms.ModelForm):
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
-        exclude = ('house',)
+        exclude = ('house','descr',)
         
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", max_length=30)
