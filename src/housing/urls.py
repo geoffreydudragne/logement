@@ -17,6 +17,7 @@ urlpatterns = patterns('housing.views',
     url(r'^map$', 'map'),
     url(r'^map/(?P<id_house>[0-9]+)$', 'mapMarkers'),
     url(r'^map/all$', 'mapMarkersAll'),
+    url(r'^precise$', 'precise_position')
 )
 
 

@@ -16,8 +16,11 @@
     $('#map_canvas').gmap({ 'center': '43.614252,7.072984' }).gmap('option', 'zoom', 11);
     $('#map_canvas').gmap('addMarker', {
         'position': new google.maps.LatLng(43.614252,7.072984),
-        'icon': new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_spin&chld=1|0|239CD3|8|_|Eurecom")
+        'icon': new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=E|239CD3|000000")
+    }).click(function() {
+        $('#map_canvas').gmap('openInfoWindow', {'content': "Eurecom"}, this);
     });
+
 
 
     $('#triggerButton').click(function(){
@@ -33,6 +36,7 @@
                     });
                 });
             });
-        })
+        });
 
         // https://developers.google.com/chart/image/docs/gallery/dynamic_icons#pins to design pins
+

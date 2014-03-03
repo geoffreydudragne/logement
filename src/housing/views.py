@@ -176,6 +176,12 @@ def map(request):
     
     """
     return render(request, 'housing/map.djhtml')
+        
+def precise_position(request):
+    """
+    
+    """
+    return render(request, 'housing/precisePosition.djhtml')
 
 def mapMarkersAll(request):
     """
