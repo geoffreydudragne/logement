@@ -1,12 +1,10 @@
 {% extends "housing/layout.djhtml" %}
 
 {% block main %}
-      <h2>Map tests are here</h2>
-      <p>here's a photo of my roommate, SWAG !
-       <img src="{{STATIC_URL}}img/bastien.jpg"/>
-      <button id="triggerButton"> get the markers</button>
-      </p>
-      <p>the result of the query is : <span id="result"></span></p>
+      <h2>Second map test here</h2>
+      <p>Enter your address in the text field : <input type="text" id="#address"/></p>
+      <p>Center the map on it : <button id="centerButton">Center</button> </p>
+      <p>Latitude : <input type="text" id="latitude"/> Longitude : <input type="text" id="longitude"/></p>
       <div id="map_canvas"</div>
 {% endblock %}
 
@@ -14,6 +12,7 @@
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="{{STATIC_URL}}js/jquery.ui.map.js"></script>
   <script type="text/javascript">var STATIC_URL = "{{STATIC_URL}}"</script>
-  <script src="{{STATIC_URL}}js/map.js"></script>
+  <script src="{{STATIC_URL}}js/precisePosition.js"></script>
 
 {% endblock %}
+
