@@ -24,7 +24,9 @@
           {% for photo in photos %}
             <img src="{{ MEDIA_URL }}{{ photo.img }}" alt="{{ photo.descr }}"/>
           {% endfor %}
-          <p><a href="{% url 'housing.views.add_photo' house.id %}">Add a photo</a></p>
+          <!-- <p><a href="{% url 'housing.views.add_photo' house.id %}">Add a photo</a></p> -->
+          
+          <p><a href="#" id="add_photo" data-id_house="{{ house.id }}">Add a photo</a></p>
         </fieldset>
       {% endif %}
       {% if contributors %}
@@ -41,4 +43,7 @@
 
   {% endif %}
 
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>
 {% endblock %}

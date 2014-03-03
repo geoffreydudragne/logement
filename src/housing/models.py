@@ -14,8 +14,8 @@ class House(models.Model):
     
 class Photo(models.Model):
     house = models.ForeignKey(House)
-    img = models.ImageField(upload_to='housing', null=True, blank=True)
-    descr = models.CharField(max_length=30, verbose_name="Description", null=True, blank=True)
+    img = models.ImageField(upload_to='housing')
+    descr = models.CharField(max_length=30, verbose_name="Description")
     
     def __unicode__(self):
         return u"%s"%self.descr

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>{% block title %}Eurecom housing{% endblock %}</title> 
     <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" type="text/css" />
+    <link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui/jquery-ui-1.10.4.css" type="text/css" />
   </head>
   <body>
     <header>
@@ -25,9 +26,11 @@
         Sponsored by SexOnTheBED
       </p>
     </footer>
-    {% block scripts %}
-    {% endblock %}
   </body>
+  <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.11.0.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.10.4.js"></script>
+  {% block scripts %}
+  {% endblock %}
 </html>
 
 
