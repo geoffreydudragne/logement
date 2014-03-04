@@ -45,17 +45,13 @@ def house_create(request):
         user = request.user
         house_form = HouseForm(request.POST, instance=House())
         furniture_form = FurnitureForm(request.POST, instance=Furniture())
-        photo_form = PhotoForm(request.POST, request.FILES, instance=Photo())
-        
-        if house_form.is_valid() and furniture_form.is_valid() and photo_form.is_valid():
+                
+        if house_form.is_valid() and furniture_form.is_valid():
             
             house = house_form.save()
             furniture = furniture_form.save(commit=False)
             furniture.house = house
             furniture.save()
-            photo = photo_form.save(commit=False)
-            photo.house = house
-            photo.save()
 
             # Adding permission to contributor
             content_type = ContentType.objects.get(app_label='housing', model='House')
@@ -76,9 +72,8 @@ def house_create(request):
     else:
         house_form = HouseForm()
         furniture_form = FurnitureForm()
-        photo_form = PhotoForm()
 
-    return render(request, 'housing/house_form.djhtml', locals())
+    return render(request, 'housing/house_create.djhtml', locals())
 
 
 def house_update(request, id_house):
@@ -125,9 +120,9 @@ def house_update(request, id_house):
             # photo_form = PhotoForm()
             # contributor_form = ContributorForm()
             
-        return render(request, 'housing/house_form.djhtml', locals())
+        return render(request, 'housing/house_update.djhtml', locals())
     else:
-        return redirect('/login/')
+        return redirect('/login/?next=%s'%request.path)
 
 @ensure_csrf_cookie    
 def add_photo(request, id_house):
@@ -180,6 +175,35 @@ def add_photo_test(request, id_house):
         return render(request, 'housing/add_photo.djhtml', locals())
     else:
         return redirect('/login/')
+
+def delete_photo(request, id_house):
+    """
+
+    """
+    user = request.user
+    if user.has_perm('housing.update_house_{0}'.format(id_house)):
+        if request.method == 'POST': 
+            house = get_object_or_404(House, id=id_house)
+            photo = get_object_or_404(Photo, id=request.POST['id'])
+            if photo.house == house:
+                photo.delete()
+                result = {'valid':'true', 'content':'Photo deleted'}
+            else:
+                result = {'valid':'false', 'content':'House/Photo mismatch'}
+    else:
+        result = {'valid':'false', 'content':'Not authenticated'}
+
+    return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+
+"""
+def get_photo(request, id_house):
+
+    if request.method == 'GET':
+        house = get_object_or_404(House, id=id_house)
+        photos = house.photo_set.all()
+
+    return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+"""
 
 def multiupload(request, id_house):
 
@@ -246,20 +270,27 @@ def user_login(request):
     """
     if request.method == 'POST': 
         form = LoginForm(request.POST)
-
+        next = request.POST['next']
+        
         if form.is_valid():
 
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+            
             user = authenticate(username=username, password=password)
-
+            
             if user:
                 login(request, user)
+                return redirect(next)
             else:
                 error = True
-
+                
     else:
-        form = LoginForm() 
+        form = LoginForm()
+        if 'next' in request.GET:
+            next = request.GET['next']
+        else:
+            next = "/login/"
 
     return render(request, 'housing/user_login.djhtml', locals())
 

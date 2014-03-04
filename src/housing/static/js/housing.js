@@ -17,4 +17,27 @@ $(document).ready(function() {
         });
         return false;
     });
+    
+    $("button[data-type=delete_photo]").on('click', function() {
+	var id = $(this).data('id');
+        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+        console.log(csrfmiddlewaretoken);
+        $.post(delete_photo_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, id:id}, function(data) {
+            $("body").append('<div id="info"></div>');
+            $("#info").html(data.content).dialog({
+                modal: true,
+                buttons: {
+                    Ok: function() {
+                        $("#info").dialog("close");
+                        $("#info").dialog("destroy");
+                    }
+                }
+            });
+            if(data.valid) {
+                console.log($("div[data-id="+id+"]"));
+                $("div").remove(".photo[data-id="+id+"]");
+            }
+        }, 'json');
+        return false;
+    });
 });
