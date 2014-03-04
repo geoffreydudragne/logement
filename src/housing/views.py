@@ -135,7 +135,6 @@ def add_photo(request, id_house):
 
     """
     user = request.user
-    print user.has_perm('housing.update_house_{0}'.format(id_house))
     if user.has_perm('housing.update_house_{0}'.format(id_house)):
         if request.method == 'POST': 
             house = get_object_or_404(House, id=id_house)
@@ -157,6 +156,35 @@ def add_photo(request, id_house):
         return render(request, 'housing/add_photo.djhtml', locals())
     else:
         return redirect('/login/')
+
+@ensure_csrf_cookie    
+def add_photo_test(request, id_house):
+    """
+
+    """
+    user = request.user
+    if user.has_perm('housing.update_house_{0}'.format(id_house)):
+        if request.method == 'POST': 
+            house = get_object_or_404(House, id=id_house)
+            photo_form = PhotoForm(request.POST, request.FILES, instance=Photo())
+            for file in photo_form.files:
+                print dir(file)
+            print photo_form.is_valid()
+            if photo_form.is_valid():
+                photo = photo_form.save(commit=False)
+                photo.house = house
+                photo.save()
+                
+                updated = True
+                        
+        return render(request, 'housing/add_photo.djhtml', locals())
+    else:
+        return redirect('/login/')
+
+def multiupload(request, id_house):
+
+    return render(request, 'housing/multiupload.djhtml', locals())
+    # return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
 # class FurnitureCreate(CreateView):
 #     model = Furniture
