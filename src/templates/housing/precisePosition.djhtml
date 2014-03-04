@@ -2,7 +2,7 @@
 
 {% block main %}
       <h2>Second map test here</h2>
-      <p>Enter your address in the text field : <input type="text" id="#address"/></p>
+      <p>Enter your address in the text field : <input type="text" id="address"/></p>
       <p>Center the map on it : <button id="centerButton">Center</button> </p>
       <p>Latitude : <input type="text" id="latitude"/> Longitude : <input type="text" id="longitude"/></p>
       <div id="map_canvas"</div>
