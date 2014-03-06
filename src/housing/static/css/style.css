@@ -29,3 +29,14 @@ fieldset {
 button {
 
 }
+
+#sortable {
+    list-style:none;    
+}
+
+.photo {
+    border:1px solid #aaaaaa;
+    padding:15px;
+    margin-top:5px;
+    background-color:#dddddd;
+}

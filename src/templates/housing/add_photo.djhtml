@@ -1,10 +1,16 @@
-<form enctype="multipart/form-data" action="" method="post">
-  {% csrf_token %}
-  <fieldset>
-    <legend>Photos</legend>
-    {% for photo in photos %}
-      <img src="{{ MEDIA_URL }}{{ photo.img }}" alt="{{ photo.descr }}"/>
-    {% endfor %}
-    {{ photo_form.as_p }}
-  </fieldset>
-</form>
+<fieldset>
+  <legend>Photos</legend>
+  {% if photos %}
+    <ul id="sortable">
+      {% for photo in photos %}
+        <li data-id="{{ photo.id }}" data-pos="{{ photo.pos }}">
+          <div class="photo" data-id="{{ photo.id }}">
+            <img src="{{ MEDIA_URL }}{{ photo.img }}" alt="{{ photo.descr }}"/>
+            <label for="">Description</label><input id="descr" name="descr" />
+            <button data-type="delete_photo" data-id="{{ photo.id }}">Delete</button>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</fieldset>

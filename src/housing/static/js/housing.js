@@ -1,43 +1,82 @@
 $(document).ready(function() {
-    $("#add_photo").unbind().on('click', function() {
-	$.get(add_photo_url, function(data) {
-            $("body").append('<div id="test"></div>');
-            $("#test").html(data).dialog({
-                width:800,
-                height:600,
-                buttons: {
-                    Add: function() {
-                        var form = $("#test form").serialize();
-                        $.post(add_photo_url, form, function(data) {
-                            $("#test").html(data);
-                        });
-                    }
-                }
-            });
+    
+    //
+    // Photo multiupload
+    //
+    
+    $('#id_img').fileupload({
+        dataType: 'json',
+        sequentialUploads: true,
+        add: function (e, data) {
+            data.submit();
+        },
+    }).bind('fileuploadstop', function (e, data) {
+        // when upload is done, we refresh the content
+        // get is done only once
+        $.get(get_photo_url, function(data) {
+            $("div[data-type=photo]").html(data);
+            $("#sortable").sortable();
         });
-        return false;
     });
     
-    $("button[data-type=delete_photo]").on('click', function() {
+    /*
+      .bind('fileuploadstart', function (e, data) {
+        $("body").append('<div id="info"></div>');
+        $("#info").html('<div id="progressbar"></div>').dialog({
+            modal: true,
+            buttons: {
+                Ok: function() {
+                    if(data.valid) {
+                        $("div").remove(".photo[data-id="+id+"]");
+                    }
+                }
+            }
+        }).dialog("open");
+        $("#progressbar").progressbar({
+            value: 0
+        });
+    }).bind('fileuploadprogress', function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $("#progressbar").progressbar("value", progress);
+        console.log(progress);
+    })
+    
+     */
+
+    
+    //
+    // Photo delete
+    //
+    
+    $('body').on('click', "button[data-type=delete_photo]", function() {
 	var id = $(this).data('id');
         var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
-        console.log(csrfmiddlewaretoken);
         $.post(delete_photo_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, id:id}, function(data) {
             $("body").append('<div id="info"></div>');
             $("#info").html(data.content).dialog({
                 modal: true,
                 buttons: {
                     Ok: function() {
-                        $("#info").dialog("close");
-                        $("#info").dialog("destroy");
+                        if(data.valid) {
+                            $("div").remove(".photo[data-id="+id+"]");
+                        }
+                        $(this).dialog("destroy");
                     }
                 }
             });
-            if(data.valid) {
-                console.log($("div[data-id="+id+"]"));
-                $("div").remove(".photo[data-id="+id+"]");
-            }
         }, 'json');
         return false;
+    });
+
+    $("#sortable").sortable({
+        'axis':'y',
+        'update': function(event, ui) {
+            var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+            var sort = $.extend({'csrfmiddlewaretoken':csrfmiddlewaretoken}, $("#sortable").sortable("toArray", {attribute:"data-id"}));
+            console.log(sort);
+            $.post(sort_photo_url, sort, function(data) {
+                
+            });
+        },
     });
 });

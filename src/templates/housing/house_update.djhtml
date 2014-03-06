@@ -18,32 +18,10 @@
         <legend>Furniture</legend>
         {{ furniture_form.as_p }}
       </fieldset>
-      
-      <fieldset>
-        <legend>Photos</legend>
-        {% if photos %}
-          <ul>
-	    {% for photo in photos %}
-              <div class="photo" data-id="{{ photo.id }}">
-                <li>  
-	          <img src="{{ MEDIA_URL }}{{ photo.img }}" alt="{{ photo.descr }}"/>
-	        </li>
-	        <li>
-	          <label for="">Description</label><input id="descr" name="descr" />
-	        </li>
-                <li>
-                  <button data-type="delete_photo" data-id="{{ photo.id }}">Delete</button>
-                </li>
-              </div>
-            {% endfor %}
-	{% endif %}
-        <!-- <p><a href="{% url 'housing.views.add_photo' house.id %}">Add a photo</a></p> -->
-        
-        <!-- <p><a href="#" id="add_photo" data-id_house="{{ house.id }}">Add a photo</a></p> -->
-	<p><label for="id_img">Add photos </label><input id="id_img" type="file" name="img" data-url="/housing/house/add_photo_test/1" multiple /></p>
-      </fieldset>
-
-
+      <div data-type="photo">
+        {% include "housing/add_photo.djhtml" %}
+      </div>
+      <p><label for="id_img">Add photos </label><input id="id_img" type="file" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
       <fieldset>
         <legend>Contributors</legend>
         {% if contributors %}
@@ -74,6 +52,8 @@
      // local variables used in following scripts
      var add_photo_url = '{% url 'housing.views.add_photo' house.id %}'
      var delete_photo_url = '{% url 'housing.views.delete_photo' house.id %}'
+     var get_photo_url = '{% url 'housing.views.get_photo' house.id %}'
+     var sort_photo_url = '{% url 'housing.views.sort_photo' house.id %}'
   </script>
   <script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>
   <script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.fileupload.js"></script>

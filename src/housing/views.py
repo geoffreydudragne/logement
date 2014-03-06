@@ -12,6 +12,8 @@ from django.views.generic import CreateView
 from django.utils import simplejson
 from housing.models import House, Furniture, Photo, Contributor, GPSCoordinate
 from housing.forms import HouseForm, FurnitureForm, PhotoForm, ContributorForm, LoginForm
+import os
+from django.conf import settings
 
 # Create your views here.
 def home(request):
@@ -28,7 +30,7 @@ def house(request, id_house):
     try:
         house = House.objects.get(id=id_house)
         contributors = house.contributor_set.all()
-        photos = house.photo_set.all()
+        photos = house.photo_set.all()        
     except:
         raise Http404
     
@@ -133,46 +135,27 @@ def add_photo(request, id_house):
     if user.has_perm('housing.update_house_{0}'.format(id_house)):
         if request.method == 'POST': 
             house = get_object_or_404(House, id=id_house)
-            photos = house.photo_set.all()
             photo_form = PhotoForm(request.POST, request.FILES, instance=Photo())
-                        
+
             if photo_form.is_valid():
+                
+                if house.photo_set.all():
+                    pos = max([photo.pos for photo in house.photo_set.all()])
+                    print "POS %s"%pos
+                else:
+                    pos = 0
+                
                 photo = photo_form.save(commit=False)
                 photo.house = house
-                photo.save()
+                photo.pos = int(pos)+1
                 
-                updated = True
-        else:
-            house = get_object_or_404(House, id=id_house)
-            photos = house.photo_set.all()
-            contributors = house.contributor_set.all()
-            photo_form = PhotoForm()
-                        
-        return render(request, 'housing/add_photo.djhtml', locals())
-    else:
-        return redirect('/login/')
-
-@ensure_csrf_cookie    
-def add_photo_test(request, id_house):
-    """
-
-    """
-    user = request.user
-    if user.has_perm('housing.update_house_{0}'.format(id_house)):
-        if request.method == 'POST': 
-            house = get_object_or_404(House, id=id_house)
-            photo_form = PhotoForm(request.POST, request.FILES, instance=Photo())
-            for file in photo_form.files:
-                print dir(file)
-            print photo_form.is_valid()
-            if photo_form.is_valid():
-                photo = photo_form.save(commit=False)
-                photo.house = house
                 photo.save()
-                
-                updated = True
-                        
-        return render(request, 'housing/add_photo.djhtml', locals())
+
+            else:
+                print "NOT VALID"
+        # result = {'valid':'true','content':'Photo added'}
+        return HttpResponse("")
+        # return HttpResponse(simplejson.dumps(result), mimetype='application/json')
     else:
         return redirect('/login/')
 
@@ -186,7 +169,19 @@ def delete_photo(request, id_house):
             house = get_object_or_404(House, id=id_house)
             photo = get_object_or_404(Photo, id=request.POST['id'])
             if photo.house == house:
+                pos = photo.pos
+                try:
+                    os.unlink(os.path.join(settings.MEDIA_ROOT, str(photo.img)))
+                except:
+                    print "File %s could not be deleted locally"%os.path.join(settings.MEDIA_ROOT, str(photo.img))
                 photo.delete()
+                for photo in house.photo_set.all():
+                    if photo.pos > pos:
+                        photo.pos = photo.pos-1;
+                        photo.save();
+
+                # print os.path.join(settings.MEDIA_ROOT, photo.img)
+                    
                 result = {'valid':'true', 'content':'Photo deleted'}
             else:
                 result = {'valid':'false', 'content':'House/Photo mismatch'}
@@ -195,15 +190,39 @@ def delete_photo(request, id_house):
 
     return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
-"""
 def get_photo(request, id_house):
 
     if request.method == 'GET':
         house = get_object_or_404(House, id=id_house)
         photos = house.photo_set.all()
 
-    return HttpResponse(simplejson.dumps(result), mimetype='application/json')
-"""
+    return render(request, 'housing/add_photo.djhtml', locals())
+
+@ensure_csrf_cookie    
+def sort_photo(request, id_house):
+    """
+
+    """
+    user = request.user
+    if user.has_perm('housing.update_house_{0}'.format(id_house)):
+        if request.method == 'POST': 
+            house = get_object_or_404(House, id=id_house)
+            pos = 0
+            id = request.POST.get(str(pos), 0)
+            while id:
+                photo = get_object_or_404(Photo, id=id)
+                if photo.house == house:
+                    photo.pos = pos + 1
+                    photo.save()
+                else:
+                    print "Photo/House mismatch"
+                pos = pos + 1
+                id = request.POST.get(str(pos), 0)
+
+        return HttpResponse("")
+        # return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+    else:
+        return redirect('/login/')
 
 def multiupload(request, id_house):
 
