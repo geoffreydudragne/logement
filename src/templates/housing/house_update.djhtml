@@ -21,7 +21,7 @@
       <div data-type="photo">
         {% include "housing/add_photo.djhtml" %}
       </div>
-      <p><label for="id_img">Add photos </label><input id="id_img" type="file" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
+      <p><label for="id_img">Add photos </label><input id="id_img" type="file" accept="image/*" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
       <fieldset>
         <legend>Contributors</legend>
         {% if contributors %}
