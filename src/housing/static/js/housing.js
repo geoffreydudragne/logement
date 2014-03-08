@@ -15,35 +15,26 @@ $(document).ready(function() {
         // get is done only once
         $.get(get_photo_url, function(data) {
             $("div[data-type=photo]").html(data);
-            $("#sortable").sortable();
+            $("#sortable").sortable({
+                'axis':'y',
+                'update': function(event, ui) {
+                    var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+                    var sort = $.extend({'csrfmiddlewaretoken':csrfmiddlewaretoken}, $("#sortable").sortable("toArray", {attribute:"data-id"}));
+                    $.post(sort_photo_url, sort);
+                },
+            });
         });
+        // $("#info").dialog("close");
     });
-    
     /*
       .bind('fileuploadstart', function (e, data) {
-        $("body").append('<div id="info"></div>');
-        $("#info").html('<div id="progressbar"></div>').dialog({
-            modal: true,
-            buttons: {
-                Ok: function() {
-                    if(data.valid) {
-                        $("div").remove(".photo[data-id="+id+"]");
-                    }
-                }
-            }
-        }).dialog("open");
-        $("#progressbar").progressbar({
-            value: 0
-        });
-    }).bind('fileuploadprogress', function (e, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        $("#progressbar").progressbar("value", progress);
-        console.log(progress);
-    })
-    
-     */
-
-    
+      $("body").append('<div id="info"></div>');
+      $("#info").html('Uploading').dialog({
+      modal: true,
+      autoOpen: false,
+      }).dialog("open");
+      });
+    */
     //
     // Photo delete
     //
@@ -67,7 +58,15 @@ $(document).ready(function() {
         }, 'json');
         return false;
     });
-
+    
+    $('body').on('change', "input[data-type=set_photo_descr]", function() {
+        var id = $(this).data('id');
+        var descr = $(this).val();
+        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+        $.post(set_photo_descr_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, id:id, descr:descr});
+        return false;
+    });
+    
     $("#sortable").sortable({
         'axis':'y',
         'update': function(event, ui) {

@@ -15,6 +15,7 @@ class House(models.Model):
 class Photo(models.Model):
     house = models.ForeignKey(House)
     img = models.ImageField(upload_to='housing')
+    thumbnail = models.ImageField(upload_to='housing/thumbnails', null=True, blank=True)
     descr = models.CharField(max_length=30, verbose_name="Description", null=True, blank=True)
     pos = models.PositiveSmallIntegerField(verbose_name="Position", null=True, blank=True)
 
