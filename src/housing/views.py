@@ -118,6 +118,7 @@ def house_update(request, id_house):
         contributors = house.contributor_set.all()
         house_form = HouseForm(request.POST, instance=house)
         furniture_form = FurnitureForm(request.POST, instance=furniture)
+        contributor_form = ContributorForm()
 
         if house_form.is_valid() and furniture_form.is_valid():
             house = house_form.save()
@@ -134,6 +135,7 @@ def house_update(request, id_house):
         contributors = house.contributor_set.all()
         house_form = HouseForm(instance=house)
         furniture_form = FurnitureForm(instance=furniture)
+        contributor_form = ContributorForm()
                     
     return render(request, 'housing/house_update.djhtml', locals())
 
@@ -270,6 +272,70 @@ def set_photo_descr(request, id_house):
             print "Photo/House mismatch"
     
     return HttpResponse("")
+
+########################################
+#                                      #
+# CONTRIBUTOR                          #
+#                                      #
+########################################
+
+@ensure_csrf_cookie
+@user_permission_house  
+def add_contributor(request, id_house):
+    """
+
+    """
+    if request.method == 'POST': 
+        house = get_object_or_404(House, id=id_house)
+        id_user = request.POST.get('user', 0)
+        
+        if id_user:
+            user = get_object_or_404(User, id=id_user)
+            # Adding permission to contributor
+            permission = Permission.objects.get(codename='update_house_{0}'.format(house.id))
+            user.user_permissions.add(permission)
+    
+            try:
+                contributor = get_object_or_404(Contributor, user=user)
+                contributor.houses.add(house)
+                contributor.save()
+            except:
+                raise Http404
+
+        else:
+            print "NOT VALID"
+
+    # For the template
+    contributor_form = ContributorForm()
+    contributors = house.contributor_set.all()
+        
+    return render(request, 'housing/add_contributor.djhtml', locals())
+
+@ensure_csrf_cookie
+@user_permission_house  
+def delete_contributor(request, id_house):
+    """
+
+    """
+    if request.method == 'POST': 
+        house = get_object_or_404(House, id=id_house)
+        id_user = request.POST.get('user', 0)
+        
+        if id_user:
+            user = get_object_or_404(User, id=id_user)
+            permission = Permission.objects.get(codename='update_house_{0}'.format(house.id))
+            user.user_permissions.remove(permission)
+            contributor = get_object_or_404(Contributor, user=user)
+            contributor.houses.remove(house)
+            contributor.save()
+        else:
+            print "NOT VALID"
+
+    # For the template
+    contributor_form = ContributorForm()
+    contributors = house.contributor_set.all()
+        
+    return render(request, 'housing/add_contributor.djhtml', locals())
 
 
 ########################################

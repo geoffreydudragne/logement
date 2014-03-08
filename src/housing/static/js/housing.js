@@ -78,4 +78,22 @@ $(document).ready(function() {
             });
         },
     });
+
+    $('body').on('click', "button[data-type=add_contributor]", function() {
+	var user = $("#id_user").val();
+        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+        $.post(add_contributor_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, user:user}, function(data) {
+            $("div[data-type=contributor]").html(data);
+        });
+        return false;
+    });
+
+    $('body').on('click', "button[data-type=delete_contributor]", function() {
+	var user = $(this).data('user');
+        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+        $.post(delete_contributor_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, user:user}, function(data) {
+            $("div[data-type=contributor]").html(data);
+        });
+        return false;
+    });
 });
