@@ -8,13 +8,16 @@
     <li>
     <a href="{{MEDIA_URL}}{{ photo.img }}">
         <img src="{{MEDIA_URL}}{{ photo.img }}" alt="{{ photo.descr }}" />
-        </li>
     </a>
-        
+    </li>
         {% empty %}
         <p>no photo</p>
       {% endfor %}
-</ul>
+  </ul>
+  <div id=photoContainer>
+      <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
+  </div>
+
 {% endblock %}
 
 {% block scripts %}

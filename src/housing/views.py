@@ -322,6 +322,22 @@ def mapMarkers(request, id_house):
 
 ########################################
 #                                      #
+# GALLERY                              #
+#                                      #
+########################################
+
+
+def gallery(request, id_house):
+    """
+
+    """
+    house = get_object_or_404(House, id=id_house)
+    photos = house.photo_set.all()        
+
+    return render(request, 'housing/gallery.djhtml', locals())
+
+########################################
+#                                      #
 # USER                                 #
 #                                      #
 ########################################
