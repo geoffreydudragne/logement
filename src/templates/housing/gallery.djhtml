@@ -1,0 +1,22 @@
+{% extends "housing/layout.djhtml" %}
+
+{% block main %}
+<h2>Here, developping my gallery</h2>
+
+<ul id="thumbnails">
+    {% for photo in photos %}
+    <li>
+    <a href="{{MEDIA_URL}}{{ photo.img }}">
+        <img src="{{MEDIA_URL}}{{ photo.img }}" alt="{{ photo.descr }}" />
+        </li>
+    </a>
+        
+        {% empty %}
+        <p>no photo</p>
+      {% endfor %}
+</ul>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{STATIC_URL}}js/gallery.js"></script>
+{% endblock %}

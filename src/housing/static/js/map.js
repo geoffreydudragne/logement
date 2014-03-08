@@ -12,6 +12,7 @@
                       });
                   });
               });*/
+$(document).ready(function() {
 
     $('#map_canvas').gmap({ 'center': '43.614252,7.072984' }).gmap('option', 'zoom', 11);
     $('#map_canvas').gmap('addMarker', {
@@ -22,7 +23,6 @@
     });
 
 
-
     $('#triggerButton').click(function(){
         // $.getJSON( STATIC_URL+'js/demo.json', function(data) { 
         $.getJSON( 'map/all', function(data) { 
@@ -31,12 +31,13 @@
                 $('#map_canvas').gmap('addMarker', { 
                     'position': new google.maps.LatLng(marker.latitude, marker.longitude),
                     'icon': new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+ marker.rank +"|F85850|000000")
-                    }).click(function() {
-                        $('#map_canvas').gmap('openInfoWindow', { 'content': marker.content }, this);
-                    });
+                }).click(function() {
+                    $('#map_canvas').gmap('openInfoWindow', { 'content': marker.content }, this);
                 });
             });
         });
+    });
 
-        // https://developers.google.com/chart/image/docs/gallery/dynamic_icons#pins to design pins
+    });
+    // https://developers.google.com/chart/image/docs/gallery/dynamic_icons#pins to design pins
 
