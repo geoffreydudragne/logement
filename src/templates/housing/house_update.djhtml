@@ -22,15 +22,9 @@
         {% include "housing/add_photo.djhtml" %}
       </div>
       <p><label for="id_img">Add photos </label><input id="id_img" type="file" accept="image/*" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
-      <fieldset>
-        <legend>Contributors</legend>
-        {% if contributors %}
-          {% for contributor in contributors %}
-            {{ contributor.user.username }}
-          {% endfor %}
-        {% endif %}
-        <p><a href="#">Add a contributor</a></p>
-      </fieldset>
+      <div data-type="contributor">
+        {% include "housing/add_contributor.djhtml" %}
+      </div>
       <button>Submit</button>
     </form>
 
@@ -55,6 +49,9 @@
      var get_photo_url = '{% url 'housing.views.get_photo' house.id %}'
      var sort_photo_url = '{% url 'housing.views.sort_photo' house.id %}'
      var set_photo_descr_url = '{% url 'housing.views.set_photo_descr' house.id %}'
+     var add_contributor_url = '{% url 'housing.views.add_contributor' house.id %}'
+     var delete_contributor_url = '{% url 'housing.views.delete_contributor' house.id %}'
+
   </script>
   <script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>
   <script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.fileupload.js"></script>
