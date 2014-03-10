@@ -12,8 +12,10 @@ c.save()
 # DATAS
 h1 = House(name="Mougins", surface=95, price=1995)
 h1.save()
-p1 = Photo(img="housing/img1.jpg", thumbnail="housing/thumbnails/img1.jpg", descr="SWAG!", house=h1, pos=1)
-p1.save()
+p11 = Photo(img="housing/img1.jpg", thumbnail="housing/thumbnails/img1.jpg", descr="SWAG!", house=h1, pos=1)
+p11.save()
+p12 = Photo(img="housing/img2.jpg", thumbnail="housing/thumbnails/img2.jpg", descr="SWAG!", house=h1, pos=2)
+p12.save()
 gps1=GPSCoordinate(latitude=43.608522,longitude=7.012347, house=h1)
 gps1.save()
 

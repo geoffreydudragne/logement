@@ -11,7 +11,7 @@ $(document).ready(function() {
       var $thisThumbLink = $(this),
         target = $thisThumbLink.attr("href");
       if (bigPhoto.attr("src") == target) return;
-      highlight($thisThumbLink);
+      //highlight($thisThumbLink);
       //photoContainer.html(loader);
         bigPhoto.load(function(){photoContainer.html($(this).fadeIn(250));}).attr("src",target);
     });
