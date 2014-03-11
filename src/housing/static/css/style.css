@@ -9,6 +9,12 @@ footer {
     margin-top: 20px
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 #map_canvas {
     width: 600px;
     height: 400px;
@@ -24,13 +30,33 @@ footer {
 
 #photoContainer {
     background-color: black;
-    width: 600px;
-    height: 300px;
+    width: 800px;
+    height: 600px;
+    position: relative;
 }
 
 #photoContainer img {
     display: block;
     margin: auto;
+}
+
+#loader {
+    position:absolute;
+    left:50%; 
+    top:50%; 
+    margin:-15px 0 0 -15px;
+}
+
+#thumbnails li {
+    display: inline-block;
+}
+
+#thumbnails img {
+    border: 3px solid black;
+}
+    
+#thumbnails .active {
+    border: 3px solid green;
 }
     
 fieldset {
