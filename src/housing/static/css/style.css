@@ -64,7 +64,26 @@ fieldset {
 }
 
 button {
+    background:transparent;
+    border: none;
+    display: block;
+    position: absolute;
+    top: 65px;
+    width: 200px;
+    height: 400px;
+    font-size:0px;
+}
 
+button:hover{
+    font-size:90px;
+}
+
+#nextButton {
+    right: 20px;
+}
+
+#previousButton {
+    left: 20px;
 }
 
 #sortable {

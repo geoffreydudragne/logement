@@ -3,8 +3,6 @@
 {% block main %}
 <h2>Here, developping my gallery</h2>
 
-<button id="previousButton" onClick="loadPrevious();">Previous</button>
-<button id="nextButton" onClick="loadNext();">Next</button>
 <ul id="thumbnails">
     {% for photo in photos %}
     <li>
@@ -17,6 +15,8 @@
     </ul>
     <div id=photoContainer>
         <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
+        <button id="previousButton" onClick="loadPrevious();">&lt;</button>
+        <button id="nextButton" onClick="loadNext();">&gt;</button>
     </div>
 
     {% endblock %}
