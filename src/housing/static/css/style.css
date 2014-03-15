@@ -22,23 +22,80 @@ footer {
     background-color:#eeeeee;
 }
 
+#thumbnails {
+    list-style-type: none;
+    margin: 10px 0 0 0;
+    padding: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+#galleryContainer {
+    background-color: black;
+    padding: 10px;
+}
+
 #photoContainer {
     background-color: black;
-    width: 600px;
-    height: 300px;
+    width: 800px;
+    height: 600px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 #photoContainer img {
     display: block;
     margin: auto;
 }
-    
-fieldset {
-    margin-bottom:25px;
+
+#loader {
+    position:absolute;
+    left:50%; 
+    top:50%; 
+    margin:-15px 0 0 -15px;
 }
 
-button {
+#thumbnails li {
+    display: inline-block;
+}
 
+#thumbnails img {
+    border: 3px solid black;
+    cursor: pointer;
+}
+    
+#thumbnails .active {
+    border: 3px solid green;
+}
+    
+.galleryButton {
+    /*background:transparent;
+    border: none;*/
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    width: 90px;
+    height: 600px;
+    font-size:90px;
+}
+
+button:hover{
+    /*font-size:90px;*/
+}
+
+#nextButton {
+    margin-left: -6px;
+    border-radius: 0 20px 20px 0;
+}
+
+#previousButton {
+    margin-right: -6px;
+    border-radius: 20px 0 0 20px;
+}
+
+fieldset {
+    margin-bottom:25px;
 }
 
 #sortable {

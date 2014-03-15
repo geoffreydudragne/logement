@@ -17,10 +17,10 @@ from django.conf import settings
 # For thumbnails generation
 from PIL import Image
 
-IMG_MAX_WIDTH = 1000
-IMG_MAX_HEIGHT = 1000
-THUMBNAIL_HEIGHT = 200
-THUMBNAIL_WIDTH = 200
+IMG_MAX_WIDTH = 600
+IMG_MAX_HEIGHT = 800
+THUMBNAIL_HEIGHT = 100
+THUMBNAIL_WIDTH = 100
 
 # Decorators
 

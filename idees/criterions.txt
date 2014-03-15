@@ -1,0 +1,117 @@
+y/n : Choice yes/no
+MC : Multiple choice
+
+Price Category :
+- council tax (taxe d'habitation)
+
+- rent with service charge
+- rent only
+- service charge only (charges)
+    
+rent with service charge are including (y/n):
+    - gas
+    - electricity
+    - water
+    - internet
+    - telephone
+    - cleaning
+    - tax on household garbage
+
+- agency : y/n, fees
+- APL (housing benefits)
+
+
+General :
+- surface area
+- Housing type (MC) : House, apartment, studio, home stay (vie chez l'habitant), other {precise text field}
+- address : 
+    - Address, address addition, city, postal code
+    
+- GPS coordinates
+- Number of persons
+- Which floor
+- access for disabled persons (y/n)
+- Need for at least one car (y/n)
+- Parking (y/n)
+- Proximity to shops, restaurants... (text field)
+- Noise : if high (text field to precise)
+- Bus lines : (possibility of multiple results)
+    - to Eurecom 
+    - to the railroad station
+
+- Average time of travel to Eurecom : (tick if known value) (min-max values)
+    - by car
+    - by bus
+    - by bike
+    - by foot
+
+- Number of rooms, for each room possibility :
+    - bedroom
+    - living room
+    - kitchen
+    - studio all-in one (kitchen+living room+bedroom)
+    - Bathroom without toilets
+    - Bathroom with toilets
+    - toilets alone
+    - garage
+    - storeroom
+
+- furniture included in the accommodation (y/n)
+- type of heating : electricity, gas, fuel
+- climatisation (y/n)
+- Global appreciation of the furniture : poor, average, good, excellent
+
+Furniture/equipment (if included) : y/n checks (with possibility to add details ?)
+    - Dish washer
+    - washing machine
+    - clothes dryer
+    - drying rack (étendoir)
+
+    Living room:
+        - TV
+        - Couches
+        - seats
+        - Table
+
+    Bedrooms:
+        - desk
+        - desk chair
+
+    Kitchen:
+        - Fridge
+        - freezer
+        - baking tray (how many slots, which technology : gas, electrical...)
+        - micro-wave
+        - oven
+        - dishes
+        - toaster
+
+
+- Internet included y/n : text field for details to sum up services includes (like phone, TV)
+
+Outside equipment:
+    - private garden (possibility to enter details)
+    - collective garden (possibility to enter details)
+    - Swimming pool
+    - other, precise (e.g.: ping-pong, tennis...)
+
+- Strong points text field
+- Weak points text field
+- General description or comment on the accommodation (text field)
+
+student contacts:
+    - name
+    - email address
+    - phone number
+    - promotion ?
+
+landlord :
+    - name
+    - Email
+    - phone number
+    - Description text field
+
+Agency:
+    - name
+    - Description field
+

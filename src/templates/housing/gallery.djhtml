@@ -3,23 +3,38 @@
 {% block main %}
 <h2>Here, developping my gallery</h2>
 
-<ul id="thumbnails">
-    {% for photo in photos %}
-    <li>
-    <a href="{{MEDIA_URL}}{{ photo.img }}">
-        <img src="{{MEDIA_URL}}{{ photo.img }}" alt="{{ photo.descr }}" />
-    </a>
-    </li>
+<div id="galleryContainer">
+    <button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button>
+    <div id=photoContainer>
+        <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
+    </div>
+    <button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button>
+
+    <ul id="thumbnails">
+        {% for photo in photos %}
+        <li>
+        <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadImage({{photo.pos|add:'-1'}});"> -->
+            <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadImage({{photo.pos|add:'-1'}});"/>
+            </li>
+            {% empty %}
+            <p>no photo</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% endblock %}
+
+    {% block scripts %}
+    <script> 
+        var imageRef = new Array();
+        var imageDesc = new Array();
+        {% for photo in photos %}
+        imageRef[{{photo.pos|add:'-1'}}]="{{MEDIA_URL}}{{ photo.img }}";
+        imageDesc[{{photo.pos|add:'-1'}}]="{{ photo.descr }}";
         {% empty %}
-        <p>no photo</p>
-      {% endfor %}
-  </ul>
-  <div id=photoContainer>
-      <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
-  </div>
+        {% endfor %}
+        var numberImages=imageRef.length;
+    </script>
 
-{% endblock %}
-
-{% block scripts %}
-  <script src="{{STATIC_URL}}js/gallery.js"></script>
-{% endblock %}
+    <script src="{{STATIC_URL}}js/gallery.js"></script>
+    {% endblock %}
