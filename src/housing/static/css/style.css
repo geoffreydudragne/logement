@@ -9,12 +9,6 @@ footer {
     margin-top: 20px
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
 #map_canvas {
     width: 600px;
     height: 400px;
@@ -28,11 +22,26 @@ ul {
     background-color:#eeeeee;
 }
 
+#thumbnails {
+    list-style-type: none;
+    margin: 10px 0 0 0;
+    padding: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+#galleryContainer {
+    background-color: black;
+    padding: 10px;
+}
+
 #photoContainer {
     background-color: black;
     width: 800px;
     height: 600px;
     position: relative;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 #photoContainer img {
@@ -53,37 +62,40 @@ ul {
 
 #thumbnails img {
     border: 3px solid black;
+    cursor: pointer;
 }
     
 #thumbnails .active {
     border: 3px solid green;
 }
     
-fieldset {
-    margin-bottom:25px;
-}
-
-button {
-    background:transparent;
-    border: none;
-    display: block;
-    position: absolute;
-    top: 65px;
-    width: 200px;
-    height: 400px;
-    font-size:0px;
-}
-
-button:hover{
+.galleryButton {
+    /*background:transparent;
+    border: none;*/
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    width: 90px;
+    height: 600px;
     font-size:90px;
 }
 
+button:hover{
+    /*font-size:90px;*/
+}
+
 #nextButton {
-    right: 20px;
+    margin-left: -6px;
+    border-radius: 0 20px 20px 0;
 }
 
 #previousButton {
-    left: 20px;
+    margin-right: -6px;
+    border-radius: 20px 0 0 20px;
+}
+
+fieldset {
+    margin-bottom:25px;
 }
 
 #sortable {

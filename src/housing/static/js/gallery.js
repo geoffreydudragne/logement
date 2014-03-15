@@ -4,8 +4,9 @@ $(document).ready(function() {
     
     photoContainer = $("#photoContainer");
     bigPhoto = photoContainer.children("img");
-    thumbLinks = $("#thumbnails").find("a");
-    thumbnails = $("#thumbnails").find("img");
+    thumbList = $("#thumbnails");
+    thumbLinks = thumbList.find("a");
+    thumbnails = thumbList.find("img");
     $("#thumbnail0").addClass("active");
     previousButton=$("#previousButton")[0];
     nextButton=$("#nextButton")[0];
@@ -41,22 +42,31 @@ function loadImage(imageNumber){
     if (imageNumber==numberImages-1) {nextButton.disabled=true;} else {nextButton.disabled=false;}
 
     current=imageNumber;
+    scrollLevel=(imageNumber-4)*110;
     thumbnails.removeClass("active");
     $("#thumbnail"+imageNumber).addClass("active");
 
+    bigPhoto.css("opacity",1);
     photoContainer.html(loader);
     bigPhoto.load(function(){photoContainer.html($(this).fadeIn(250));}).attr("src",target).attr("alt",imageDesc[imageNumber]);
 }
 
 var current=0;
+var scrollLevel=-440;
 
 function loadPrevious(){
-	current--;
-		loadImage(current);
+    current--;
+    loadImage(current);
+
+    scrollLevel-=110;
+    thumbList.scrollLeft(scrollLevel);
 }
 
 function loadNext(){
-	current++;
-		loadImage(current);
+    current++;
+    loadImage(current);
+
+    scrollLevel+=110;
+    thumbList.scrollLeft(scrollLevel);
 }
 

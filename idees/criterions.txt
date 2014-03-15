@@ -2,14 +2,18 @@ y/n : Choice yes/no
 MC : Multiple choice
 
 Price Category :
-- rent
 - council tax (taxe d'habitation)
-- service charge (charges)
-    including (y/n):
+
+- rent with service charge
+- rent only
+- service charge only (charges)
+    
+rent with service charge are including (y/n):
     - gas
     - electricity
     - water
     - internet
+    - telephone
     - cleaning
     - tax on household garbage
 
@@ -22,11 +26,15 @@ General :
 - Housing type (MC) : House, apartment, studio, home stay (vie chez l'habitant), other {precise text field}
 - address : 
     - Address, address addition, city, postal code
-
+    
 - GPS coordinates
 - Number of persons
+- Which floor
+- access for disabled persons (y/n)
 - Need for at least one car (y/n)
 - Parking (y/n)
+- Proximity to shops, restaurants... (text field)
+- Noise : if high (text field to precise)
 - Bus lines : (possibility of multiple results)
     - to Eurecom 
     - to the railroad station
@@ -49,12 +57,15 @@ General :
     - storeroom
 
 - furniture included in the accommodation (y/n)
+- type of heating : electricity, gas, fuel
+- climatisation (y/n)
 - Global appreciation of the furniture : poor, average, good, excellent
 
 Furniture/equipment (if included) : y/n checks (with possibility to add details ?)
     - Dish washer
     - washing machine
     - clothes dryer
+    - drying rack (étendoir)
 
     Living room:
         - TV
@@ -73,7 +84,7 @@ Furniture/equipment (if included) : y/n checks (with possibility to add details 
         - micro-wave
         - oven
         - dishes
-
+        - toaster
 
 
 - Internet included y/n : text field for details to sum up services includes (like phone, TV)

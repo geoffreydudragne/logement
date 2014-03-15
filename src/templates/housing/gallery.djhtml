@@ -3,20 +3,23 @@
 {% block main %}
 <h2>Here, developping my gallery</h2>
 
-<ul id="thumbnails">
-    {% for photo in photos %}
-    <li>
-    <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadImage({{photo.pos|add:'-1'}});"> -->
-        <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadImage({{photo.pos|add:'-1'}});"/>
-        </li>
-        {% empty %}
-        <p>no photo</p>
-        {% endfor %}
-    </ul>
+<div id="galleryContainer">
+    <button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button>
     <div id=photoContainer>
         <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
-        <button id="previousButton" onClick="loadPrevious();">&lt;</button>
-        <button id="nextButton" onClick="loadNext();">&gt;</button>
+    </div>
+    <button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button>
+
+    <ul id="thumbnails">
+        {% for photo in photos %}
+        <li>
+        <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadImage({{photo.pos|add:'-1'}});"> -->
+            <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadImage({{photo.pos|add:'-1'}});"/>
+            </li>
+            {% empty %}
+            <p>no photo</p>
+            {% endfor %}
+        </ul>
     </div>
 
     {% endblock %}
