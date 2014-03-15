@@ -1,0 +1,27 @@
+{% extends "housing/layout.djhtml" %}
+
+{% block main %}
+  <section id="house_search">
+    <form method="post" action="">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td><label>Surface</label></td>
+          <td><input id="surface__gte" name="surface__gte" placeholder="min" /></td>
+          <td><input id="surface__lte" name="surface__lte" placeholder="max" /></td>
+        </tr>
+        <tr>
+          <td><label>Price</label></td>
+          <td><input id="price_min" name="price_min" placeholder="min" /></td>
+          <td><input id="price_max" name="price_max" placeholder="max" /></td>
+        </tr>
+        <tr>
+          <td><input type="submit"/></td>
+        </tr>
+      </table>
+    </form>
+  </section>
+  <section id="house_list">
+    {% include "housing/house_list.djhtml" %}
+  </section>
+{% endblock %}
