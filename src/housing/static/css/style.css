@@ -92,6 +92,23 @@ button:hover{
 #previousButton {
     margin-right: -6px;
     border-radius: 20px 0 0 20px;
+} 
+
+#photoDescr {
+    font-size: 15px;
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+    border-radius: 2px;
+    bottom: 0;
+    color: #FFFFFF;
+    font-weight: bold;
+    left: 0;
+    padding: 25px 13px 13px;
+    position: absolute;
+    right: 0;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 fieldset {
