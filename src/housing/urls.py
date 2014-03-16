@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('housing.views',
     url(r'^$', 'home'),
+    url(r'^search$', 'search'),
     url(r'^house/(?P<id_house>[0-9]+)$', 'house'),
     url(r'^house/create/$', 'house_create', name='house_create'),
     url(r'^house/update/(?P<id_house>[0-9]+)$', 'house_update', name='house_update'),

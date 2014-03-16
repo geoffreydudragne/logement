@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surface</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for house in houses %}
+      <tr>
+        <td>{{ house.name }}</td>
+        <td>{{ house.surface }}</td>
+        <td>{{ house.price }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+

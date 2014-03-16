@@ -48,6 +48,30 @@ def home(request):
 
 ########################################
 #                                      #
+# SEARCH                               #
+#                                      #
+########################################
+
+def search(request):
+    """
+
+    """
+    if request.method == 'POST':
+        houses = House.objects.filter(
+            surface__lte=request.POST.get('surface__lte', 1000)
+            )
+        print "ITEMS %s"%request.POST.iteritems()
+        a = [(name, value) for (name,value) in request.POST.iteritems()]
+        print "%s"%str(a)
+    else:
+        houses = House.objects.all()
+        house_form = HouseForm()
+        furniture_form = FurnitureForm()   
+    
+    return render(request, 'housing/search.djhtml', locals())
+
+########################################
+#                                      #
 # HOUSE                                #
 #                                      #
 ########################################
