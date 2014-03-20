@@ -16,11 +16,7 @@ import os
 from django.conf import settings
 # For thumbnails generation
 from PIL import Image
-
-IMG_MAX_WIDTH = 600
-IMG_MAX_HEIGHT = 800
-THUMBNAIL_HEIGHT = 100
-THUMBNAIL_WIDTH = 100
+import re
 
 # Decorators
 
@@ -57,12 +53,17 @@ def search(request):
 
     """
     if request.method == 'POST':
+        """
         houses = House.objects.filter(
             surface__lte=request.POST.get('surface__lte', 1000)
             )
-        print "ITEMS %s"%request.POST.iteritems()
-        a = [(name, value) for (name,value) in request.POST.iteritems()]
-        print "%s"%str(a)
+        """
+        p = re.compile(r'(?P<table>[.a-z]+)__(?P<field>[a-z]+)__(?P<op>[a-z]+)')
+        for (name,value) in request.POST.iteritems():
+            m = p.match(name)
+            if m:
+                print "%s, %s, %s, %s"%(m.group('table'), m.group('field'), m.group('op'), value)
+            
     else:
         houses = House.objects.all()
         house_form = HouseForm()
@@ -194,10 +195,10 @@ def add_photo(request, id_house):
 
             # Image resizing
             image = Image.open(photo.img)
-            image.thumbnail((IMG_MAX_HEIGHT, IMG_MAX_WIDTH), Image.ANTIALIAS)
+            image.thumbnail((settings.IMG_MAX_HEIGHT, settings.IMG_MAX_WIDTH), Image.ANTIALIAS)
             image.save(os.path.join(settings.MEDIA_ROOT, 'housing/%s-%s.jpg'%(house.name, photo.pos)), 'JPEG', quality=90)
             # Thumbnail creation
-            image.thumbnail((THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH), Image.ANTIALIAS)
+            image.thumbnail((settings.THUMBNAIL_HEIGHT, settings.THUMBNAIL_WIDTH), Image.ANTIALIAS)
             image.save(os.path.join(settings.MEDIA_ROOT, 'housing/thumbnails/%s-%s.jpg'%(house.name, photo.pos)), 'JPEG', quality=90)
             
             # Directly remove initial uploaded image

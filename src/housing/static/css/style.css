@@ -111,6 +111,7 @@ fieldset {
 
 table {
     border-collapse:collapse;
+    margin:auto;
 }
 
 thead {

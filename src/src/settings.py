@@ -107,3 +107,10 @@ MEDIA_URL = '/media/'
 STATIC_DOC_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'
+
+# Images resize and thumbnails
+
+IMG_MAX_WIDTH = 600
+IMG_MAX_HEIGHT = 800
+THUMBNAIL_HEIGHT = 100
+THUMBNAIL_WIDTH = 100

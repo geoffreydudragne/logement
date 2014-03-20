@@ -7,13 +7,13 @@
       <table>
         <tr>
           <td><label>Surface</label></td>
-          <td><input id="surface__gte" name="surface__gte" placeholder="min" /></td>
-          <td><input id="surface__lte" name="surface__lte" placeholder="max" /></td>
+          <td><input id="house__surface__gte" name="house__surface__gte" placeholder="min" /></td>
+          <td><input id="house__surface__lte" name="house__surface__lte" placeholder="max" /></td>
         </tr>
         <tr>
           <td><label>Price</label></td>
-          <td><input id="price_min" name="price_min" placeholder="min" /></td>
-          <td><input id="price_max" name="price_max" placeholder="max" /></td>
+          <td><input id="house__price__gte" name="house__price__gte" placeholder="min" /></td>
+          <td><input id="house__price__lte" name="house__price__lte" placeholder="max" /></td>
         </tr>
         <tr>
           <td><input type="submit"/></td>
