@@ -2,26 +2,22 @@
 
 {% block main %}
   <section id="house_search">
-    <form method="post" action="">
-      {% csrf_token %}
-      <table>
-        <tr>
-          <td><label>Surface</label></td>
-          <td><input id="house__surface__gte" name="house__surface__gte" placeholder="min" /></td>
-          <td><input id="house__surface__lte" name="house__surface__lte" placeholder="max" /></td>
-        </tr>
-        <tr>
-          <td><label>Price</label></td>
-          <td><input id="house__price__gte" name="house__price__gte" placeholder="min" /></td>
-          <td><input id="house__price__lte" name="house__price__lte" placeholder="max" /></td>
-        </tr>
-        <tr>
-          <td><input type="submit"/></td>
-        </tr>
-      </table>
-    </form>
+    <table>
+      {{ search_form.as_table }}
+      <tr>
+        <td><button id="search">Search</button></td>
+      </tr>
+    </table>
   </section>
   <section id="house_list">
     {% include "housing/house_list.djhtml" %}
   </section>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+     var search_url = '{% url 'housing.views.search' %}';
+     var house_url = '{% url 'housing.views.house' 0 %}';     
+  </script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/search.js"></script>
 {% endblock %}

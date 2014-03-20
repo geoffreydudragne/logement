@@ -1,24 +1,12 @@
-{% if houses %}
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Surface</th>
-        <th>Price</th>
-        <th>See more</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for house in houses %}
-        <tr>
-          <td>{{ house.name }}</td>
-          <td>{{ house.surface }}</td>
-          <td>{{ house.price }}</td>
-          <td><a href="{% url 'housing.views.house' house.id %}">See more</a></td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <h2>No results!</h2>
-{% endif %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surface</th>
+      <th>Price</th>
+      <th>See more</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>

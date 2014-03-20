@@ -44,13 +44,13 @@
        });
      });
      // local variables used in following scripts
-     var add_photo_url = '{% url 'housing.views.add_photo' house.id %}'
-     var delete_photo_url = '{% url 'housing.views.delete_photo' house.id %}'
-     var get_photo_url = '{% url 'housing.views.get_photo' house.id %}'
-     var sort_photo_url = '{% url 'housing.views.sort_photo' house.id %}'
-     var set_photo_descr_url = '{% url 'housing.views.set_photo_descr' house.id %}'
-     var add_contributor_url = '{% url 'housing.views.add_contributor' house.id %}'
-     var delete_contributor_url = '{% url 'housing.views.delete_contributor' house.id %}'
+     var add_photo_url = '{% url 'housing.views.add_photo' house.id %}';
+     var delete_photo_url = '{% url 'housing.views.delete_photo' house.id %}';
+     var get_photo_url = '{% url 'housing.views.get_photo' house.id %}';
+     var sort_photo_url = '{% url 'housing.views.sort_photo' house.id %}';
+     var set_photo_descr_url = '{% url 'housing.views.set_photo_descr' house.id %}';
+     var add_contributor_url = '{% url 'housing.views.add_contributor' house.id %}';
+     var delete_contributor_url = '{% url 'housing.views.delete_contributor' house.id %}';
 
   </script>
   <script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>

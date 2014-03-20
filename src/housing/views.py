@@ -3,6 +3,7 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.core import serializers
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.decorators import login_required, permission_required
@@ -10,8 +11,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import CreateView
 from django.utils import simplejson
+import json
 from housing.models import House, Furniture, Photo, Contributor, GPSCoordinate
-from housing.forms import HouseForm, FurnitureForm, PhotoForm, ContributorForm, LoginForm
+from housing.forms import HouseForm, FurnitureForm, PhotoForm, ContributorForm, LoginForm, SearchForm
 import os
 from django.conf import settings
 # For thumbnails generation
@@ -52,23 +54,53 @@ def search(request):
     """
 
     """
-    if request.method == 'POST':
+    if request.method == 'GET':
+
+        # Dictionary containing the filter
+        filter = {}
+
         """
-        houses = House.objects.filter(
-            surface__lte=request.POST.get('surface__lte', 1000)
-            )
-        """
+
+        # Code utilisant une syntaxe table__champ__operateur
+        # ne semble pas utile
+        
         p = re.compile(r'(?P<table>[.a-z]+)__(?P<field>[a-z]+)__(?P<op>[a-z]+)')
-        for (name,value) in request.POST.iteritems():
+        
+        for (name,value) in request.GET.iteritems():
             m = p.match(name)
             if m:
                 print "%s, %s, %s, %s"%(m.group('table'), m.group('field'), m.group('op'), value)
+                filter[m.group('field')+'__'+m.group('op')]=value
+        """
+
+        for (name,value) in request.GET.iteritems():
+            if value=="on":
+                value=True
+            filter[name] = value
+
+        print "%s"%filter
             
-    else:
-        houses = House.objects.all()
-        house_form = HouseForm()
-        furniture_form = FurnitureForm()   
-    
+        houses = House.objects.filter(**filter)
+
+        data = []
+
+        for house in houses:
+            data.append({
+                "id" : house.id,
+                "name" : house.name,
+                "surface" : house.surface,
+                "price" : house.price
+            });
+            
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def search_form(request):
+    """
+
+    """
+    if request.method == 'GET':
+        search_form = SearchForm()
+
     return render(request, 'housing/search.djhtml', locals())
 
 ########################################
