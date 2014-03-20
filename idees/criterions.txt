@@ -3,7 +3,7 @@ MC : Multiple choice
 
 Price Category :
 - council tax (taxe d'habitation)
-
+- agency : y/n, fees
 - rent with service charge
 - rent only
 - service charge only (charges)
@@ -15,21 +15,22 @@ rent with service charge are including (y/n):
     - internet
     - telephone
     - cleaning
-    - tax on household garbage
+    - tax on household garbage (not sure to put this)
 
-- agency : y/n, fees
+- free field for non included expenses
 - APL (housing benefits)
 
 
 General :
 - surface area
-- Housing type (MC) : House, apartment, studio, home stay (vie chez l'habitant), other {precise text field}
+- Housing type (MC) : House, apartment, studio, home stay (vie chez l'habitant), student residence, other {precise text field} (foreign key)
+- other field
 - address : 
-    - Address, address addition, city, postal code
+    - Address, city, postal code
     
 - GPS coordinates
 - Number of persons
-- Which floor
+- Which floor (explain our definition of "floor" as the meaning differs in english)
 - access for disabled persons (y/n)
 - Need for at least one car (y/n)
 - Parking (y/n)
