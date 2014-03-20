@@ -7,14 +7,15 @@
     <button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button>
     <div id=photoContainer>
         <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
+        <div id="photoDescr">{{ photos.0.descr }}</div>
     </div>
     <button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button>
 
     <ul id="thumbnails">
         {% for photo in photos %}
         <li>
-        <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadImage({{photo.pos|add:'-1'}});"> -->
-            <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadImage({{photo.pos|add:'-1'}});"/>
+        <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"> -->
+            <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
             </li>
             {% empty %}
             <p>no photo</p>
@@ -26,15 +27,16 @@
 
     {% block scripts %}
     <script> 
-        var imageRef = new Array();
-        var imageDesc = new Array();
+        var photoRef = new Array();
+        var photoDescr = new Array();
         {% for photo in photos %}
-        imageRef[{{photo.pos|add:'-1'}}]="{{MEDIA_URL}}{{ photo.img }}";
-        imageDesc[{{photo.pos|add:'-1'}}]="{{ photo.descr }}";
+        photoRef[{{photo.pos|add:'-1'}}]="{{MEDIA_URL}}{{ photo.img }}";
+        photoDescr[{{photo.pos|add:'-1'}}]="{{ photo.descr }}";
         {% empty %}
         {% endfor %}
-        var numberImages=imageRef.length;
+        var numberphotos=photoRef.length;
     </script>
 
+    <script src="{{STATIC_URL}}js/jquery.cacheimage.js"></script>
     <script src="{{STATIC_URL}}js/gallery.js"></script>
     {% endblock %}
