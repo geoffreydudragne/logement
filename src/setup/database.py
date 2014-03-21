@@ -10,7 +10,7 @@ c = Contributor(user=u)
 c.save()
 
 # DATAS
-h1 = House(name="Mougins", surface=95, price=1995)
+h1 = House(accomodation_name="Mougins", surface=95, price=1995)
 h1.save()
 p11 = Photo(img="housing/img1.jpg", thumbnail="housing/thumbnails/img1.jpg", descr="SWAG!", house=h1, pos=1)
 p11.save()
@@ -41,7 +41,7 @@ c1_2.save()
 f1 = Furniture(oven=True, house=h1)
 f1.save()
 
-h2 = House(name="Antibes", surface=95, price=2995)
+h2 = House(accomodation_name="Antibes", surface=95, price=2995)
 h2.save()
 gps2=GPSCoordinate(latitude=43.590214,longitude=7.096295, house=h2)
 gps2.save()

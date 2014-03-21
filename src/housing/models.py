@@ -4,23 +4,30 @@ from django.contrib.auth.models import User
 
         
 class House(models.Model):
-    name = models.CharField(max_length=30, verbose_name="Name")
+    accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name (if none, leave empty and it will be auto generated")
     surface = models.PositiveSmallIntegerField(verbose_name="Surface Area")
     accomodation_type= models.ForeignKey(AccomodationType)
     accomodation_type_other = models.CharField(max_length=20, verbose_name="Other accomodation type")
     number_persons = model.PositiveSmallIntegerField(verbose_name="Number of persons")
+    
+    #address
     address = models.CharField(max_length=30, verbose_name="Address")
     city = models.CharField(max_length=30, verbose_name="City")
     postal_code = model.PositiveSmallIntegerField(verbose_name="Postal code")
+    distance_eurecom = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Distance to travel from the accomodation to Eurecom (in km)")
+
     floor = models.PositiveSmallIntegerField(verbose_name="floor")
     disabled_persons = models.BooleanField(verbose_name="Access for disabled persons")
     need_car = models.BooleanField(verbose_name="Need for at least one car")
     parking = models.BooleanField(verbose_name="Parking")
+
+    #price category
     rent_only = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent only")
     service_charge_only = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Service charge only (charges)")
     rent_with_service_charge = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent with service charge")
     council_tax = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent with service charge")
     other_expenses = models.CharField(max_length=30, verbose_name="Precise the price of a service charge not included or any other expense")
+    apl = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="APL (Housing Benefits)")
     
     def __unicode__(self):
         return u"%s"%self.name
