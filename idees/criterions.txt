@@ -38,11 +38,11 @@ O- Which floor (explain our definition of "floor" as the meaning differs in engl
 X- access for disabled persons (y/n)
 X- Need for at least one car (y/n)
 X- Parking (y/n)
-- Proximity to shops, restaurants... (text field)
-- Noise : if high (text field to precise)
-- Bus lines : (possibility of multiple results)
-    - to Eurecom 
-    - to the railroad station
+X- Proximity to shops, restaurants... (text field)
+X- Noise : if high (text field to precise)
+X- Bus lines : (possibility of multiple results)
+    X- to Eurecom 
+    X- to the railroad station
 
 - Average time of travel to Eurecom : (tick if known value) (min-max values)
     - by car

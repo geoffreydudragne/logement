@@ -28,6 +28,26 @@ class House(models.Model):
     council_tax = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent with service charge")
     other_expenses = models.CharField(max_length=30, verbose_name="Precise the price of a service charge not included or any other expense")
     apl = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="APL (Housing Benefits)")
+
+    #arround the accomodation
+    noise_comment = models.CharField(max_length=90, verbose_name="Comment the noise atmosphere arround the accomodation (quiet, unexpected noise...")
+    proximity_shops = models.CharField(max_length=90, verbose_name="Comment about the shops arround the (advantages of near shops, or drawbacks")
+
+    #bus lines
+    bus_line_eurecom = models.CharField(max_length=90, verbose_name="Which bus line to go to Eurecom, and any comment about it. Precise if it's not possible to go by bus")
+    bus_line_railroad_station = models.CharField(max_length=90, verbose_name="Which bus line to go to the nearest railroad station, and any comment about it. Precise if it's not possible to go by bus")
+
+    #time of travels
+    time_by_car_max = model.PositiveSmallIntegerField(verbose_name="max") 
+    time_by_car_min = model.PositiveSmallIntegerField(verbose_name="min") 
+    time_by_bus_max = model.PositiveSmallIntegerField(verbose_name="max") 
+    time_by_bus_min = model.PositiveSmallIntegerField(verbose_name="min") 
+    time_by_bike_max = model.PositiveSmallIntegerField(verbose_name="max") 
+    time_by_bike_min = model.PositiveSmallIntegerField(verbose_name="min") 
+    time_by_foot_max = model.PositiveSmallIntegerField(verbose_name="max") 
+    time_by_foot_min = model.PositiveSmallIntegerField(verbose_name="min") 
+
+    
     
     def __unicode__(self):
         return u"%s"%self.name
@@ -67,10 +87,24 @@ class GPSCoordinate(models.Model):
 class Room(models.Model):
     house = models.ForeignKey(House)
 
+
 class Furniture(models.Model):
     house = models.OneToOneField(House)
+
+    #general
+    washing_machine = models.BooleanField(verbose_name="Washing machine", default=False)
+    clothes_dryer = models.BooleanField(verbose_name="Clothes dryer", default=False)
+    drying_rack = models.BooleanField(verbose_name="Drying rack (étendoir)", default=False)
+
+
+    #kitchen
+    dish_washer = models.BooleanField(verbose_name="Dish washer", default=False)
     oven = models.BooleanField(verbose_name="Oven", default=False)
     fridge = models.BooleanField(verbose_name="Fridge", default=False)
     
+    #bedrooms
+
+    #Living room
+
     def __unicode__(self):
         return u"%s"%self.oven
