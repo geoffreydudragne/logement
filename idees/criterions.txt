@@ -3,6 +3,7 @@ MC : Multiple choice
 X : done
 O : to complete
 
+--> precise if mandatory or not, have to be set in the model
 
 Price Category :
 X- council tax (taxe d'habitation)

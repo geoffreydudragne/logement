@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class House(models.Model):
     accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name (if none, leave empty and it will be auto generated")
     surface = models.PositiveSmallIntegerField(verbose_name="Surface Area")
-    accomodation_type= models.ForeignKey(AccomodationType)
+    accomodation_type = models.ForeignKey(AccomodationType)
     accomodation_type_other = models.CharField(max_length=20, verbose_name="Other accomodation type")
     number_persons = model.PositiveSmallIntegerField(verbose_name="Number of persons")
     
@@ -84,8 +84,12 @@ class GPSCoordinate(models.Model):
     def __unicode__(self):
         return u"(%s,%s)"%(self.latitude, self.longitude)
 
+class AccomodationType(models.Model):
+    accomodation = models.CharField(verbose_name="Accomodation")
+    
 class Room(models.Model):
     house = models.ForeignKey(House)
+    room = models.CharField(verbose_name="Room")
 
 
 class Furniture(models.Model):
@@ -96,15 +100,16 @@ class Furniture(models.Model):
     clothes_dryer = models.BooleanField(verbose_name="Clothes dryer", default=False)
     drying_rack = models.BooleanField(verbose_name="Drying rack (étendoir)", default=False)
 
-
     #kitchen
     dish_washer = models.BooleanField(verbose_name="Dish washer", default=False)
     oven = models.BooleanField(verbose_name="Oven", default=False)
     fridge = models.BooleanField(verbose_name="Fridge", default=False)
-    
+
     #bedrooms
 
     #Living room
-
+    
+    
+    
     def __unicode__(self):
         return u"%s"%self.oven
