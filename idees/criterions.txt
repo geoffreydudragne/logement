@@ -4,21 +4,22 @@ X : done
 O : to complete
 
 --> precise if mandatory or not, have to be set in the model
+--> for " Average time of travel to Eurecom", can do you using a foreign key on a table where we save type+length
 
 Price Category :
 X- council tax (taxe d'habitation)
-- agency : y/n, fees
+X- agency : y/n, fees
 X- rent with service charge
 X- rent only
 X- service charge only (charges)
     
 rent with service charge are including (y/n):
-    - gas
-    - electricity
-    - water
-    - internet
-    - telephone
-    - cleaning
+    X- gas
+    X- electricity
+    X- water
+    X- internet
+    X- telephone
+    X- cleaning
     - tax on household garbage (not sure to put this)
 
 X- free field for non included expenses
@@ -46,10 +47,10 @@ X- Bus lines : (possibility of multiple results)
     X- to the railroad station
 
 - Average time of travel to Eurecom : (tick if known value) (min-max values)
-    - by car
-    - by bus
-    - by bike
-    - by foot
+    O- by car
+    O- by bus
+    O- by bike
+    O- by foot
 
 - Number of rooms, for each room possibility :
     - bedroom
@@ -62,38 +63,38 @@ X- Bus lines : (possibility of multiple results)
     - garage
     - storeroom
 
-- furniture included in the accommodation (y/n)
-- type of heating : electricity, gas, fuel
-- climatisation (y/n)
+X- furniture included in the accommodation (y/n)
+O- type of heating : electricity, gas, fuel
+X- climatisation (y/n)
 - Global appreciation of the furniture : poor, average, good, excellent
 
 Furniture/equipment (if included) : y/n checks (with possibility to add details ?)
-    - Dish washer
-    - washing machine
-    - clothes dryer
-    - drying rack (étendoir)
+    X- Dish washer
+    X- washing machine
+    X- clothes dryer
+    X- drying rack (étendoir)
 
     Living room:
-        - TV
-        - Couches
-        - seats
-        - Table
+        X- TV
+        X- Couches
+        X- seats
+        X- Table
 
     Bedrooms:
-        - desk
-        - desk chair
+        X- desk
+        X- desk chair
 
     Kitchen:
-        - Fridge
-        - freezer
-        - baking tray (how many slots, which technology : gas, electrical...)
-        - micro-wave
-        - oven
-        - dishes
-        - toaster
+        X- Fridge
+        X- freezer
+        O- baking tray (how many slots, which technology : gas, electrical...)
+        X- micro-wave
+        X- oven
+        O- dishes
+        X- toaster
 
 
-- Internet included y/n : text field for details to sum up services includes (like phone, TV)
+X- Internet included y/n : text field for details to sum up services includes (like phone, TV)
 
 Outside equipment:
     - private garden (possibility to enter details)
@@ -101,23 +102,23 @@ Outside equipment:
     - Swimming pool
     - other, precise (e.g.: ping-pong, tennis...)
 
-- Strong points text field
-- Weak points text field
-- General description or comment on the accommodation (text field)
+X- Strong points text field
+X- Weak points text field
+X- General description or comment on the accommodation (text field)
 
-student contacts:
+[foreign key] student contacts:
     - name
     - email address
     - phone number
     - promotion ?
 
 landlord :
-    - name
-    - Email
-    - phone number
-    - Description text field
+    X- name
+    X- Email
+    X- phone number
+    X- Description text field
 
 Agency:
-    - name
-    - Description field
+    X- name
+    X- Description field
 
