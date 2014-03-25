@@ -2,10 +2,10 @@ from django.contrib import admin
 from housing.models import House, GPSCoordinate, Furniture, Photo, Contributor
 '''
 class HouseAdmin(admin.ModelAdmin):
-    list_display = ('name','surface','price',)
-    list_filter = ('name','surface','price',)
-    ordering = ('name',)
-    search_fields = ('name',)
+    list_display = ('accomodation_name','surface','rent_with_service_charge',)
+    list_filter = ('accomodation_name','surface','rent_with_service_charge',)
+    ordering = ('accomodation_name',)
+    search_fields = ('accomodation_name',)
 
 class FurnitureAdmin(admin.ModelAdmin):
     list_display = ('house','oven','fridge',)

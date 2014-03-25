@@ -7,11 +7,11 @@ class House(models.Model):
     accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name (if none, leave empty and it will be auto generated", unique=True)
     
     #principal characteristics
-    surface = models.PositiveSmallIntegerField(verbose_name="Surface Area")
+    surface = models.PositiveSmallIntegerField(verbose_name="Surface Area *")
     ACCOMODATION_TYPES = ((1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (6,"other"))
-    accomodation_type = models.PositiveSmallIntegerField(verbose_name="Accomodation type", choices=ACCOMODATION_TYPES)
+    accomodation_type = models.PositiveSmallIntegerField(verbose_name="Accomodation type *", choices=ACCOMODATION_TYPES)
     accomodation_type_other = models.CharField(max_length=20, verbose_name="Other accomodation type", null=True, blank=True)
-    number_persons = models.PositiveSmallIntegerField(verbose_name="Number of persons")
+    number_persons = models.PositiveSmallIntegerField(verbose_name="Number of persons *")
     
     #address
     address = models.CharField(max_length=30, verbose_name="Address")
@@ -64,14 +64,14 @@ class House(models.Model):
     time_by_bus_min = models.PositiveSmallIntegerField(verbose_name="min time by bus", null=True, blank=True) 
     time_by_bike_max = models.PositiveSmallIntegerField(verbose_name="max time by bike", null=True, blank=True) 
     time_by_bike_min = models.PositiveSmallIntegerField(verbose_name="min time by bike", null=True, blank=True) 
-    time_by_foot_max = models.PositiveSmallIntegerField(verbose_name="max time by bike", null=True, blank=True) 
-    time_by_foot_min = models.PositiveSmallIntegerField(verbose_name="min time by bike", null=True, blank=True) 
+    time_by_foot_max = models.PositiveSmallIntegerField(verbose_name="max time by foot", null=True, blank=True) 
+    time_by_foot_min = models.PositiveSmallIntegerField(verbose_name="min time by foot", null=True, blank=True) 
 
     #landlord contact
     landlord_first_name = models.CharField(max_length=30, verbose_name="Landlord's first name", null=True, blank=True)
     landlord_last_name = models.CharField(max_length=30, verbose_name="Landlord's last name", null=True, blank=True)
-    landlord_email = models.CharField(max_length=30, verbose_name="Landlord email", null=True, blank=True)
-    landlord_phone_number = models.CharField(max_length=15, verbose_name="Landlord phone number", null=True, blank=True)
+    landlord_email = models.CharField(max_length=30, verbose_name="Landlord's email", null=True, blank=True)
+    landlord_phone_number = models.CharField(max_length=15, verbose_name="Landlord's phone number", null=True, blank=True)
     landlord_comment_field = models.CharField(max_length=90, verbose_name="Comment about the landlord", null=True, blank=True)
     
     #agency
@@ -95,7 +95,7 @@ class House(models.Model):
 
     
     def __unicode__(self):
-        return u"%s"%self.name
+        return u"%s"%self.accomodation_name
 
     
 class Photo(models.Model):
@@ -157,7 +157,7 @@ class Furniture(models.Model):
     
     #bedrooms
     desk = models.BooleanField(verbose_name="Desk", default=False)
-    desk_chair = models.BooleanField(verbose_name="Desk_chair", default=False)
+    desk_chair = models.BooleanField(verbose_name="Desk chair", default=False)
 
     #Living room
     tv = models.BooleanField(verbose_name="TV", default=False)
