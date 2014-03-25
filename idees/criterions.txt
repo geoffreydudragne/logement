@@ -52,21 +52,21 @@ X- Bus lines : (possibility of multiple results)
     O- by bike
     O- by foot
 
-- Number of rooms, for each room possibility :
-    - bedroom
-    - living room
-    - kitchen
-    - studio all-in one (kitchen+living room+bedroom)
-    - Bathroom without toilets
-    - Bathroom with toilets
-    - toilets alone
-    - garage
-    - storeroom
+-[foreignkey] Number of rooms, for each room possibility :
+    X- bedroom
+    X- living room
+    X- kitchen
+    X- studio all-in one (kitchen+living room+bedroom)
+    X- Bathroom without toilets
+    X- Bathroom with toilets
+    X- toilets alone
+    X- garage
+    X- storeroom
 
 X- furniture included in the accommodation (y/n)
 O- type of heating : electricity, gas, fuel
 X- climatisation (y/n)
-- Global appreciation of the furniture : poor, average, good, excellent
+X- Global appreciation of the furniture : poor, average, good, excellent
 
 Furniture/equipment (if included) : y/n checks (with possibility to add details ?)
     X- Dish washer
@@ -97,10 +97,11 @@ Furniture/equipment (if included) : y/n checks (with possibility to add details 
 X- Internet included y/n : text field for details to sum up services includes (like phone, TV)
 
 Outside equipment:
-    - private garden (possibility to enter details)
-    - collective garden (possibility to enter details)
-    - Swimming pool
-    - other, precise (e.g.: ping-pong, tennis...)
+    X- private garden (possibility to enter details)
+    X- collective garden (possibility to enter details)
+    X- Swimming pool
+    X- other, precise (e.g.: ping-pong, tennis...)
+    ==> simplified these fields in favor of a large comment field on outside equipment 
 
 X- Strong points text field
 X- Weak points text field
