@@ -11,12 +11,12 @@ class House(models.Model):
     ACCOMODATION_TYPES = ("house", "apartment", "studio", "home stay (vie chez l'habitant)", "student residence", "other")
     accomodation_type = models.CharField(max_length=30, verbose_name="Accomodation type", choices=ACCOMODATION_TYPES)
     accomodation_type_other = models.CharField(max_length=20, verbose_name="Other accomodation type", null=True, blank=True)
-    number_persons = model.PositiveSmallIntegerField(verbose_name="Number of persons")
+    number_persons = models.PositiveSmallIntegerField(verbose_name="Number of persons")
     
     #address
     address = models.CharField(max_length=30, verbose_name="Address")
     city = models.CharField(max_length=30, verbose_name="City")
-    postal_code = model.PositiveSmallIntegerField(verbose_name="Postal code")
+    postal_code = models.PositiveSmallIntegerField(verbose_name="Postal code")
     distance_eurecom = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Distance to travel from the accomodation to Eurecom (in km)", null=True, blank=True)
 
     #general secondary
@@ -35,7 +35,7 @@ class House(models.Model):
     rent_only = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent only", null=True, blank=True)
     service_charge_only = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Service charge only (charges)", null=True, blank=True)
     rent_with_service_charge = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent with service charge")
-    council_tax = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="council_tax (taxe d'habitation)")
+    council_tax = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Council tax (taxe d'habitation)")
     through_agency = models.BooleanField(verbose_name="Rent through an agency")
     agency_fees = models.PositiveSmallIntegerField(verbose_name="Angency fees", default=0)
     other_expenses = models.CharField(max_length=30, verbose_name="Precise the price of a service charge not included or any other expense", null=True, blank=True)
@@ -58,20 +58,20 @@ class House(models.Model):
     bus_line_railroad_station = models.CharField(max_length=90, verbose_name="Which bus line to go to the nearest railroad station, and any comment about it. Precise if it's not possible to go by bus", null=True, blank=True)
 
     #time of travels (leave empty if unknown values or impossible)
-    time_by_car_max = model.PositiveSmallIntegerField(verbose_name="max time by car", null=True, blank=True) 
-    time_by_car_min = model.PositiveSmallIntegerField(verbose_name="min time by car", null=True, blank=True) 
-    time_by_bus_max = model.PositiveSmallIntegerField(verbose_name="max time by bus", null=True, blank=True) 
-    time_by_bus_min = model.PositiveSmallIntegerField(verbose_name="min time by bus", null=True, blank=True) 
-    time_by_bike_max = model.PositiveSmallIntegerField(verbose_name="max time by bike", null=True, blank=True) 
-    time_by_bike_min = model.PositiveSmallIntegerField(verbose_name="min time by bike", null=True, blank=True) 
-    time_by_foot_max = model.PositiveSmallIntegerField(verbose_name="max time by bike", null=True, blank=True) 
-    time_by_foot_min = model.PositiveSmallIntegerField(verbose_name="min time by bike", null=True, blank=True) 
+    time_by_car_max = models.PositiveSmallIntegerField(verbose_name="max time by car", null=True, blank=True) 
+    time_by_car_min = models.PositiveSmallIntegerField(verbose_name="min time by car", null=True, blank=True) 
+    time_by_bus_max = models.PositiveSmallIntegerField(verbose_name="max time by bus", null=True, blank=True) 
+    time_by_bus_min = models.PositiveSmallIntegerField(verbose_name="min time by bus", null=True, blank=True) 
+    time_by_bike_max = models.PositiveSmallIntegerField(verbose_name="max time by bike", null=True, blank=True) 
+    time_by_bike_min = models.PositiveSmallIntegerField(verbose_name="min time by bike", null=True, blank=True) 
+    time_by_foot_max = models.PositiveSmallIntegerField(verbose_name="max time by bike", null=True, blank=True) 
+    time_by_foot_min = models.PositiveSmallIntegerField(verbose_name="min time by bike", null=True, blank=True) 
 
     #landlord contact
     landlord_first_name = models.CharField(max_length=30, verbose_name="Landlord's first name", null=True, blank=True)
     landlord_last_name = models.CharField(max_length=30, verbose_name="Landlord's last name", null=True, blank=True)
     landlord_email = models.CharField(max_length=30, verbose_name="Landlord email", null=True, blank=True)
-    landlord_phone-number = models.CharField(max_length=15, verbose_name="Landlord phone number", null=True, blank=True)
+    landlord_phone_number = models.CharField(max_length=15, verbose_name="Landlord phone number", null=True, blank=True)
     landlord_comment_field = models.CharField(max_length=90, verbose_name="Comment about the landlord", null=True, blank=True)
     
     #agency
@@ -143,14 +143,14 @@ class Furniture(models.Model):
     #general
     washing_machine = models.BooleanField(verbose_name="Washing machine", default=False)
     clothes_dryer = models.BooleanField(verbose_name="Clothes dryer", default=False)
-    drying_rack = models.BooleanField(verbose_name="Drying rack (étendoir)", default=False)
+    drying_rack = models.BooleanField(verbose_name="Drying rack (etendoir)", default=False)
 
     #kitchen
     dish_washer = models.BooleanField(verbose_name="Dish washer", default=False)
     fridge = models.BooleanField(verbose_name="Fridge", default=False)
     oven = models.BooleanField(verbose_name="Oven", default=False)
     freezer = models.BooleanField(verbose_name="Freezer", default=False)
-    micro-wave = models.BooleanField(verbose_name="Micro-wave", default=False)
+    micro_wave = models.BooleanField(verbose_name="Micro-wave", default=False)
     toaster = models.BooleanField(verbose_name="Toaster", default=False)
     dishes = models.BooleanField(verbose_name="dishes", default=False)
     baking_tray = models.BooleanField(verbose_name="Baking tray (plaque de cuisson)", default=False)
