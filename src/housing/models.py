@@ -8,8 +8,8 @@ class House(models.Model):
     
     #principal characteristics
     surface = models.PositiveSmallIntegerField(verbose_name="Surface Area")
-    ACCOMODATION_TYPES = ("house", "apartment", "studio", "home stay (vie chez l'habitant)", "student residence", "other")
-    accomodation_type = models.CharField(max_length=30, verbose_name="Accomodation type", choices=ACCOMODATION_TYPES)
+    ACCOMODATION_TYPES = ((1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (6,"other"))
+    accomodation_type = models.PositiveSmallIntegerField(verbose_name="Accomodation type", choices=ACCOMODATION_TYPES)
     accomodation_type_other = models.CharField(max_length=20, verbose_name="Other accomodation type", null=True, blank=True)
     number_persons = models.PositiveSmallIntegerField(verbose_name="Number of persons")
     
@@ -24,12 +24,12 @@ class House(models.Model):
     disabled_persons = models.BooleanField(verbose_name="Access for disabled persons")
     need_car = models.BooleanField(verbose_name="Need for at least one car")
     parking = models.BooleanField(verbose_name="Parking")
-    HEATING_TYPES = ("electricity", "gas", "fuel", "other")
-    heating_type = models.CharField(max_length=20, choices=HEATING_TYPES)
+    HEATING_TYPES = ((1,"electricity"), (2,"gas"), (3,"fuel"), (4,"other"))
+    heating_type = models.PositiveSmallIntegerField(verbose_name="Type of heating", choices=HEATING_TYPES)
     climatisation = models.BooleanField(verbose_name="Climatisation")
     furniture_included = models.BooleanField(verbose_name="Furniture included in the accomodation")
-    APPRECIATIONS = ("poor", "fair", "good", "excellent")
-    furniture_appreciation = models.CharField(max_length=20, choices=APPRECIATIONS)
+    APPRECIATIONS = ((1,"poor"), (2,"fair"), (3,"good"), (4,"excellent"))
+    furniture_appreciation = models.PositiveSmallIntegerField(verbose_name="Furniture appreciation", choices=APPRECIATIONS)
 
     #price category
     rent_only = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent only", null=True, blank=True)
@@ -90,7 +90,7 @@ class House(models.Model):
     #outside equipment
     swimming_pool = models.BooleanField(verbose_name="Swimming pool")
     garden = models.BooleanField(verbose_name="Garden")
-    outside_equipment_comment = models.CharField(verbose_name="Precise any other out-door equipment or infrastructure (e.g.: ping-pong, tennis...), or add here your comments on the garden and the swimming pool", null=True, blank=True)
+    outside_equipment_comment = models.CharField(max_length= 100, verbose_name="Precise any other out-door equipment or infrastructure (e.g.: ping-pong, tennis...), or add here your comments on the garden and the swimming pool", null=True, blank=True)
 
 
     
@@ -132,8 +132,8 @@ class GPSCoordinate(models.Model):
     
 class Room(models.Model):
     house = models.ForeignKey(House)
-    ROOM_TYPES = ("bedroom", "living room", "kitchen", "studio all-in-one (main room with kitchen)", "bathroom without toilets", "bathroom with toilets", "toilets alone", "garage", "storeroom", "other")
-    room_type = models.CharField(verbose_name="Room type", choices=ROOM_TYPES)
+    ROOM_TYPES = ((1,"bedroom"), (2,"living room"), (3,"kitchen"), (4,"studio all-in-one (main room with kitchen)"), (5,"bathroom without toilets"), (6,"bathroom with toilets"), (7,"toilets alone"), (8,"garage"), (9,"storeroom"), (10,"other"))
+    room_type = models.PositiveSmallIntegerField(verbose_name="Room type", choices=ROOM_TYPES)
     other_type =  models.CharField(max_length=20, verbose_name="other", null=True, blank=True)
 
 
