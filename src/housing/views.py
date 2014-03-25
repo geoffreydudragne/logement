@@ -87,9 +87,9 @@ def search(request):
         for house in houses:
             data.append({
                 "id" : house.id,
-                "name" : house.name,
+                "name" : house.accomodation_name,
                 "surface" : house.surface,
-                "price" : house.price
+                "price" : house.rent_with_service_charge
             });
             
     return HttpResponse(json.dumps(data), content_type='application/json')
@@ -144,7 +144,7 @@ def house_create(request):
             # Adding permission to contributor
             content_type = ContentType.objects.get(app_label='housing', model='House')
             permission = Permission.objects.create(codename='update_house_{0}'.format(house.id),
-                                                   name='Update house "{0}"'.format(house.name),
+                                                   name='Update house "{0}"'.format(house.accomodation_name),
                                                    content_type=content_type)
             user.user_permissions.add(permission)
     
@@ -228,17 +228,18 @@ def add_photo(request, id_house):
             # Image resizing
             image = Image.open(photo.img)
             image.thumbnail((settings.IMG_MAX_HEIGHT, settings.IMG_MAX_WIDTH), Image.ANTIALIAS)
-            image.save(os.path.join(settings.MEDIA_ROOT, 'housing/%s-%s.jpg'%(house.name, photo.pos)), 'JPEG', quality=90)
+            image.save(os.path.join(settings.MEDIA_ROOT, 'housing/%s-%s.jpg'%(house.accomodation_name, photo.pos)), 'JPEG', quality=90)
             # Thumbnail creation
             image.thumbnail((settings.THUMBNAIL_HEIGHT, settings.THUMBNAIL_WIDTH), Image.ANTIALIAS)
-            image.save(os.path.join(settings.MEDIA_ROOT, 'housing/thumbnails/%s-%s.jpg'%(house.name, photo.pos)), 'JPEG', quality=90)
+            image.save(os.path.join(settings.MEDIA_ROOT, 'housing/thumbnails/%s-%s.jpg'%(house.accomodation_name, photo.pos)), 'JPEG', quality=90)
             
             # Directly remove initial uploaded image
             os.unlink(os.path.join(settings.MEDIA_ROOT, str(photo.img)))
             
             # Set paths to images
-            photo.img = 'housing/%s-%s.jpg'%(house.name, photo.pos)
-            photo.thumbnail = 'housing/thumbnails/%s-%s.jpg'%(house.name, photo.pos)
+            photo.img = 'housing/%s-%s.jpg'%(house.accomodation_name, photo.pos)
+            photo.thumbnail = 'housing/thumbnails/%s-%s.jpg'%(house.accomodation_name, photo.pos)
+            
             photo.save()
             
         else:
@@ -424,7 +425,7 @@ def mapMarkersAll(request):
     rank=1
     for house in houses:
         location=house.gpscoordinate
-        markers.append({"latitude":location.latitude, "longitude":location.longitude, "content":house.name, "rank":rank})
+        markers.append({"latitude":location.latitude, "longitude":location.longitude, "content":house.accomodation_name, "rank":rank})
         rank+=1
 
     result = {"markers": markers}
@@ -437,7 +438,7 @@ def mapMarkers(request, id_house):
     house = get_object_or_404(House, id=id_house)
     location=house.gpscoordinate
     markers = []
-    markers.append({"latitude":location.latitude, "longitude":location.longitude, "content":house.name})
+    markers.append({"latitude":location.latitude, "longitude":location.longitude, "content":house.accomodation_name})
     result = {"markers": markers}
     
     return HttpResponse(simplejson.dumps(result), mimetype='application/json')

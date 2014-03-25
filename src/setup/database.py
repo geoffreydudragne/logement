@@ -2,6 +2,7 @@ from housing.models import House, Furniture, Photo, Contributor, GPSCoordinate
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
+
 # ADMIN
 u = User(username="WTFO", is_staff=True, is_superuser=True)
 u.set_password("company")
@@ -9,6 +10,7 @@ u.save()
 c = Contributor(user=u)
 c.save()
 
+"""
 # DATAS
 h1 = House(accomodation_name="Mougins", surface=95, price=1995)
 h1.save()
@@ -60,3 +62,4 @@ c2.save()
 c2.houses.add(h2)
 f2 = Furniture(oven=True, house=h2)
 f2.save()
+"""
