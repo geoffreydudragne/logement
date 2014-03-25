@@ -1,6 +1,6 @@
 from django.contrib import admin
 from housing.models import House, GPSCoordinate, Furniture, Photo, Contributor
-'''
+
 class HouseAdmin(admin.ModelAdmin):
     list_display = ('accomodation_name','surface','rent_with_service_charge',)
     list_filter = ('accomodation_name','surface','rent_with_service_charge',)
@@ -32,4 +32,3 @@ admin.site.register(Furniture, FurnitureAdmin)
 admin.site.register(GPSCoordinate, GPSCoordinateAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Contributor, ContributorAdmin)
-'''

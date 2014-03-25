@@ -16,7 +16,7 @@ class House(models.Model):
     #address
     address = models.CharField(max_length=30, verbose_name="Address")
     city = models.CharField(max_length=30, verbose_name="City")
-    postal_code = models.PositiveSmallIntegerField(verbose_name="Postal code")
+    postal_code = models.CharField(max_length=5, verbose_name="Postal code")
     distance_eurecom = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Distance to travel from the accomodation to Eurecom (in km)", null=True, blank=True)
 
     #general secondary
