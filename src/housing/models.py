@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 
         
 class House(models.Model):
-    accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name (if none, leave empty and it will be auto generated", unique=True)
+    accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name (if none, leave empty and it will be auto generated", unique=True, null=True, blank=True)
     
     #principal characteristics
     surface = models.PositiveSmallIntegerField(verbose_name="Surface Area *")
-    ACCOMODATION_TYPES = ((1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (6,"other"))
+    ACCOMODATION_TYPES = ((1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (0,"other"))
     accomodation_type = models.PositiveSmallIntegerField(verbose_name="Accomodation type *", choices=ACCOMODATION_TYPES)
     accomodation_type_other = models.CharField(max_length=20, verbose_name="Other accomodation type", null=True, blank=True)
     number_persons = models.PositiveSmallIntegerField(verbose_name="Number of persons *")
@@ -17,7 +17,7 @@ class House(models.Model):
     address = models.CharField(max_length=30, verbose_name="Address")
     city = models.CharField(max_length=30, verbose_name="City")
     postal_code = models.CharField(max_length=5, verbose_name="Postal code")
-    distance_eurecom = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Distance to travel from the accomodation to Eurecom (in km)", null=True, blank=True)
+    distance_eurecom = models.PositiveSmallIntegerField(verbose_name="Distance to travel from the accomodation to Eurecom (in km)", null=True, blank=True)
 
     #general secondary
     floor = models.PositiveSmallIntegerField(verbose_name="Floor (Considering the entrance door, and that the street is at 0)")
@@ -32,14 +32,14 @@ class House(models.Model):
     furniture_appreciation = models.PositiveSmallIntegerField(verbose_name="Furniture appreciation", choices=APPRECIATIONS)
 
     #price category
-    rent_only = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent only", null=True, blank=True)
-    service_charge_only = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Service charge only (charges)", null=True, blank=True)
-    rent_with_service_charge = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Rent with service charge")
-    council_tax = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Council tax (taxe d'habitation)")
+    rent_only = models.PositiveSmallIntegerField(verbose_name="Rent only", null=True, blank=True)
+    service_charge_only = models.PositiveSmallIntegerField(verbose_name="Service charge only (charges)", null=True, blank=True)
+    rent_with_service_charge = models.PositiveSmallIntegerField(verbose_name="Rent with service charge")
+    council_tax = models.PositiveSmallIntegerField(verbose_name="Council tax (taxe d'habitation)")
     through_agency = models.BooleanField(verbose_name="Rent through an agency")
     agency_fees = models.PositiveSmallIntegerField(verbose_name="Angency fees", default=0)
     other_expenses = models.CharField(max_length=30, verbose_name="Precise the price of a service charge not included or any other expense", null=True, blank=True)
-    apl = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="APL (Housing Benefits)", null=True, blank=True)
+    apl = models.PositiveSmallIntegerField(verbose_name="APL (Housing Benefits)", null=True, blank=True)
 
     #included in price of rent+service charge
     included_gas = models.BooleanField(verbose_name="Gas")

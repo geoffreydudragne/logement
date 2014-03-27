@@ -140,6 +140,16 @@ def house_create(request):
             furniture = furniture_form.save(commit=False)
             furniture.house = house
             furniture.save()
+            
+            if not house.accomodation_name:
+
+                house_name = house.get_accomodation_type_display()
+                if not house_name:
+                    house_name = house.accomodation_type_other
+                
+                house.accomodation_name = house_name + "_" + house.landlord_last_name 
+            
+            house.save()
 
             # Adding permission to contributor
             content_type = ContentType.objects.get(app_label='housing', model='House')
