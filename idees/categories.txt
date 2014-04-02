@@ -1,0 +1,11 @@
+1	House		main characteristics			5
+2	AdditionalInfo	additional info				15
+3	Price		different price details			14
+4	Room 		description of each room		2
+5	Furniture	furnitures     	    			16	
+6	Location	house's location details		6
+7	Travel		how to go to Eurecom			10
+8	Contact		landlord & agency details		7
+9	Appreciation	appreciation				3
+10	Photo		photos					1
+11	Contributor	who can modify the house details	1

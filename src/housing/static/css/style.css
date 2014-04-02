@@ -156,3 +156,7 @@ td {
     padding:10px;
 }
 
+#furniture p {
+    display:inline-block;
+    /* margin-right:30px; */
+}

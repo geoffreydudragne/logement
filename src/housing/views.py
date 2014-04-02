@@ -12,8 +12,8 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import CreateView
 from django.utils import simplejson
 import json
-from housing.models import House, Furniture, Photo, Contributor, GPSCoordinate
-from housing.forms import HouseForm, FurnitureForm, PhotoForm, ContributorForm, LoginForm, SearchForm
+from housing.models import House, AdditionalInfo, Price, Room, Furniture, Location, Travel, Contact, Appreciation, Photo, Contributor
+from housing.forms import HouseForm, AdditionalInfoForm, PriceForm, RoomForm, FurnitureForm, LocationForm, TravelForm, ContactForm, AppreciationForm, PhotoForm, ContributorForm, LoginForm, SearchForm
 import os
 from django.conf import settings
 # For thumbnails generation
@@ -197,11 +197,12 @@ def house_update(request, id_house):
 
     else:
         house = get_object_or_404(House, id=id_house)
-        furniture = get_object_or_404(Furniture, house=house)
         photos = house.photo_set.all()
         contributors = house.contributor_set.all()
         house_form = HouseForm(instance=house)
-        furniture_form = FurnitureForm(instance=furniture)
+        additional_info_form = AdditionalInfoForm(instance=house.additionalinfo)
+        price_form = PriceForm(instance=house.price)
+        furniture_form = FurnitureForm(instance=house.furniture)
         contributor_form = ContributorForm()
                     
     return render(request, 'housing/house_update.djhtml', locals())

@@ -1,4 +1,4 @@
-from housing.models import House, Furniture, Photo, Contributor, GPSCoordinate
+from housing.models import House, AdditionalInfo, Price, Room, Furniture, Location, Travel, Contact, Appreciation, Photo, Contributor
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
@@ -12,14 +12,26 @@ c.save()
 
 
 # DATAS
-h1 = House(accomodation_name="apartment_draycott", surface=95, accomodation_type=2, number_persons=4, address="760 Chemin de la Tire", city="Mougins", postal_code="06250", floor=0, disabled_persons=False, need_car=True, parking=True, heating_type=1, climatisation=False, furniture_included=True, furniture_appreciation=3, rent_with_service_charge=1995, council_tax=0, through_agency=False, agency_fees=0, included_gas=False, included_electricity=True, included_water=True, included_internet=True, included_telephone=True, included_cleaning=False, internet_connexion=True, swimming_pool= True, garden= True)
+h1 = House(accomodation_name="apartment_draycott", surface=95, accomodation_type=2, number_persons=4)
 h1.save()
+
+ad1 = AdditionalInfo(house=h1, floor=0, disabled_persons=False, need_car=True, parking=True, heating_type=1, climatisation=False, furniture_included=True, furniture_appreciation=3, internet_connexion=True, swimming_pool= True, garden= True)
+ad1.save()
+
+p1 = Price(house=h1, rent_with_service_charge=1995, council_tax=0, through_agency=False, agency_fees=0, included_gas=False, included_electricity=True, included_water=True, included_internet=True, included_telephone=True, included_cleaning=False)
+p1.save()
+
+l1 = Location(house=h1, address="760 Chemin de la Tire", city="Mougins", postal_code="06250", latitude=43.608522, longitude=7.012347)
+l1.save()
+
+t1 = Travel()
+
+ap1 = Appreciation()
+
 p11 = Photo(img="housing/img1.jpg", thumbnail="housing/thumbnails/img1.jpg", descr="SWAG!", house=h1, pos=1)
 p11.save()
 p12 = Photo(img="housing/img2.jpg", thumbnail="housing/thumbnails/img2.jpg", descr="SWAG!", house=h1, pos=2)
 p12.save()
-gps1=GPSCoordinate(latitude=43.608522,longitude=7.012347, house=h1)
-gps1.save()
 
 u1 = User(username="Bastien")
 u1.set_password("azerty")
