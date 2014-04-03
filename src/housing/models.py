@@ -131,6 +131,9 @@ class Location(models.Model):
 
 
 class Travel(models.Model):
+    
+    house = models.OneToOneField(House)
+
     #bus lines
     bus_line_eurecom = models.CharField(max_length=90, verbose_name="Which bus line to go to Eurecom, and any comment about it. Precise if it's not possible to go by bus", null=True, blank=True)
     bus_line_railroad_station = models.CharField(max_length=90, verbose_name="Which bus line to go to the nearest railroad station, and any comment about it. Precise if it's not possible to go by bus", null=True, blank=True)
@@ -147,6 +150,9 @@ class Travel(models.Model):
 
 
 class Contact(models.Model):
+    
+    house = models.OneToOneField(House)    
+
     #landlord contact
     landlord_first_name = models.CharField(max_length=30, verbose_name="Landlord's first name", null=True, blank=True)
     landlord_last_name = models.CharField(max_length=30, verbose_name="Landlord's last name", null=True, blank=True)
@@ -160,6 +166,9 @@ class Contact(models.Model):
 
 
 class Appreciation(models.Model):
+    
+    house = models.OneToOneField(House)
+    
     #General description fields
     strong_points = models.CharField(max_length=200, verbose_name="Strong points of the accomodation", null=True, blank=True)
     weak_points = models.CharField(max_length=200, verbose_name="Weak points of the accomodation", null=True, blank=True)

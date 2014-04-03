@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core import serializers
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.decorators import login_required, permission_required
@@ -179,33 +180,85 @@ def house_update(request, id_house):
 
     """
     if request.method == 'POST': 
-        house = get_object_or_404(House, id=id_house)
-        furniture = get_object_or_404(Furniture, house=house)
-        photos = house.photo_set.all()
-        contributors = house.contributor_set.all()
-        house_form = HouseForm(request.POST, instance=house)
-        furniture_form = FurnitureForm(request.POST, instance=furniture)
-        contributor_form = ContributorForm()
+        
+        model_name = request.POST['model']
 
-        if house_form.is_valid() and furniture_form.is_valid():
-            house = house_form.save()
-            furniture = furniture_form.save(commit=False)
-            furniture.house = house
-            furniture.save()
+        models = {
+            'house': House,
+            'additionalinfo': AdditionalInfo
+        }
+        
+        forms = {
+            'house': HouseForm,
+            'additionalinfo': AdditionalInfoForm
+        }
+        
+        form = forms[model_name]
+        model = models[model_name]
+        
+        print "%s, %s"%(form,model)
 
-            updated = True
+        # if .is_valid():
+          
 
     else:
         house = get_object_or_404(House, id=id_house)
         photos = house.photo_set.all()
+        rooms = house.room_set.all()
         contributors = house.contributor_set.all()
+        
+        # relations gathering
+        # can implement a function to prevent code reuse
+        try:
+            additionalinfo = house.additionalinfo
+        except ObjectDoesNotExist:
+            additionalinfo = AdditionalInfo()
+        
+        try:
+            price = house.price
+        except ObjectDoesNotExist:
+            price = Price()
+        
+        try:
+            furniture = house.furniture
+        except ObjectDoesNotExist:
+            furniture = Furniture()
+        
+        try:
+            location = house.location
+        except ObjectDoesNotExist:
+            location = Location()
+
+        try:
+            travel = house.travel
+        except ObjectDoesNotExist:
+            travel = Travel()
+            
+        try:
+            contact = house.contact
+        except ObjectDoesNotExist:
+            contact = Contact()
+
+        try:
+            appreciation = house.appreciation
+        except ObjectDoesNotExist:
+            appreciation = Appreciation()
+
         house_form = HouseForm(instance=house)
-        additional_info_form = AdditionalInfoForm(instance=house.additionalinfo)
-        price_form = PriceForm(instance=house.price)
-        furniture_form = FurnitureForm(instance=house.furniture)
+
+        additional_info_form = AdditionalInfoForm(instance=additionalinfo)
+        price_form = PriceForm(instance=price)
+        # room_form = RoomForm()
+        furniture_form = FurnitureForm(instance=furniture)
+        location_form = LocationForm(instance=location)
+        travel_form = TravelForm(instance=travel)
+        contact_form = ContactForm(instance=contact)
+        appreciation_form = AppreciationForm(instance=appreciation)
         contributor_form = ContributorForm()
                     
     return render(request, 'housing/house_update.djhtml', locals())
+
+
 
 
 ########################################

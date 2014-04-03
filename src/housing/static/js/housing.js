@@ -96,4 +96,21 @@ $(document).ready(function() {
         });
         return false;
     });
+
+    $("#tabs").tabs();
+
+    $('body').on('click', "button[data-type=update]", function() {
+	
+        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+	var model = $(this).parent().attr("id");
+	var form = $(this).siblings("form").serializeArray();
+	form.push({name:'model', value:model});
+	form.push({name:'csrfmiddlewaretoken', value:csrfmiddlewaretoken});
+	
+	$.post(house_update_url, form, function(data) {
+
+	});
+	
+	return false;
+    });
 });

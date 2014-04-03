@@ -34,7 +34,7 @@ class FurnitureForm(forms.ModelForm):
 class LocationForm(forms.ModelForm):
     class Meta:
         model = Location
-        exclude = ('house',)
+        exclude = ('house', 'latitude', 'longitude', )
 
 class TravelForm(forms.ModelForm):
     class Meta:
