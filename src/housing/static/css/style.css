@@ -1,6 +1,33 @@
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 header {
     text-align: center;
-    margin-bottom: 30px;
+    padding:1px;
+    background-color: #239CD3;
+    color: white;
+
+}
+
+nav {
+    margin: auto;
+    margin-bottom: 5px;
+    width: 1000px;
+    background-color: #5D606E; 
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    
+}
+
+nav ul li{
+    display: inline-block;
+    font-size:20px;
+    margin: 10px 20px 10px 20px;
 }
 
 footer {
@@ -17,7 +44,7 @@ footer {
 #main {
     display:block;
     margin:auto;
-    width:1000px;
+    width:950px;
     padding:25px;
     background-color:#eeeeee;
 }
@@ -80,10 +107,6 @@ footer {
     font-size:90px;
 }
 
-button:hover{
-    /*font-size:90px;*/
-}
-
 #nextButton {
     margin-left: -6px;
     border-radius: 0 20px 20px 0;
@@ -124,6 +147,10 @@ fieldset {
     padding:15px;
     margin-top:5px;
     background-color:#dddddd;
+}
+
+#criteria_search {
+    width: 300px;
 }
 
 table {

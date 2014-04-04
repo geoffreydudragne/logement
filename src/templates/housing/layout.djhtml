@@ -8,8 +8,16 @@
   </head>
   <body>
     <header>
-      <h1>Eurecom Housing</h1>
+    <h1>Eurecom Housing <img src="{{STATIC_URL}}img/house2picto.png"/></h1>
     </header>
+
+    <nav> 
+    <ul>
+        <li><a href="{{URL}}/housing/search">Search Page</a></li>
+        <li>My accomodations</li>
+        <li>My account</li>
+    </ul>
+    </nav>
 
     <section id="main">
       {% block main %}
