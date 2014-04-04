@@ -1,7 +1,7 @@
 from django import forms
 from housing.models import House, AdditionalInfo, Price, Room, Furniture, Location, Travel, Contact, Appreciation, Photo, Contributor
 
-ACCOMODATION_TYPES = ((1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (0,"other"))
+ACCOMODATION_TYPES = (('','Accomodation type :'), (1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (0,"other"))
 
 class HouseForm(forms.ModelForm):
     class Meta:
