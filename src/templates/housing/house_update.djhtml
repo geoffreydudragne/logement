@@ -8,69 +8,86 @@
     {% if updated %}
       <h2>House updated!</h2>
     {% endif %}
-    <div id="tabs">
-      <ul>
-	<li><a href="#house">General</a></li>
-	<li><a href="#additional_info">Additional</a></li>
-	<li><a href="#price">Price</a></li>
-	<li><a href="#furniture">Furniture</a></li>
-	<li><a href="#location">Location</a></li>
-	<li><a href="#travel">Travel</a></li>
-	<li><a href="#contact">Contact</a></li>
-	<li><a href="#appreciation">Appreciation</a></li>
-	<li><a href="#photo">Photo</a></li>
-	<li><a href="#contributor">Contributor</a></li>
-      </ul>
-      
+    <form id="form">
       {% csrf_token %}
-      <div id="house">
-	<form id="house-form">
+      <div id="accordion">
+	
+	<!-- 
+	<ul>
+	  <li><a href="#house">General</a></li>
+	  <li><a href="#additional_info">Additional</a></li>
+	  <li><a href="#price">Price</a></li>
+	  <li><a href="#furniture">Furniture</a></li>
+	  <li><a href="#location">Location</a></li>
+	  <li><a href="#travel">Travel</a></li>
+	  <li><a href="#contact">Contact</a></li>
+	  <li><a href="#appreciation">Appreciation</a></li>
+	  <li><a href="#photo">Photo</a></li>
+	  <li><a href="#contributor">Contributor</a></li>
+	</ul>
+	-->
+	<h3>General</h3>
+	<div id="house">
 	  {{ house_form.as_p }}
-	</form>
-	<button data-type="update">Update</button>
-      </div>
-      <div id="additional_info">
-	{{ additional_info_form.as_p }}
-	<button data-type="update">Update</button>
-      </div>
-      <div id="price">
-        {{ price_form.as_p }}
-	<button data-type="update">Update</button>
-      </div>
-      <div id="furniture">
-        {{ furniture_form.as_p }}
-	<button data-type="update">Update</button>
-      </div>
-      <div id="location">
-        {{ location_form.as_p }}
-	<button data-type="update">Update</button>
-      </div>
-      <div id="travel">
-        {{ travel_form.as_p }}
-	<button data-type="update">Update</button>
-      </div>
-      <div id="contact">
-        {{ contact_form.as_p }}
-	<button data-type="update">Update</button>
-      </div>
-      <div id="appreciation">
-        {{ appreciation_form.as_p }}
-	<button data-type="update">Update</button>
-      </div>
-      
-      <!-- <form enctype="multipart/form-data" action="" method="post"></form>  -->
-      
-      <div id="photo">
-	<div  data-type="photo">
-	  {% include "housing/add_photo.djhtml" %}
+	  <!-- <button data-type="update">Update</button> -->
 	</div>
-	<p><label for="id_img">Add photos </label><input id="id_img" type="file" accept="image/*" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
+	<h3>Additional</h3>
+	<div id="additional_info">
+
+	  {{ additional_info_form.as_p }}
+	  <!-- <button data-type="update">Update</button> -->
+	</div>
+	<h3>Price</h3>
+	<div id="price">
+          {{ price_form.as_p }}
+	  <!-- <button data-type="update">Update</button> -->
+	</div>
+	<h3>Furniture</h3>
+	<div id="furniture">
+          {{ furniture_form.as_p }}
+	  <!-- <button data-type="update">Update</button> -->
+	</div>
+	<h3>Location</h3>      
+	<div id="location">
+          {{ location_form.as_p }}
+	  <!-- <button data-type="update">Update</button> -->
+	</div>
+	<h3>Map</h3>      
+	<div id="map">
+          <h3>MAP HERE</h3>
+	  <!-- <button data-type="update">Update</button> -->
+	</div>
+	<h3>Travel</h3>
+	<div id="travel">
+          {{ travel_form.as_p }}
+	  <!-- <button data-type="update">Update</button> -->
+	</div>
+	<h3>Contact</h3>
+	<div id="contact">
+          {{ contact_form.as_p }}
+	  <!-- <button data-type="update">Update</button> -->
+	</div>
+	<h3>Appreciation</h3>
+	<div id="appreciation">
+          {{ appreciation_form.as_p }}
+	  <!-- <button data-type="update">Update</button> -->
+	</div>
+	
+	<!-- <form enctype="multipart/form-data" action="" method="post"></form>  -->
+	<h3>Photo</h3>
+	<div id="photo">
+	  <div  data-type="photo">
+	    {% include "housing/add_photo.djhtml" %}
+	  </div>
+	  <p><label for="id_img">Add photos </label><input id="id_img" type="file" accept="image/*" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
+	</div>
+	<h3>Contributor</h3>
+	<div id="contributor" data-type="contributor">
+	  {% include "housing/add_contributor.djhtml" %}
+	</div>
       </div>
-      <div id="contributor" data-type="contributor">
-	{% include "housing/add_contributor.djhtml" %}
-      </div>
-    </div>
-    
+      <button data-type="update">Update</button>
+    </form>    
 
 
 

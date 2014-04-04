@@ -75,8 +75,6 @@ def search(request):
         """
 
         for (name,value) in request.GET.iteritems():
-            if value=="on":
-                value=True
             filter[name] = value
 
         print "%s"%filter
@@ -90,7 +88,7 @@ def search(request):
                 "id" : house.id,
                 "name" : house.accomodation_name,
                 "surface" : house.surface,
-                "price" : house.rent_with_service_charge
+                "price" : house.price.rent_with_service_charge
             });
             
     return HttpResponse(json.dumps(data), content_type='application/json')
@@ -179,27 +177,78 @@ def house_update(request, id_house):
     """
 
     """
+
     if request.method == 'POST': 
         
-        model_name = request.POST['model']
+        house = get_object_or_404(House, id=id_house)
+        
+        try:
+            additionalinfo = house.additionalinfo
+        except ObjectDoesNotExist:
+            additionalinfo = AdditionalInfo()
+        
+        try:
+            price = house.price
+        except ObjectDoesNotExist:
+            price = Price()
+        
+        try:
+            furniture = house.furniture
+        except ObjectDoesNotExist:
+            furniture = Furniture()
+        
+        try:
+            location = house.location
+        except ObjectDoesNotExist:
+            location = Location()
 
-        models = {
-            'house': House,
-            'additionalinfo': AdditionalInfo
-        }
-        
-        forms = {
-            'house': HouseForm,
-            'additionalinfo': AdditionalInfoForm
-        }
-        
-        form = forms[model_name]
-        model = models[model_name]
-        
-        print "%s, %s"%(form,model)
+        try:
+            travel = house.travel
+        except ObjectDoesNotExist:
+            travel = Travel()
+            
+        try:
+            contact = house.contact
+        except ObjectDoesNotExist:
+            contact = Contact()
 
-        # if .is_valid():
-          
+        try:
+            appreciation = house.appreciation
+        except ObjectDoesNotExist:
+            appreciation = Appreciation()
+        
+        house_form = HouseForm(request.POST, instance=house)
+        onetoone_forms = []
+        
+        onetoone_forms.append(AdditionalInfoForm(request.POST, instance=additionalinfo))
+        onetoone_forms.append(PriceForm(request.POST, instance=price))
+        room_form = RoomForm()
+        onetoone_forms.append(FurnitureForm(request.POST, instance=furniture))
+        onetoone_forms.append(LocationForm(request.POST, instance=location))
+        onetoone_forms.append(TravelForm(request.POST, instance=travel))
+        onetoone_forms.append(ContactForm(request.POST, instance=contact))
+        onetoone_forms.append(AppreciationForm(request.POST, instance=appreciation))
+        contributor_form = ContributorForm()
+        
+        print "%s"%str(onetoone_forms)                      
+        
+        data = "NOT VALID"
+    
+        if house_form.is_valid() and all(form.is_valid() for form in onetoone_forms):
+            data = "VALID"
+            house = house_form.save()
+            for form in onetoone_forms:
+                model = form.save(commit=False)
+                model.house = house
+                model.save()
+
+        else:
+            data = house_form.errors
+            for form in onetoone_forms:
+                data.update(form.errors)
+
+        return HttpResponse(json.dumps(data), content_type='application/json')
+        
 
     else:
         house = get_object_or_404(House, id=id_house)
