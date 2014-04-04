@@ -96,4 +96,24 @@ $(document).ready(function() {
         });
         return false;
     });
+
+    $("#accordion").accordion({
+	heightStyle: "content",
+	collapsible: true,
+    });
+
+    $('body').on('click', "button[data-type=update]", function() {
+	
+        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+	var model = $(this).parent().attr("id");
+	var form = $("#form").serializeArray();
+	// form.push({name:'model', value:model});
+	// form.push({name:'csrfmiddlewaretoken', value:csrfmiddlewaretoken});
+	
+	$.post(house_update_url, form, function(data) {
+
+	});
+	
+	return false;
+    });
 });

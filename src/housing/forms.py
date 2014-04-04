@@ -34,7 +34,7 @@ class FurnitureForm(forms.ModelForm):
 class LocationForm(forms.ModelForm):
     class Meta:
         model = Location
-        exclude = ('house',)
+        exclude = ('house', )#'latitude', 'longitude', )
 
 class TravelForm(forms.ModelForm):
     class Meta:
@@ -73,7 +73,8 @@ class LoginForm(forms.Form):
 
 class SearchForm(forms.Form):
     name__contains = forms.CharField(label="Name")
-    rent_with_service_charge__lte = forms.IntegerField(label="Price (max)", min_value=0, max_value=9999)
+    price__rent_with_service_charge__lte = forms.IntegerField(label="Price (max)", min_value=0, max_value=9999)
     surface__gte = forms.IntegerField(label="Surface (min)", min_value=0, max_value=9999)
     accomodation_type = forms.ChoiceField(label="Accomodation type", choices=ACCOMODATION_TYPES)
     accomodation_type_other = forms.CharField(label="Accomodation type (other)", max_length=30)
+    furniture__oven = forms.BooleanField(label="Oven")

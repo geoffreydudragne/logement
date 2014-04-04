@@ -29,6 +29,21 @@ $(document).ready(function() {
             }
         });
         
+	$("select").each(function() {
+            name = this.name;
+            value = $(this).val();
+            
+            if(value) {
+                if(first) {
+		    get_string += '?'+name+'='+value;
+		    first = false;
+                }
+                else {
+		    get_string += '&'+name+'='+value;
+                }
+	    }
+        });
+	
         $.getJSON(get_string, function(data) {
             $("#house_list table tbody").html("");
             $.each(data, function(i, item) {
