@@ -5,36 +5,53 @@ $(document).ready(function() {
     //
     
     $('#id_img').fileupload({
-        dataType: 'json',
+        url: add_photo_url,
+	dataType: 'json',
         sequentialUploads: true,
         add: function (e, data) {
-            data.submit();
+
+	    var jqXHR = data.submit()
+		.success(function (result, textStatus, jqXHR) {
+		    
+		}).error(function (jqXHR, textStatus, errorThrown) {
+		    console.log(jqXHR);
+		}).complete(function (result, textStatus, jqXHR) {
+
+		    $("#sortable").append(
+			['<li data-id="',result.id,'" data-pos="',result.pos,'">',
+			 '<div class="photo" data-id="',result.id,'">',
+			 '<img src="',result.thumbnail,'" alt="',result.descr,'"/>',
+			 '<label for="descr">Description</label><input id="descr" name="descr" data-type="set_photo_descr" data-id="',result.id,'" value="',result.descr,'" />',
+			 '<button data-type="delete_photo" data-id="',result.id,'">Delete</button>',
+			 '</div>',
+			 '</li>'
+			].join('')
+		    );
+		   
+		    var overallProgress = $('#id_img').fileupload('progress');
+		    per = Math.round(100*overallProgress.loaded/overallProgress.total);
+		    if(per == 100) {
+			$("#info").dialog("destroy");
+			$("#info").remove();
+		    }
+		    else {
+			$("#info").html(['<h3 style="text-align:center">Uploading: ',per,'%</h3>'].join(''));
+		    }
+		    
+
+		});
         },
-    }).bind('fileuploadstop', function (e, data) {
-        // when upload is done, we refresh the content
-        // get is done only once
-        $.get(get_photo_url, function(data) {
-            $("div[data-type=photo]").html(data);
-            $("#sortable").sortable({
-                'axis':'y',
-                'update': function(event, ui) {
-                    var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
-                    var sort = $.extend({'csrfmiddlewaretoken':csrfmiddlewaretoken}, $("#sortable").sortable("toArray", {attribute:"data-id"}));
-                    $.post(sort_photo_url, sort);
-                },
-            });
-        });
-        // $("#info").dialog("close");
+    }).bind('fileuploadstart', function(e, data) {
+	console.log('start');
+	$("body").append('<div id="info"></div>');
+	$("#info").html('<h3 style="text-align:center">Uploading: 0%</h3>').dialog({
+	    modal: true,
+	    autoOpen: false,
+	}).dialog("open");
+	
     });
-    /*
-      .bind('fileuploadstart', function (e, data) {
-      $("body").append('<div id="info"></div>');
-      $("#info").html('Uploading').dialog({
-      modal: true,
-      autoOpen: false,
-      }).dialog("open");
-      });
-    */
+    
+    
     //
     // Photo delete
     //
@@ -43,7 +60,11 @@ $(document).ready(function() {
 	var id = $(this).data('id');
         var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
         $.post(delete_photo_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, id:id}, function(data) {
-            $("body").append('<div id="info"></div>');
+            $("div").remove(".photo[data-id="+id+"]");
+	    
+	    // dialog box to validate deletion
+	    /*
+	    $("body").append('<div id="info"></div>');
             $("#info").html(data.content).dialog({
                 modal: true,
                 buttons: {
@@ -54,7 +75,7 @@ $(document).ready(function() {
                         $(this).dialog("destroy");
                     }
                 }
-            });
+            });*/
         }, 'json');
         return false;
     });
@@ -72,11 +93,30 @@ $(document).ready(function() {
         'update': function(event, ui) {
             var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
             var sort = $.extend({'csrfmiddlewaretoken':csrfmiddlewaretoken}, $("#sortable").sortable("toArray", {attribute:"data-id"}));
-            console.log(sort);
+            
             $.post(sort_photo_url, sort, function(data) {
                 
             });
         },
+    });
+    
+    $('body').on('click', "button[data-type=add_room]", function() {
+	var room_type = $("#id_room_type").val();
+	var other_type = $("#id_other_type").val();
+        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+        $.post(add_room_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, room_type:room_type, other_type:other_type}, function(data) {
+            $("div[data-type=room]").html(data);
+        });
+        return false;
+    });
+
+    $('body').on('click', "button[data-type=delete_room]", function() {
+	var user = $(this).data('user');
+        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+        $.post(delete_room_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, user:user}, function(data) {
+            $("div[data-type=room]").html(data);
+        });
+        return false;
     });
 
     $('body').on('click', "button[data-type=add_contributor]", function() {

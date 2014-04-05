@@ -297,7 +297,7 @@ def house_update(request, id_house):
 
         additional_info_form = AdditionalInfoForm(instance=additionalinfo)
         price_form = PriceForm(instance=price)
-        # room_form = RoomForm()
+        room_form = RoomForm()
         furniture_form = FurnitureForm(instance=furniture)
         location_form = LocationForm(instance=location)
         travel_form = TravelForm(instance=travel)
@@ -355,10 +355,20 @@ def add_photo(request, id_house):
             
             photo.save()
             
+            data = {
+                "id" : photo.id,
+                "img" : photo.img.url,
+                "thumbnail" : photo.thumbnail.url,
+                "descr" : photo.descr,
+                "pos" : photo.pos,
+            }
+            
         else:
-            print "NOT VALID"
-        
-    return HttpResponse("")
+            data = {
+                "valid" : False,
+            }
+    
+    return HttpResponse(json.dumps(data), content_type='application/json')
     
 @ensure_csrf_cookie
 @user_permission_house
@@ -443,6 +453,62 @@ def set_photo_descr(request, id_house):
             print "Photo/House mismatch"
     
     return HttpResponse("")
+
+########################################
+#                                      #
+# ROOM                                 #
+#                                      #
+########################################
+
+@ensure_csrf_cookie
+@user_permission_house  
+def add_room(request, id_house):
+    """
+
+    """
+    if request.method == 'POST': 
+        house = get_object_or_404(House, id=id_house)
+        room_form = RoomForm(request.POST, instance=Room())
+        
+        if room_form.is_valid():
+            room = room_form.save(commit=False)
+            room.house = house
+            room.save()
+        else:
+            print "NOT VALID"
+
+    # For the template
+    room_form = RoomForm()
+    rooms = house.room_set.all()
+        
+    return render(request, 'housing/add_room.djhtml', locals())
+
+@ensure_csrf_cookie
+@user_permission_house  
+def delete_room(request, id_house):
+    """
+
+    """
+    if request.method == 'POST': 
+        house = get_object_or_404(House, id=id_house)
+        id_user = request.POST.get('user', 0)
+        
+        if id_user:
+            user = get_object_or_404(User, id=id_user)
+            permission = Permission.objects.get(codename='update_house_{0}'.format(house.id))
+            user.user_permissions.remove(permission)
+            room = get_object_or_404(Room, user=user)
+            room.houses.remove(house)
+            room.save()
+        else:
+            print "NOT VALID"
+
+    # For the template
+    room_form = RoomForm()
+    rooms = house.room_set.all()
+        
+    return render(request, 'housing/add_room.djhtml', locals())
+
 
 ########################################
 #                                      #

@@ -1,0 +1,11 @@
+<ul>
+  {% for room in rooms %}
+    <li>
+      {{ room.get_room_type_display }} 
+      <button data-type="delete_room" data-id="{{ room.id }}">Delete</button>
+    </li>
+  {% endfor %}
+</ul>
+{{ room_form.as_p }}
+<button data-type="add_room">Add</button>
+
