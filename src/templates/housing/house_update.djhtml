@@ -10,20 +10,20 @@
     {% endif %}
     <form id="form">
       {% csrf_token %}
-      <div id="accordion">
+      <div id="accordion" enctype="multipart/form-data" action="" method="post">
 	
 	<!-- 
 	<ul>
-	  <li><a href="#house">General</a></li>
-	  <li><a href="#additional_info">Additional</a></li>
-	  <li><a href="#price">Price</a></li>
-	  <li><a href="#furniture">Furniture</a></li>
-	  <li><a href="#location">Location</a></li>
-	  <li><a href="#travel">Travel</a></li>
-	  <li><a href="#contact">Contact</a></li>
-	  <li><a href="#appreciation">Appreciation</a></li>
-	  <li><a href="#photo">Photo</a></li>
-	  <li><a href="#contributor">Contributor</a></li>
+	<li><a href="#house">General</a></li>
+	<li><a href="#additional_info">Additional</a></li>
+	<li><a href="#price">Price</a></li>
+	<li><a href="#furniture">Furniture</a></li>
+	<li><a href="#location">Location</a></li>
+	<li><a href="#travel">Travel</a></li>
+	<li><a href="#contact">Contact</a></li>
+	<li><a href="#appreciation">Appreciation</a></li>
+	<li><a href="#photo">Photo</a></li>
+	<li><a href="#contributor">Contributor</a></li>
 	</ul>
 	-->
 	<h3>General</h3>
@@ -42,6 +42,10 @@
           {{ price_form.as_p }}
 	  <!-- <button data-type="update">Update</button> -->
 	</div>
+	<h3>Rooms</h3>
+	<div id="room" data-type="room">
+	  {% include "housing/add_room.djhtml" %}
+	</div>
 	<h3>Furniture</h3>
 	<div id="furniture">
           {{ furniture_form.as_p }}
@@ -53,12 +57,13 @@
 	  <!-- <button data-type="update">Update</button> -->
 	</div>
 	<h3>Map</h3>      
-	<div id="map">
+	<section id="map_canvas">
           <h3>MAP HERE</h3>
           <p>Center the map on your address and precise the position of your accomodation :</p>
           <div id="map_canvas"</div>
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
+	    <!-- <button data-type="update">Update</button> -->
+	  </div>
+	</section>
 	<h3>Travel</h3>
 	<div id="travel">
           {{ travel_form.as_p }}
@@ -76,14 +81,14 @@
 	</div>
 	
 	<!-- <form enctype="multipart/form-data" action="" method="post"></form>  -->
-	<h3>Photo</h3>
+	<h3>Photos</h3>
 	<div id="photo">
 	  <div  data-type="photo">
 	    {% include "housing/add_photo.djhtml" %}
 	  </div>
 	  <p><label for="id_img">Add photos </label><input id="id_img" type="file" accept="image/*" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
 	</div>
-	<h3>Contributor</h3>
+	<h3>Contributors</h3>
 	<div id="contributor" data-type="contributor">
 	  {% include "housing/add_contributor.djhtml" %}
 	</div>
@@ -98,26 +103,19 @@
 {% endblock %}
 {% block scripts %}
   <script type="text/javascript">
-   $(function () {
-     $('#id_img').fileupload({
-       dataType: 'json',
-       done: function (e, data) {
-         $.each(data.result.files, function (index, file) {
-           $('<p/>').text(file.name).appendTo(document.body);
-         });
-       }
-     });
-   });
+   
    // local variables used in following scripts
    var house_id = {{ house.id }};
+   var add_room_url = '{% url 'housing.views.add_room' house.id %}';
+   var delete_room_url = '{% url 'housing.views.delete_room' house.id %}';
    var add_photo_url = '{% url 'housing.views.add_photo' house.id %}';
    var delete_photo_url = '{% url 'housing.views.delete_photo' house.id %}';
    var get_photo_url = '{% url 'housing.views.get_photo' house.id %}';
    var sort_photo_url = '{% url 'housing.views.sort_photo' house.id %}';
    var set_photo_descr_url = '{% url 'housing.views.set_photo_descr' house.id %}';
    var add_contributor_url = '{% url 'housing.views.add_contributor' house.id %}';
-   var house_update_url = '{% url 'housing.views.house_update' house.id %}';
    var delete_contributor_url = '{% url 'housing.views.delete_contributor' house.id %}';
+   var house_update_url = '{% url 'housing.views.house_update' house.id %}';
 
   </script>
   <script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>

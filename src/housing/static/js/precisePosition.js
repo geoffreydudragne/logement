@@ -15,7 +15,7 @@ $(document).ready(function() {
     });
 
     //$("#centerButton").click(function(){
-    $("#ui-accordion-accordion-header-4").click(function(){
+    $("#ui-accordion-accordion-header-5").click(function(){
         //geocoder.geocode( { 'address': $('#address').val()}, function(results, status) { // test version
         geocoder.geocode( { 'address': $('#id_address').val()+', '+ $('#id_city').val()}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {

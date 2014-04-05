@@ -1,15 +1,11 @@
-<fieldset>
-  <legend>Contributors</legend>
-  {% if contributors %}
-    <ul>
-      {% for contributor in contributors %}
-        <li>
-          {{ contributor.user.username }} 
-          <button data-type="delete_contributor" data-user="{{ contributor.user.id }}">Delete</button>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-  {{ contributor_form.as_table }}
-  <button data-type="add_contributor">Add</button>
-</fieldset>
+<ul>
+  {% for contributor in contributors %}
+    <li>
+      {{ contributor.user.username }} 
+      <button data-type="delete_contributor" data-user="{{ contributor.user.id }}">Delete</button>
+    </li>
+  {% endfor %}
+</ul>
+{{ contributor_form.as_table }}
+<button data-type="add_contributor">Add</button>
+
