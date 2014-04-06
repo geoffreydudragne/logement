@@ -117,12 +117,57 @@ def house(request, id_house):
     """
 
     """
+    house = get_object_or_404(House, id=id_house)
+    photos = house.photo_set.all()
+    rooms = house.room_set.all()
+    contributors = house.contributor_set.all()
+    
+    # relations gathering
+    # can implement a function to prevent code reuse
     try:
-        house = House.objects.get(id=id_house)
-        contributors = house.contributor_set.all()
-        photos = house.photo_set.all()        
-    except:
-        raise Http404
+        additionalinfo = house.additionalinfo
+    except ObjectDoesNotExist:
+        additionalinfo = AdditionalInfo()
+        
+    try:
+        price = house.price
+    except ObjectDoesNotExist:
+        price = Price()
+        
+    try:
+        furniture = house.furniture
+    except ObjectDoesNotExist:
+        furniture = Furniture()
+        
+    try:
+        location = house.location
+    except ObjectDoesNotExist:
+        location = Location()
+        
+    try:
+        travel = house.travel
+    except ObjectDoesNotExist:
+        travel = Travel()
+        
+    try:
+        contact = house.contact
+    except ObjectDoesNotExist:
+        contact = Contact()
+    
+    try:
+        appreciation = house.appreciation
+    except ObjectDoesNotExist:
+        appreciation = Appreciation()
+        
+    house_form = HouseForm(instance=house)
+
+    additional_info_form = AdditionalInfoForm(instance=additionalinfo)
+    price_form = PriceForm(instance=price)
+    furniture_form = FurnitureForm(instance=furniture)
+    location_form = LocationForm(instance=location)
+    travel_form = TravelForm(instance=travel)
+    contact_form = ContactForm(instance=contact)
+    appreciation_form = AppreciationForm(instance=appreciation)
     
     return render(request, 'housing/house.djhtml', locals())
 
@@ -154,7 +199,7 @@ def house_create(request):
                 house.accomodation_name = house_name + "_" + house.landlord_last_name 
             
             house.save()
-
+            
             # Adding permission to contributor
             content_type = ContentType.objects.get(app_label='housing', model='House')
             permission = Permission.objects.create(codename='update_house_{0}'.format(house.id),
@@ -227,13 +272,13 @@ def house_update(request, id_house):
         
         onetoone_forms.append(AdditionalInfoForm(request.POST, instance=additionalinfo))
         onetoone_forms.append(PriceForm(request.POST, instance=price))
-        room_form = RoomForm()
+
         onetoone_forms.append(FurnitureForm(request.POST, instance=furniture))
         onetoone_forms.append(LocationForm(request.POST, instance=location))
         onetoone_forms.append(TravelForm(request.POST, instance=travel))
         onetoone_forms.append(ContactForm(request.POST, instance=contact))
         onetoone_forms.append(AppreciationForm(request.POST, instance=appreciation))
-        contributor_form = ContributorForm()
+
         
         print "%s"%str(onetoone_forms)                      
         
