@@ -17,6 +17,14 @@ class House(models.Model):
     def __unicode__(self):
         return u"%s"%self.accomodation_name
 
+    def as_table(self):
+        output = '<table>'
+        for field in self._meta.fields:
+            output += '<tr><th>%s</th><td>%s</td></tr>' %(field.name, getattr(self, field.name))
+            
+        output += '</table>'
+        return output
+
 class AdditionalInfo(models.Model):
 
     house = models.OneToOneField(House)

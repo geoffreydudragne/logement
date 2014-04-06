@@ -112,12 +112,57 @@ def house(request, id_house):
     """
 
     """
+    house = get_object_or_404(House, id=id_house)
+    photos = house.photo_set.all()
+    rooms = house.room_set.all()
+    contributors = house.contributor_set.all()
+    
+    # relations gathering
+    # can implement a function to prevent code reuse
     try:
-        house = House.objects.get(id=id_house)
-        contributors = house.contributor_set.all()
-        photos = house.photo_set.all()        
-    except:
-        raise Http404
+        additionalinfo = house.additionalinfo
+    except ObjectDoesNotExist:
+        additionalinfo = AdditionalInfo()
+        
+    try:
+        price = house.price
+    except ObjectDoesNotExist:
+        price = Price()
+        
+    try:
+        furniture = house.furniture
+    except ObjectDoesNotExist:
+        furniture = Furniture()
+        
+    try:
+        location = house.location
+    except ObjectDoesNotExist:
+        location = Location()
+        
+    try:
+        travel = house.travel
+    except ObjectDoesNotExist:
+        travel = Travel()
+        
+    try:
+        contact = house.contact
+    except ObjectDoesNotExist:
+        contact = Contact()
+    
+    try:
+        appreciation = house.appreciation
+    except ObjectDoesNotExist:
+        appreciation = Appreciation()
+        
+    house_form = HouseForm(instance=house)
+
+    additional_info_form = AdditionalInfoForm(instance=additionalinfo)
+    price_form = PriceForm(instance=price)
+    furniture_form = FurnitureForm(instance=furniture)
+    location_form = LocationForm(instance=location)
+    travel_form = TravelForm(instance=travel)
+    contact_form = ContactForm(instance=contact)
+    appreciation_form = AppreciationForm(instance=appreciation)
     
     return render(request, 'housing/house.djhtml', locals())
 

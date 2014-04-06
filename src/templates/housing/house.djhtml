@@ -1,11 +1,54 @@
 {% extends "housing/layout.djhtml" %}
 
 {% block main %}
-
-  <p> House ID : {{house.id}} </p>
-  <p> House Name : {{house.name}} </p>
-  <p> House Surface : {{house.surface}} </p>
-  <p> House Price : {{house.price}} € </p>
+  <section>
+    <h3>General information</h3>
+    {% for field in house_form %}
+      <p> {{ field.label }} : {{ field.value }} </p>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Additional information</h3>
+    {% for field in additional_info_form %}
+      <p> {{ field.label }} : {{ field.value }} </p>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Price</h3>
+    {% for field in price_form %}
+      <p> {{ field.label }} : {{ field.value }} </p>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Furniture</h3>
+    {% for field in furniture_form %}
+      <p> {{ field.label }} : {{ field.value }} </p>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Location</h3>
+    {% for field in location_form %}
+      <p> {{ field.label }} : {{ field.value }} </p>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Travel</h3>
+    {% for field in travel_form %}
+      <p> {{ field.label }} : {{ field.value }} </p>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Contact</h3>
+    {% for field in contact_form %}
+      <p> {{ field.label }} : {{ field.value }} </p>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Appreciation</h3>
+    {% for field in appreciation_form %}
+      <p> {{ field.label }} : {{ field.value }} </p>
+    {% endfor %}
+  </section>
   <section> House Contributors :
     <ul>
       {% for contributor in contributors %}
@@ -16,13 +59,41 @@
     </ul>
   </section>
   <section> House Photos :
-    <ul>
-      {% for photo in photos %}
-        <img src="{{MEDIA_URL}}{{ photo.img }}" alt="{{ photo.descr }}" />
-      {% empty %}
-        <p>No Contributor</p>
-      {% endfor %}
-    </ul>
+    <div id="galleryContainer">
+      <button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button>
+      <div id=photoContainer>
+        <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
+        <div id="photoDescr">{{ photos.0.descr }}</div>
+      </div>
+      <button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button>
+
+      <ul id="thumbnails">
+        {% for photo in photos %}
+          <li>
+            <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"> -->
+            <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
+          </li>
+        {% empty %}
+          <p>no photo</p>
+        {% endfor %}
+      </ul>
+    </div>
   </section>
 
+{% endblock %}
+
+{% block scripts %}
+  <script> 
+   var photoRef = new Array();
+   var photoDescr = new Array();
+   {% for photo in photos %}
+   photoRef[{{photo.pos|add:'-1'}}]="{{MEDIA_URL}}{{ photo.img }}";
+   photoDescr[{{photo.pos|add:'-1'}}]="{{ photo.descr }}";
+   {% empty %}
+   {% endfor %}
+   var numberphotos=photoRef.length;
+  </script>
+
+  <script src="{{STATIC_URL}}js/jquery.cacheimage.js"></script>
+  <script src="{{STATIC_URL}}js/gallery.js"></script>
 {% endblock %}

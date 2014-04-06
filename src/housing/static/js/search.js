@@ -49,10 +49,9 @@ $(document).ready(function() {
             $.each(data, function(i, item) {
                 $("#house_list table tbody").append([
                     '<tr>',
-                    '<td>',item.name,'</td>',
+                    '<td><a href="',house_url.replace('0', item.id),'">',item.name,'</a></td>',
                     '<td>',item.surface,'</td>',
                     '<td>',item.price,'</td>',
-                    '<td><a href="',house_url.replace('0', item.id),'">See more</a>','</td>',
                     '</tr>'
                 ].join(''));
             });
