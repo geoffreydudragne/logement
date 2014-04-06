@@ -8,10 +8,9 @@ $(document).ready(function() {
     thumbLinks = thumbList.find("a");
     thumbnails = thumbList.find("img");
     $("#thumbnail0").addClass("active");
-    previousButton=$("#previousButton")[0];
-    nextButton=$("#nextButton")[0];
-    previousButton.disabled=true;
-    nextButton.disabled=false;
+    galleryButtons=$(".galleryButton");
+    previousButton=$("#previousButton");
+    nextButton=$("#nextButton");
 
     loader = $(document.createElement("img")).attr({
       alt: "chargement en cours",
@@ -19,18 +18,26 @@ $(document).ready(function() {
       src: STATIC_URL+"img/loader.gif",
       id: "loader"
     });
-  
-/*    thumbLinks.click(function(e){
-      e.preventDefault();
-      var $thisThumbLink = $(this);
-      var target = $thisThumbLink.attr("href");
-      if (bigPhoto.attr("src") == target) return;
-      //highlight($thisThumbLink);
-      photoContainer.html(loader);
-      bigPhoto.load(function(){photoContainer.html($(this).fadeIn(250));}).attr("src",target);
-    });
-}); */
 
+    previousButton.hide();
+    galleryButtons.css("visibility", "hidden");
+  
+    previousButton.hover(
+        function(){this.src=STATIC_URL+"img/left-arrow.png";},
+        function(){this.src=STATIC_URL+"img/left-arrow-transp.png";}
+        );
+
+    nextButton.hover(
+        function(){this.src=STATIC_URL+"img/right-arrow.png";},
+        function(){this.src=STATIC_URL+"img/right-arrow-transp.png";}
+        );
+
+    $("#sliderContainer").hover(
+        function(){galleryButtons.css("visibility", "visible");},
+        function(){galleryButtons.css("visibility", "hidden");}
+        );
+
+    $.cacheImage(photoRef[1]);                   
 });
 
 function loadphoto(photoNumber){
@@ -51,18 +58,22 @@ function loadphoto(photoNumber){
     }).attr("src",target).attr("alt",photoDescr[photoNumber]);
 
     if (photoNumber==0) {
-        previousButton.disabled=true;
+        //previousButton.disabled=true;
+        previousButton.hide();
     }
     else {
-        previousButton.disabled=false;
+        //previousButton.disabled=false;
+        previousButton.show();
         $.cacheImage(photoRef[photoNumber-1]);                   
     }
     
     if (photoNumber==numberphotos-1) {
-        nextButton.disabled=true;
+        //nextButton.disabled=true;
+        nextButton.hide();
     } 
     else {
-        nextButton.disabled=false;
+        //nextButton.disabled=false;
+        nextButton.show();
         $.cacheImage(photoRef[photoNumber+1]);                   
     }
 }
@@ -86,4 +97,3 @@ function loadNext(){
     thumbList.scrollLeft(scrollLevel);
 }
 
-$.cacheImage(photoRef[1]);                   

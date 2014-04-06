@@ -59,26 +59,29 @@
     </ul>
   </section>
   <section> House Photos :
-    <div id="galleryContainer">
-      <button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button>
-      <div id=photoContainer>
-        <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
-        <div id="photoDescr">{{ photos.0.descr }}</div>
+  <div id="galleryContainer">
+      <!--button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button-->
+      <div id=sliderContainer>
+          <img src="{{STATIC_URL}}img/left-arrow-transp.png" id="previousButton" class="galleryButton" onClick="loadPrevious();">
+          <div id=photoContainer>
+              <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
+              <div id="photoDescr">{{ photos.0.descr }}</div>
+          </div>
+          <!--button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button-->
+          <img src="{{STATIC_URL}}img/right-arrow-transp.png" id="nextButton" class="galleryButton" onClick="loadNext();">
       </div>
-      <button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button>
 
-      <ul id="thumbnails">
-        {% for photo in photos %}
-          <li>
-            <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"> -->
-            <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
-          </li>
-        {% empty %}
-          <p>no photo</p>
-        {% endfor %}
-      </ul>
-    </div>
-  </section>
+          <ul id="thumbnails">
+              {% for photo in photos %}
+              <li>
+              <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
+              </li>
+              {% empty %}
+              <p>no photo</p>
+              {% endfor %}
+          </ul>
+      </div>
+      </section>
 
 {% endblock %}
 
@@ -92,6 +95,7 @@
    {% empty %}
    {% endfor %}
    var numberphotos=photoRef.length;
+   var STATIC_URL = {{STATIC_URL}};
   </script>
 
   <script src="{{STATIC_URL}}js/jquery.cacheimage.js"></script>

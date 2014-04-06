@@ -64,6 +64,11 @@ footer {
 #galleryContainer {
     background-color: black;
     padding: 10px;
+    width: 800px;
+}
+
+#sliderContainer {
+    position: relative;
 }
 
 #photoContainer {
@@ -101,24 +106,19 @@ footer {
 }
     
 .galleryButton {
-    /*background:transparent;
-    border: none;*/
     cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-    width: 90px;
-    height: 600px;
-    font-size:90px;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    margin-top: -34px;
 }
 
 #nextButton {
-    margin-left: -6px;
-    border-radius: 0 20px 20px 0;
+    right: 30px;
 }
 
 #previousButton {
-    margin-right: -6px;
-    border-radius: 20px 0 0 20px;
+    left: 30px;
 } 
 
 #photoDescr {
