@@ -191,3 +191,18 @@ td {
     display:inline-block;
     /* margin-right:30px; */
 }
+
+fieldset {
+    margin-top:20px;
+    background-color:#ffffff;
+    border: 2px solid #239CD3;
+    border-radius:5px;
+}
+
+legend {
+    font-size:120%;
+    border-radius:5px;
+    padding:3px;
+    background-color:#239CD3;
+    color:#efefef;
+}

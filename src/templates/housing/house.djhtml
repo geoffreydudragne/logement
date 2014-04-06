@@ -1,88 +1,128 @@
 {% extends "housing/layout.djhtml" %}
 
 {% block main %}
-  <section>
-    <h3>General information</h3>
-    {% for field in house_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Additional information</h3>
-    {% for field in additional_info_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Price</h3>
-    {% for field in price_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Furniture</h3>
-    {% for field in furniture_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Location</h3>
-    {% for field in location_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Travel</h3>
-    {% for field in travel_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Contact</h3>
-    {% for field in contact_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Appreciation</h3>
-    {% for field in appreciation_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section> House Contributors :
-    <ul>
-      {% for contributor in contributors %}
-        <li> {{ contributor.user.username }} </li>
-      {% empty %}
-        <p>No Contributor</p>
-      {% endfor %}
+<h1>{{ house.accomodation_name }}</h1>
+<section id="gallery"> 
+<div id="galleryContainer">
+    <div id=sliderContainer>
+        <img src="{{STATIC_URL}}img/left-arrow-transp.png" id="previousButton" class="galleryButton" onClick="loadPrevious();">
+        <div id=photoContainer>
+            <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
+            <div id="photoDescr">{{ photos.0.descr }}</div>
+        </div>
+        <img src="{{STATIC_URL}}img/right-arrow-transp.png" id="nextButton" class="galleryButton" onClick="loadNext();">
+    </div>
+
+    <ul id="thumbnails">
+        {% for photo in photos %}
+        <li>
+        <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
+        </li>
+        {% empty %}
+        <p>no photo</p>
+        {% endfor %}
     </ul>
+</div>
+</section>
+  <section id="house">
+    <fieldset><legend>General information</legend>
+      {% for field in house_form %}
+	{% if field.name != 'accomodation_name' and field.value %}
+	  {% if field.name == 'accomodation_type' %}
+	    <p> {{ field.label }} : {{ house.get_accomodation_type_display }} </p>
+	  {% else %}
+	    <p> {{ field.label }} : {{ field.value }} </p>
+	  {% endif %}
+	{% endif %}
+      {% endfor %}
+    </fieldset>
   </section>
-  <section> House Photos :
-  <div id="galleryContainer">
-      <!--button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button-->
-      <div id=sliderContainer>
-          <img src="{{STATIC_URL}}img/left-arrow-transp.png" id="previousButton" class="galleryButton" onClick="loadPrevious();">
-          <div id=photoContainer>
-              <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
-              <div id="photoDescr">{{ photos.0.descr }}</div>
-          </div>
-          <!--button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button-->
-          <img src="{{STATIC_URL}}img/right-arrow-transp.png" id="nextButton" class="galleryButton" onClick="loadNext();">
-      </div>
-
-          <ul id="thumbnails">
-              {% for photo in photos %}
-              <li>
-              <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
-              </li>
-              {% empty %}
-              <p>no photo</p>
-              {% endfor %}
-          </ul>
-      </div>
-      </section>
-
+  <section id="addtional">
+    <fieldset><legend>Additional information</legend>
+      {% for field in additional_info_form %}
+	{% if field.value %}
+	  {% if field.name == 'heating_type' %}
+	    <p> {{ field.label }} : {{ additionalinfo.get_heating_type_display }} </p>
+	  {% elif field.name == 'furniture_appreciation' %}
+	    <p> {{ field.label }} : {{ additionalinfo.get_furniture_appreciation_display }} </p>
+	  {% else %}
+	    <p> {{ field.label }} : {{ field.value }} </p>
+	  {% endif %}
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Price</legend>
+      {% for field in price_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Furniture</legend>
+      <table>
+	<tbody>
+	  {% for field in furniture_form %}
+	    {% cycle '<tr>' '' '' '' %}
+	    <td {% if not field.value %} style="text-decoration:line-through" {% endif %}> {{ field.label }}</td>
+	    {% cycle '' '' '' '</tr>' %}
+	  {% endfor %}
+	</tbody>
+      </table>
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Location</legend>
+      {% for field in location_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Travel</legend>
+      {% for field in travel_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Contact</legend>
+      {% for field in contact_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Appreciation</legend>
+      {% for field in appreciation_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section> 
+    <fieldset>
+      <legend>House Contributors</legend>
+      <ul>
+	{% for contributor in contributors %}
+          <li> {{ contributor.user.username }} </li>
+	{% empty %}
+          <p>No Contributor</p>
+	{% endfor %}
+      </ul>
+    </fieldset>
+  </section>
+  
 {% endblock %}
 
 {% block scripts %}
