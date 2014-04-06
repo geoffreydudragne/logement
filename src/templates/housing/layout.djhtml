@@ -8,16 +8,16 @@
   </head>
   <body>
     <header>
-      <h1>Eurecom Housing</h1>
+      <h1>Eurecom Housing
       <img src="{{STATIC_URL}}img/house2picto.png"/>
-      <input id="quick_search" type="text" placeholder="Quick search by name..."/>
+  </h1>
     </header>
 
     <nav> 
     <ul>
         <li><a href="{{URL}}/housing/search">Search Page</a></li>
-        <li>My accomodations</li>
         <li>My account</li>
+        <li><input id="quick_search" type="text" placeholder="Quick search by name..."/></li>
     </ul>
     </nav>
 
