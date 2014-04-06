@@ -149,7 +149,7 @@ def house_create(request):
                 house.accomodation_name = house_name + "_" + house.landlord_last_name 
             
             house.save()
-
+            
             # Adding permission to contributor
             content_type = ContentType.objects.get(app_label='housing', model='House')
             permission = Permission.objects.create(codename='update_house_{0}'.format(house.id),
@@ -222,13 +222,13 @@ def house_update(request, id_house):
         
         onetoone_forms.append(AdditionalInfoForm(request.POST, instance=additionalinfo))
         onetoone_forms.append(PriceForm(request.POST, instance=price))
-        room_form = RoomForm()
+
         onetoone_forms.append(FurnitureForm(request.POST, instance=furniture))
         onetoone_forms.append(LocationForm(request.POST, instance=location))
         onetoone_forms.append(TravelForm(request.POST, instance=travel))
         onetoone_forms.append(ContactForm(request.POST, instance=contact))
         onetoone_forms.append(AppreciationForm(request.POST, instance=appreciation))
-        contributor_form = ContributorForm()
+
         
         print "%s"%str(onetoone_forms)                      
         
