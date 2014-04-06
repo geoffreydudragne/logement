@@ -54,16 +54,11 @@
 	<h3>Location</h3>      
 	<div id="location">
           {{ location_form.as_p }}
+          <p>Click on the map to precise the position of your accomodation :</p>
+          <button type="button" id='center_button'>Center the map on your address</button>
+          <div id="map_canvas"></div>
 	  <!-- <button data-type="update">Update</button> -->
 	</div>
-	<h3>Map</h3>      
-	<section id="map_canvas">
-          <h3>MAP HERE</h3>
-          <p>Center the map on your address and precise the position of your accomodation :</p>
-          <div id="map_canvas"</div>
-	    <!-- <button data-type="update">Update</button> -->
-	  </div>
-	</section>
 	<h3>Travel</h3>
 	<div id="travel">
           {{ travel_form.as_p }}
