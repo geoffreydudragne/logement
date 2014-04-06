@@ -1,13 +1,35 @@
 {% extends "housing/layout.djhtml" %}
 
 {% block main %}
-  <section>
+  <section id="gallery"> 
+    <h3>Gallery</h3>
+    <div id="galleryContainer">
+      <button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button>
+      <div id=photoContainer>
+        <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
+        <div id="photoDescr">{{ photos.0.descr }}</div>
+      </div>
+      <button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button>
+
+      <ul id="thumbnails">
+        {% for photo in photos %}
+          <li>
+            <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"> -->
+            <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
+          </li>
+        {% empty %}
+          <p>no photo</p>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  <section id="house">
     <h3>General information</h3>
     {% for field in house_form %}
       <p> {{ field.label }} : {{ field.value }} </p>
     {% endfor %}
   </section>
-  <section>
+  <section id="addtional">
     <h3>Additional information</h3>
     {% for field in additional_info_form %}
       <p> {{ field.label }} : {{ field.value }} </p>
@@ -21,9 +43,15 @@
   </section>
   <section>
     <h3>Furniture</h3>
-    {% for field in furniture_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
+    <table>
+      <tbody>
+	{% for field in furniture_form %}
+	  {% cycle '<tr>' '' '' '' %}
+	    <td {% if not field.value %} style="text-decoration:line-through" {% endif %}> {{ field.label }}</td>
+	  {% cycle '' '' '' '</tr>' %}
+	{% endfor %}
+      </tbody>
+    </table>
   </section>
   <section>
     <h3>Location</h3>
@@ -58,28 +86,7 @@
       {% endfor %}
     </ul>
   </section>
-  <section> House Photos :
-    <div id="galleryContainer">
-      <button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button>
-      <div id=photoContainer>
-        <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
-        <div id="photoDescr">{{ photos.0.descr }}</div>
-      </div>
-      <button id="nextButton" class="galleryButton" onClick="loadNext();">&gt;</button>
-
-      <ul id="thumbnails">
-        {% for photo in photos %}
-          <li>
-            <!--  <a href="{{MEDIA_URL}}{{ photo.img }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"> -->
-            <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
-          </li>
-        {% empty %}
-          <p>no photo</p>
-        {% endfor %}
-      </ul>
-    </div>
-  </section>
-
+  
 {% endblock %}
 
 {% block scripts %}

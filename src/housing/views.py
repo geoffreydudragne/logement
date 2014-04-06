@@ -107,6 +107,23 @@ def search_form(request):
 
     return render(request, 'housing/search.djhtml', locals())
 
+def quick_search(request):
+    """
+
+    """
+    if request.method == 'GET':
+        term = request.GET['term']
+        data = []
+        houses = House.objects.filter(accomodation_name__contains=term)
+        for house in houses:
+            data.append({
+                "value" : house.id,
+                "label" : house.accomodation_name,
+            });
+            
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
 ########################################
 #                                      #
 # HOUSE                                #
