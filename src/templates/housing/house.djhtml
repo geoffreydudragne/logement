@@ -1,8 +1,8 @@
 {% extends "housing/layout.djhtml" %}
 
 {% block main %}
+  <h1>{{ house.accomodation_name }}</h1>
   <section id="gallery"> 
-    <h3>Gallery</h3>
     <div id="galleryContainer">
       <button id="previousButton" class="galleryButton" onClick="loadPrevious();">&lt;</button>
       <div id=photoContainer>
@@ -24,67 +24,102 @@
     </div>
   </section>
   <section id="house">
-    <h3>General information</h3>
-    {% for field in house_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
+    <fieldset><legend>General information</legend>
+      {% for field in house_form %}
+	{% if field.name != 'accomodation_name' and field.value %}
+	  {% if field.name == 'accomodation_type' %}
+	    <p> {{ field.label }} : {{ house.get_accomodation_type_display }} </p>
+	  {% else %}
+	    <p> {{ field.label }} : {{ field.value }} </p>
+	  {% endif %}
+	{% endif %}
+      {% endfor %}
+    </fieldset>
   </section>
   <section id="addtional">
-    <h3>Additional information</h3>
-    {% for field in additional_info_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Price</h3>
-    {% for field in price_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Furniture</h3>
-    <table>
-      <tbody>
-	{% for field in furniture_form %}
-	  {% cycle '<tr>' '' '' '' %}
-	    <td {% if not field.value %} style="text-decoration:line-through" {% endif %}> {{ field.label }}</td>
-	  {% cycle '' '' '' '</tr>' %}
-	{% endfor %}
-      </tbody>
-    </table>
-  </section>
-  <section>
-    <h3>Location</h3>
-    {% for field in location_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Travel</h3>
-    {% for field in travel_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Contact</h3>
-    {% for field in contact_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section>
-    <h3>Appreciation</h3>
-    {% for field in appreciation_form %}
-      <p> {{ field.label }} : {{ field.value }} </p>
-    {% endfor %}
-  </section>
-  <section> House Contributors :
-    <ul>
-      {% for contributor in contributors %}
-        <li> {{ contributor.user.username }} </li>
-      {% empty %}
-        <p>No Contributor</p>
+    <fieldset><legend>Additional information</legend>
+      {% for field in additional_info_form %}
+	{% if field.value %}
+	  {% if field.name == 'heating_type' %}
+	    <p> {{ field.label }} : {{ additionalinfo.get_heating_type_display }} </p>
+	  {% elif field.name == 'furniture_appreciation' %}
+	    <p> {{ field.label }} : {{ additionalinfo.get_furniture_appreciation_display }} </p>
+	  {% else %}
+	    <p> {{ field.label }} : {{ field.value }} </p>
+	  {% endif %}
+	{% endif %}
       {% endfor %}
-    </ul>
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Price</legend>
+      {% for field in price_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Furniture</legend>
+      <table>
+	<tbody>
+	  {% for field in furniture_form %}
+	    {% cycle '<tr>' '' '' '' %}
+	    <td {% if not field.value %} style="text-decoration:line-through" {% endif %}> {{ field.label }}</td>
+	    {% cycle '' '' '' '</tr>' %}
+	  {% endfor %}
+	</tbody>
+      </table>
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Location</legend>
+      {% for field in location_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Travel</legend>
+      {% for field in travel_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Contact</legend>
+      {% for field in contact_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section>
+    <fieldset><legend>Appreciation</legend>
+      {% for field in appreciation_form %}
+	{% if field.value %}
+	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% endif %}
+      {% endfor %}
+    </fieldset>
+  </section>
+  <section> 
+    <fieldset>
+      <legend>House Contributors</legend>
+      <ul>
+	{% for contributor in contributors %}
+          <li> {{ contributor.user.username }} </li>
+	{% empty %}
+          <p>No Contributor</p>
+	{% endfor %}
+      </ul>
+    </fieldset>
   </section>
   
 {% endblock %}
