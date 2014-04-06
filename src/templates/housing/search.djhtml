@@ -9,6 +9,7 @@
       </tr>
     </table>
   </section>
+  <div id='map_canvas'></div>
   <section id="house_list">
     {% include "housing/house_list.djhtml" %}
   </section>
@@ -19,5 +20,7 @@
      var search_url = '{% url 'housing.views.search' %}';
      var house_url = '{% url 'housing.views.house' 0 %}';     
   </script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/jquery.ui.map.js"></script>
   <script type="text/javascript" src="{{STATIC_URL}}js/search.js"></script>
 {% endblock %}

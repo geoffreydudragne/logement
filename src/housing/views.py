@@ -82,14 +82,19 @@ def search(request):
         houses = House.objects.filter(**filter)
 
         data = []
+        result_rank=1
 
         for house in houses:
             data.append({
                 "id" : house.id,
                 "name" : house.accomodation_name,
                 "surface" : house.surface,
-                "price" : house.price.rent_with_service_charge
+                "price" : house.price.rent_with_service_charge,
+                "latitude" : house.location.latitude,
+                "longitude" : house.location.longitude,
+                "result_rank" : result_rank
             });
+            result_rank += 1
             
     return HttpResponse(json.dumps(data), content_type='application/json')
 
