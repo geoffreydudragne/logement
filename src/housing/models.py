@@ -43,17 +43,17 @@ class AdditionalInfo(models.Model):
     furniture_appreciation = models.PositiveSmallIntegerField(verbose_name="Furniture appreciation *", choices=APPRECIATIONS)
 
     #around the accomodation
-    noise_comment = models.CharField(max_length=90, verbose_name="Comment the noise atmosphere arround the accomodation (quiet, unexpected noise...)", null=True, blank=True)
-    proximity_shops = models.CharField(max_length=90, verbose_name="Comment about the shops arround the (advantages of near shops, or drawbacks)", null=True, blank=True)
+    noise_comment = models.CharField(max_length=200, verbose_name="Comment the noise atmosphere arround the accomodation (quiet, unexpected noise...)", null=True, blank=True)
+    proximity_shops = models.CharField(max_length=200, verbose_name="Comment about the shops arround the (advantages of near shops, or drawbacks)", null=True, blank=True)
 
     #internet
     internet_connexion = models.BooleanField(verbose_name="Internet connexion provided in the accomodation")
-    internet_details = models.CharField(max_length=80, verbose_name="Comment on the internet service provided (box, phone, TV...)", null=True, blank=True)
+    internet_details = models.CharField(max_length=200, verbose_name="Comment on the internet service provided (box, phone, TV...)", null=True, blank=True)
 
     #outside equipment
     swimming_pool = models.BooleanField(verbose_name="Swimming pool")
     garden = models.BooleanField(verbose_name="Garden")
-    outside_equipment_comment = models.CharField(max_length= 100, verbose_name="Precise any other out-door equipment or infrastructure (e.g.: ping-pong, tennis...), or add here your comments on the garden and the swimming pool", null=True, blank=True)
+    outside_equipment_comment = models.CharField(max_length= 200, verbose_name="Precise any other out-door equipment or infrastructure (e.g.: ping-pong, tennis...), or add here your comments on the garden and the swimming pool", null=True, blank=True)
 
 
 class Price(models.Model):
@@ -67,7 +67,7 @@ class Price(models.Model):
     council_tax = models.PositiveSmallIntegerField(verbose_name="Council tax (taxe d'habitation) *")
     through_agency = models.BooleanField(verbose_name="Rent through an agency")
     agency_fees = models.PositiveSmallIntegerField(verbose_name="Angency fees", default=0)
-    other_expenses = models.CharField(max_length=30, verbose_name="Precise the price of a service charge not included or any other expense", null=True, blank=True)
+    other_expenses = models.CharField(max_length=200, verbose_name="Precise the price of a service charge not included or any other expense", null=True, blank=True)
     apl = models.PositiveSmallIntegerField(verbose_name="APL (Housing Benefits)", null=True, blank=True)
 
     #included in price of rent+service charge
@@ -143,7 +143,7 @@ class Travel(models.Model):
     house = models.OneToOneField(House)
 
     #bus lines
-    bus_line_eurecom = models.CharField(max_length=90, verbose_name="Which bus line to go to Eurecom, and any comment about it. Precise if it's not possible to go by bus", null=True, blank=True)
+    bus_line_eurecom = models.CharField(max_length=200, verbose_name="Which bus line to go to Eurecom, and any comment about it. Precise if it's not possible to go by bus", null=True, blank=True)
     bus_line_railroad_station = models.CharField(max_length=90, verbose_name="Which bus line to go to the nearest railroad station, and any comment about it. Precise if it's not possible to go by bus", null=True, blank=True)
 
     #time of travels (leave empty if unknown values or impossible)
@@ -180,7 +180,7 @@ class Appreciation(models.Model):
     #General description fields
     strong_points = models.CharField(max_length=200, verbose_name="Strong points of the accomodation", null=True, blank=True)
     weak_points = models.CharField(max_length=200, verbose_name="Weak points of the accomodation", null=True, blank=True)
-    general_desciption = models.CharField(max_length=200, verbose_name="Give a general description of the accomodation, anything you want to talk about", null=True, blank=True)
+    general_description = models.CharField(max_length=500, verbose_name="Give a general description of the accomodation, anything you want to talk about", null=True, blank=True)
 
 
 class Photo(models.Model):
