@@ -1,8 +1,11 @@
-<ul>
+<ul id="rooms">
   {% for room in rooms %}
-    <li>
+    <li data-type="room" data-id="{{ room.id }}">
       {{ room.get_room_type_display }} 
-      <button data-type="delete_room" data-id="{{ room.id }}">Delete</button>
+      {% if room.other_type %}
+	({{ room.other_type }})
+      {% endif %}
+      <button data-type="delete_room">Delete</button>
     </li>
   {% endfor %}
 </ul>

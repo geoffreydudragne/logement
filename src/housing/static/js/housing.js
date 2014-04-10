@@ -1,5 +1,9 @@
 $(document).ready(function() {
     
+    $("button").each(function() {
+	$(this).button();
+    });
+
     //
     // Photo multiupload
     //
@@ -27,7 +31,7 @@ $(document).ready(function() {
 			 '</li>'
 			].join('')
 		    );
-		   
+		    
 		    var overallProgress = $('#id_img').fileupload('progress');
 		    per = Math.round(100*overallProgress.loaded/overallProgress.total);
 		    if(per == 100) {
@@ -64,18 +68,18 @@ $(document).ready(function() {
 	    
 	    // dialog box to validate deletion
 	    /*
-	    $("body").append('<div id="info"></div>');
-            $("#info").html(data.content).dialog({
-                modal: true,
-                buttons: {
-                    Ok: function() {
-                        if(data.valid) {
-                            $("div").remove(".photo[data-id="+id+"]");
-                        }
-                        $(this).dialog("destroy");
-                    }
-                }
-            });*/
+	      $("body").append('<div id="info"></div>');
+              $("#info").html(data.content).dialog({
+              modal: true,
+              buttons: {
+              Ok: function() {
+              if(data.valid) {
+              $("div").remove(".photo[data-id="+id+"]");
+              }
+              $(this).dialog("destroy");
+              }
+              }
+              });*/
         }, 'json');
         return false;
     });
@@ -105,36 +109,57 @@ $(document).ready(function() {
 	var other_type = $("#id_other_type").val();
         var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
         $.post(add_room_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, room_type:room_type, other_type:other_type}, function(data) {
-            $("div[data-type=room]").html(data);
-        });
-        return false;
+	    var html;
+	    if(data.other) {
+		html = ['<li data-type="room" data-id="', data.id, '">', data.name, ' (', data.other, ')',
+			'<button data-type="delete_room">Delete</button></li>'
+		       ].join('');
+	    }
+	    else {
+		html = ['<li data-type="room" data-id="', data.id, '">', data.name,
+			'<button data-type="delete_room">Delete</button></li>'
+		       ].join('');
+	    }
+	
+	    $("#rooms").append(html);
+	    
+	    $("#rooms").find("li[data-id=" + data.id + "]").find("button").button();
+        
+	});
+	
+	return false;
     });
 
     $('body').on('click', "button[data-type=delete_room]", function() {
-	var user = $(this).data('user');
-        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
-        $.post(delete_room_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, user:user}, function(data) {
-            $("div[data-type=room]").html(data);
-        });
-        return false;
+	var room = $(this).parent().data('id');
+	var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+	$.post(delete_room_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, room:room}, function(data) {
+	    if(data=="VALID") {
+		$("li[data-id=" + room + "]").remove();
+	    }
+	    else {
+		console.log(data);
+	    }
+	});
+	return false;
     });
 
     $('body').on('click', "button[data-type=add_contributor]", function() {
 	var user = $("#id_user").val();
-        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
-        $.post(add_contributor_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, user:user}, function(data) {
-            $("div[data-type=contributor]").html(data);
-        });
-        return false;
+	var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+	$.post(add_contributor_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, user:user}, function(data) {
+	    $("div[data-type=contributor]").html(data);
+	});
+	return false;
     });
 
     $('body').on('click', "button[data-type=delete_contributor]", function() {
 	var user = $(this).data('user');
-        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
-        $.post(delete_contributor_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, user:user}, function(data) {
-            $("div[data-type=contributor]").html(data);
-        });
-        return false;
+	var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+	$.post(delete_contributor_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, user:user}, function(data) {
+	    $("div[data-type=contributor]").html(data);
+	});
+	return false;
     });
 
     $("#accordion").accordion({
@@ -144,7 +169,7 @@ $(document).ready(function() {
 
     $('body').on('click', "button[data-type=update]", function() {
 	
-        var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+	var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
 	var model = $(this).parent().attr("id");
 	var form = $("#form").serializeArray();
 	// form.push({name:'model', value:model});

@@ -88,7 +88,7 @@
 	  {% include "housing/add_contributor.djhtml" %}
 	</div>
       </div>
-      <button data-type="update">Update</button>
+      <button id="button_update" data-type="update">Update</button>
     </form>    
 
 

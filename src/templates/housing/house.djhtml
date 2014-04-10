@@ -1,31 +1,60 @@
 {% extends "housing/layout.djhtml" %}
 
 {% block main %}
-<h1>{{ house.accomodation_name }}</h1>
-<section id="gallery"> 
-<div id="galleryContainer">
-    <div id=sliderContainer>
-        <img src="{{STATIC_URL}}img/left-arrow-transp.png" id="previousButton" class="galleryButton" onClick="loadPrevious();">
-        <div id=photoContainer>
+  {% if can_update %}
+    <button style="float:right" onclick="window.location='{% url 'housing.views.house_update' house.id %}'">Update</button>
+  {% endif %}
+  <h1>{{ house.accomodation_name }}</h1>
+    
+  {% comment %}
+  ** Gallery
+  * 
+  {% endcomment %}
+  <section id="gallery_info">
+    <article id="gallery"> 
+      <div id="galleryContainer">
+	<div id=sliderContainer>
+          <img src="{{STATIC_URL}}img/left-arrow-transp.png" id="previousButton" class="galleryButton" onClick="loadPrevious();">
+          <div id=photoContainer>
             <img src="{{MEDIA_URL}}{{ photos.0.img }}"/> 
             <div id="photoDescr">{{ photos.0.descr }}</div>
-        </div>
-        <img src="{{STATIC_URL}}img/right-arrow-transp.png" id="nextButton" class="galleryButton" onClick="loadNext();">
-    </div>
+          </div>
+          <img src="{{STATIC_URL}}img/right-arrow-transp.png" id="nextButton" class="galleryButton" onClick="loadNext();">
+	</div>
 
-    <ul id="thumbnails">
-        {% for photo in photos %}
-        <li>
-        <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
-        </li>
-        {% empty %}
-        <p>no photo</p>
-        {% endfor %}
+	<ul id="thumbnails">
+          {% for photo in photos %}
+            <li>
+              <img src="{{MEDIA_URL}}{{ photo.thumbnail }}" alt="{{ photo.descr }}" id="thumbnail{{photo.pos|add:'-1'}}" onClick="loadphoto({{photo.pos|add:'-1'}});"/>
+            </li>
+          {% empty %}
+            <p>no photo</p>
+          {% endfor %}
+	</ul>
+      </div>
+    </article>
+
+    <aside id="general">
+      <ul>
+	<li>Type : {{ house.get_accomodation_type_display }}</li>
+	<li>Price : {{ house.price.rent_with_service_charge }} €</li>
+      </ul>
+    </aside>
+
+  </section>
+  <section id="information">
+    <ul>
+      <li><a href="#house">General</a></li>
+      <li><a href="#additional_info">Additional</a></li>
+      <li><a href="#price">Price</a></li>
+      <li><a href="#furniture">Furniture</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#travel">Travel</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#appreciation">Appreciation</a></li>
     </ul>
-</div>
-</section>
-  <section id="house">
-    <fieldset><legend>General information</legend>
+    <article id="house">
+      
       {% for field in house_form %}
 	{% if field.name != 'accomodation_name' and field.value %}
 	  {% if field.name == 'accomodation_type' %}
@@ -35,10 +64,10 @@
 	  {% endif %}
 	{% endif %}
       {% endfor %}
-    </fieldset>
-  </section>
-  <section id="addtional">
-    <fieldset><legend>Additional information</legend>
+      
+    </article>
+    <article id="additional_info">
+      
       {% for field in additional_info_form %}
 	{% if field.value %}
 	  {% if field.name == 'heating_type' %}
@@ -50,19 +79,23 @@
 	  {% endif %}
 	{% endif %}
       {% endfor %}
-    </fieldset>
-  </section>
-  <section>
-    <fieldset><legend>Price</legend>
+      
+    </article>
+    <article id="price">
+      
       {% for field in price_form %}
-	{% if field.value %}
+	{% if field.value == True %}
+	  <p> {{ field.label }} : <img src="{{ STATIC_URL }}/img/true_icon.png"/> </p>
+	{% elif field.value == False %}
+	  <p> {{ field.label }} : <img src="{{ STATIC_URL }}/img/false_icon.png"/> </p>
+	{% else %}
 	  <p> {{ field.label }} : {{ field.value }} </p>
 	{% endif %}
       {% endfor %}
-    </fieldset>
-  </section>
-  <section>
-    <fieldset><legend>Furniture</legend>
+      
+    </article>
+    <article id="furniture">
+      
       <table>
 	<tbody>
 	  {% for field in furniture_form %}
@@ -72,55 +105,45 @@
 	  {% endfor %}
 	</tbody>
       </table>
-    </fieldset>
-  </section>
-  <section>
-    <fieldset><legend>Location</legend>
+      
+    </article>
+    <article id="location">
+      
       {% for field in location_form %}
 	{% if field.value %}
 	  <p> {{ field.label }} : {{ field.value }} </p>
 	{% endif %}
       {% endfor %}
-    </fieldset>
-  </section>
-  <section>
-    <fieldset><legend>Travel</legend>
+      
+    </article>
+    <article id="travel">
+      
       {% for field in travel_form %}
 	{% if field.value %}
 	  <p> {{ field.label }} : {{ field.value }} </p>
 	{% endif %}
       {% endfor %}
-    </fieldset>
-  </section>
-  <section>
-    <fieldset><legend>Contact</legend>
+      
+    </article>
+    <article id="contact">
+      
       {% for field in contact_form %}
 	{% if field.value %}
 	  <p> {{ field.label }} : {{ field.value }} </p>
 	{% endif %}
       {% endfor %}
-    </fieldset>
-  </section>
-  <section>
-    <fieldset><legend>Appreciation</legend>
+      
+    </article>
+    <article id="appreciation">
+      
       {% for field in appreciation_form %}
 	{% if field.value %}
 	  <p> {{ field.label }} : {{ field.value }} </p>
+	{% else %}
+	  <p> {{ field.label }} : No information :( </p>
 	{% endif %}
       {% endfor %}
-    </fieldset>
-  </section>
-  <section> 
-    <fieldset>
-      <legend>House Contributors</legend>
-      <ul>
-	{% for contributor in contributors %}
-          <li> {{ contributor.user.username }} </li>
-	{% empty %}
-          <p>No Contributor</p>
-	{% endfor %}
-      </ul>
-    </fieldset>
+    </article>
   </section>
   
 {% endblock %}
@@ -130,8 +153,8 @@
    var photoRef = new Array();
    var photoDescr = new Array();
    {% for photo in photos %}
-   photoRef[{{photo.pos|add:'-1'}}]="{{MEDIA_URL}}{{ photo.img }}";
-   photoDescr[{{photo.pos|add:'-1'}}]="{{ photo.descr }}";
+   photoRef[{{ photo.pos|add:'-1' }}]="{{ MEDIA_URL }}{{ photo.img }}";
+   photoDescr[{{ photo.pos|add:'-1' }}]="{{ photo.descr }}";
    {% empty %}
    {% endfor %}
    var numberphotos=photoRef.length;
@@ -140,4 +163,5 @@
 
   <script src="{{STATIC_URL}}js/jquery.cacheimage.js"></script>
   <script src="{{STATIC_URL}}js/gallery.js"></script>
+  <script src="{{STATIC_URL}}js/house.js"></script>
 {% endblock %}

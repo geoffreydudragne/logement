@@ -7,6 +7,26 @@ $(document).ready(function() {
     }).click(function() {
         $('#map_canvas').gmap('openInfoWindow', {'content': "Eurecom"}, this);
     });
+    
+    var $accomodation_type = $("#id_accomodation_type");
+    var $accomodation_type_other_input = $("#id_accomodation_type_other");
+    var $accomodation_type_other_label = $("label[for=id_accomodation_type_other]");
+    
+    
+    $accomodation_type_other_input.hide();
+    $accomodation_type_other_label.hide();
+    
+    $accomodation_type.on('change', function() {
+	console.log($accomodation_type.val());
+	if($accomodation_type.val()==0) {
+	    $accomodation_type_other_input.show();
+	    $accomodation_type_other_label.show();
+	}
+	else {
+	    $accomodation_type_other_input.hide();
+	    $accomodation_type_other_label.hide();
+	}
+    });
 
     $('#search').on('click', function() {
 

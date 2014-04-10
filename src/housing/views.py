@@ -114,7 +114,7 @@ def quick_search(request):
     if request.method == 'GET':
         term = request.GET['term']
         data = []
-        houses = House.objects.filter(accomodation_name__contains=term)
+        houses = House.objects.filter(accomodation_name__icontains=term)
         for house in houses:
             data.append({
                 "value" : house.id,
@@ -186,6 +186,10 @@ def house(request, id_house):
     contact_form = ContactForm(instance=contact)
     appreciation_form = AppreciationForm(instance=appreciation)
     
+    user = request.user
+    if user.has_perm('housing.update_house_{0}'.format(id_house)):
+        can_update = True
+
     return render(request, 'housing/house.djhtml', locals())
 
 
@@ -406,13 +410,17 @@ def add_photo(request, id_house):
             photo.save()
 
             # Image resizing
-            image = Image.open(photo.img)
-            image.thumbnail((settings.IMG_MAX_HEIGHT, settings.IMG_MAX_WIDTH), Image.ANTIALIAS)
-            image.save(os.path.join(settings.MEDIA_ROOT, 'housing/%s-%s.jpg'%(house.accomodation_name, photo.pos)), 'JPEG', quality=90)
+            # image = Image.open(photo.img)
+            # image.thumbnail((settings.IMG_MAX_WIDTH, settings.IMG_MAX_HEIGHT), Image.ANTIALIAS)
+            # image.save(os.path.join(settings.MEDIA_ROOT, 'housing/%s-%s.jpg'%(house.accomodation_name, photo.pos)), 'JPEG', quality=90)
+            new_path = os.path.join(settings.MEDIA_ROOT, 'housing/%s-%s.jpg'%(house.accomodation_name, photo.pos))
+            thumbnail_path = os.path.join(settings.MEDIA_ROOT, 'housing/thumbnails/%s-%s.jpg'%(house.accomodation_name, photo.pos))
+            resize_and_crop(photo.img, new_path, thumbnail_path);
             # Thumbnail creation
-            image.thumbnail((settings.THUMBNAIL_HEIGHT, settings.THUMBNAIL_WIDTH), Image.ANTIALIAS)
-            image.save(os.path.join(settings.MEDIA_ROOT, 'housing/thumbnails/%s-%s.jpg'%(house.accomodation_name, photo.pos)), 'JPEG', quality=90)
-            
+            # image.thumbnail((settings.THUMBNAIL_WIDTH, settings.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
+            # image.save(os.path.join(settings.MEDIA_ROOT, 'housing/thumbnails/%s-%s.jpg'%(house.accomodation_name, photo.pos)), 'JPEG', quality=90)
+            # name = os.path.join(settings.MEDIA_ROOT, 'housing/thumbnails/%s-%s.jpg'%(house.accomodation_name, photo.pos))
+            # resize_and_crop(photo.img, name, (settings.THUMBNAIL_WIDTH, settings.THUMBNAIL_HEIGHT), 'middle');
             # Directly remove initial uploaded image
             os.unlink(os.path.join(settings.MEDIA_ROOT, str(photo.img)))
             
@@ -541,8 +549,18 @@ def add_room(request, id_house):
             room = room_form.save(commit=False)
             room.house = house
             room.save()
+            
+            data = {
+                "id" : room.id,
+                "name" : room.get_room_type_display(),
+                "other" : room.other_type,
+            }
+            
         else:
-            print "NOT VALID"
+            data = "NOT VALID"
+            
+
+        return HttpResponse(json.dumps(data), content_type='application/json')
 
     # For the template
     room_form = RoomForm()
@@ -558,17 +576,16 @@ def delete_room(request, id_house):
     """
     if request.method == 'POST': 
         house = get_object_or_404(House, id=id_house)
-        id_user = request.POST.get('user', 0)
+        id_room = request.POST.get('room', 0)
         
-        if id_user:
-            user = get_object_or_404(User, id=id_user)
-            permission = Permission.objects.get(codename='update_house_{0}'.format(house.id))
-            user.user_permissions.remove(permission)
-            room = get_object_or_404(Room, user=user)
-            room.houses.remove(house)
-            room.save()
+        if id_room:
+            room = get_object_or_404(Room, id=id_room)
+            room.delete()
+            data = "VALID"
         else:
-            print "NOT VALID"
+            data = "NOT VALID"
+        
+        return HttpResponse(json.dumps(data), content_type='application/json')
 
     # For the template
     room_form = RoomForm()
@@ -708,6 +725,21 @@ def gallery(request, id_house):
 
 ########################################
 #                                      #
+# ACCOUNT                              #
+#                                      #
+########################################
+@login_required
+def account(request):
+    user = request.user
+    try:
+        contributor = user.contributor
+        houses = contributor.houses.all()
+    except:
+        contributor = None
+    return render(request, 'housing/account.djhtml', locals())
+
+########################################
+#                                      #
 # USER                                 #
 #                                      #
 ########################################
@@ -750,3 +782,35 @@ def user_logout(request):
     return redirect(reverse(user_login))
 
 
+def resize_and_crop(img_path, new_path, thumbnail_path):
+    """
+    Resize and crop an image to fit the specified size.
+
+    """
+    # If height is higher we resize vertically, if not we resize horizontally
+    img = Image.open(img_path)
+    # Get current and desired ratio for the images
+    img_ratio = img.size[0] / float(img.size[1])
+    ratio = settings.IMG_WIDTH / float(settings.IMG_HEIGHT)
+    #The image is scaled/cropped vertically or horizontally depending on the ratio
+    if ratio > img_ratio:
+        img = img.resize((settings.IMG_WIDTH, settings.IMG_WIDTH * img.size[1] / img.size[0]), Image.ANTIALIAS)
+        box = (0, (img.size[1] - settings.IMG_HEIGHT) / 2, img.size[0], (img.size[1] + settings.IMG_HEIGHT) / 2)
+        img = img.crop(box)
+        img.save(new_path)
+        img = img.resize((settings.THUMBNAIL_WIDTH, settings.THUMBNAIL_WIDTH * img.size[1] / img.size[0]), Image.ANTIALIAS)
+        img.save(thumbnail_path)
+        
+    elif ratio < img_ratio:
+        img = img.resize((settings.IMG_HEIGHT * img.size[0] / img.size[1], settings.IMG_HEIGHT), Image.ANTIALIAS)
+        box = (img.size[0] - settings.IMG_WIDTH / 2, 0, (img.size[0] + settings.IMG_WIDTH) / 2, img.size[1])
+        img = img.crop(box)
+        img.save(new_path)
+        img = img.resize((settings.THUMBNAIL_HEIGHT * img.size[0] / img.size[1], settings.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
+        img.save(thumbnail_path)
+    
+    else :
+        img = img.resize((settings.IMG_WIDTH, settings.IMG_HEIGHT), Image.ANTIALIAS)
+        img.save(new_path)
+        img = img.resize((settings.THUMBNAIL_WIDTH, settings.THUMBNAIL_HEIGHT), Image.ANTIALIAS)
+        img.save(thumbnail_path)

@@ -1,0 +1,33 @@
+{% extends "housing/layout.djhtml" %}
+
+{% block main %}
+  <h1>Welcome {{ user.username }} !</h1>
+  <button onclick="window.location='{% url 'housing.views.user_logout' %}'">Logout</button>
+  {% if contributor %}
+    {% if houses %}
+      <p>Houses you contribute to : </p>
+      {% for house in houses %}
+	<p> {{ house }} - <button onclick="window.location='{% url 'housing.views.house_update' house.id %}'">Update</button></p>
+      {% endfor %}
+    {% else %}
+      <p>You contribute to no houses</p>
+    {% endif %}
+  {% else %}
+    <p> You are not a contributor :(</p>
+  {% endif %}
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript">
+   
+   // local variables used in following scripts
+   
+
+  </script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.fileupload.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.iframe-transport.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/jquery.ui.map.js"></script>
+  <script src="{{STATIC_URL}}js/precisePosition.js"></script>
+{% endblock %}

@@ -1,5 +1,10 @@
+* {
+    font-family:Lucida Grande,Lucida Sans,Arial,sans-serif;
+}
+
 body {
     overflow:scroll;
+    font-family:Lucida Grande,​Lucida Sans,​Arial,​sans-serif;
 }
 
 a {
@@ -8,23 +13,57 @@ a {
 }
 
 header {
-    text-align: center;
+    margin:auto;
+    margin-bottom:15px;
     padding:1px;
     background-color: #239CD3;
     color: white;
+    height:100px;
+    width:1000px;
+}
 
+header h1 {
+    display:inline;
+}
+
+#button_update {
+    margin-top:10px;
+    float:right;
+}
+
+#main h1 {
+    text-align:center;
+    font-variant:small-caps;
+    font-size:200%;
+    font-weight:bold;
+}
+
+#header_img {
+    background-image:url('../img/header.png');
+    width:600px;
+    height:100px;
+    float:left;
 }
 
 nav {
-    margin: auto;
-    margin-bottom: 5px;
-    width: 1000px;
-    background-color: #5D606E; 
     color: white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight:bold;
+    font-variant:small-caps;
+    font-size:120%;
+    width:400px;
+    margin-top:50px;
+    margin-left:600px;
 }
 
+#gallery_info {
+    margin-bottom:20px;
+}
+
+/*
 nav ul {
     list-style: none;
+    width:200px;
     
 }
 
@@ -33,6 +72,7 @@ nav ul li{
     font-size:20px;
     margin: 10px 20px 10px 20px;
 }
+*/
 
 footer {
     text-align: center;
@@ -40,6 +80,30 @@ footer {
     margin-top: 20px
 }
 
+aside {
+    margin-left:680px;
+    height:512px;
+    border:1px solid #239CD3;
+    border-radius:3px;
+    background-color:#F2F5F7;
+    color:#362B36;
+}
+
+aside ul {
+    list-style:none;
+}
+
+aside ul li {
+    font-weight:bold;
+}
+
+#gallery {
+    float:left;
+}
+
+#information {
+    clear:both;
+}
 #map_canvas {
     width: 600px;
     height: 400px;
@@ -62,9 +126,11 @@ footer {
 }
 
 #galleryContainer {
-    background-color: black;
+    border: 1px solid #239CD3;
+    border-radius: 3px;
+    background-color: #F2F5F7;
     padding: 10px;
-    width: 800px;
+    width: 639px;
 }
 
 #sliderContainer {
@@ -72,9 +138,9 @@ footer {
 }
 
 #photoContainer {
-    background-color: black;
-    width: 800px;
-    height: 600px;
+    background-color: #eeeeee;
+    width: 639px;
+    height: 426px;
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -97,12 +163,12 @@ footer {
 }
 
 #thumbnails img {
-    border: 3px solid black;
+    border: 3px solid #cdcdcd;
     cursor: pointer;
 }
     
 #thumbnails .active {
-    border: 3px solid green;
+    border: 3px solid #239CD3;
 }
     
 .galleryButton {
@@ -126,7 +192,7 @@ footer {
     text-align: center;
 
     background-color: rgba(0, 0, 0, 0);
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
     border-radius: 2px;
     bottom: 0;
     color: #FFFFFF;

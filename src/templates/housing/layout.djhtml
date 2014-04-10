@@ -8,18 +8,21 @@
   </head>
   <body>
     <header>
-      <h1>Eurecom Housing
-      <img src="{{STATIC_URL}}img/house2picto.png"/>
-  </h1>
+      <!-- 
+      <h1>
+	Eurecom Housing
+	<img src="{{STATIC_URL}}img/house2picto.png"/>
+      </h1>
+      -->
+      <div id="header_img"></div>
+      <nav> 
+	<a href="{% url 'housing.views.search_form' %}">search</a> | 
+	<a href="{% url 'housing.views.account' %}">account</a> | 
+	<input id="quick_search" type="text" placeholder="Quick search by name..."/>
+      </nav>
     </header>
 
-    <nav> 
-    <ul>
-        <li><a href="{{URL}}/housing/search">Search Page</a></li>
-        <li>My account</li>
-        <li><input id="quick_search" type="text" placeholder="Quick search by name..."/></li>
-    </ul>
-    </nav>
+    
 
     <section id="main">
       {% block main %}

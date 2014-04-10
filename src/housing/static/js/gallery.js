@@ -11,31 +11,39 @@ $(document).ready(function() {
     galleryButtons=$(".galleryButton");
     previousButton=$("#previousButton");
     nextButton=$("#nextButton");
+    var $photoDescr=$("#photoDescr");
 
     loader = $(document.createElement("img")).attr({
-      alt: "chargement en cours",
-      title: "chargement en cours",
-      src: STATIC_URL+"img/loader.gif",
-      id: "loader"
+	alt: "chargement en cours",
+	title: "chargement en cours",
+	src: STATIC_URL+"img/loader.gif",
+	id: "loader"
     });
 
     previousButton.hide();
     galleryButtons.css("visibility", "hidden");
-  
+    $photoDescr.css("visibility", "hidden");
+    
     previousButton.hover(
         function(){this.src=STATIC_URL+"img/left-arrow.png";},
         function(){this.src=STATIC_URL+"img/left-arrow-transp.png";}
-        );
+    );
 
     nextButton.hover(
         function(){this.src=STATIC_URL+"img/right-arrow.png";},
         function(){this.src=STATIC_URL+"img/right-arrow-transp.png";}
-        );
+    );
 
     $("#sliderContainer").hover(
-        function(){galleryButtons.css("visibility", "visible");},
-        function(){galleryButtons.css("visibility", "hidden");}
-        );
+        function(){
+	    galleryButtons.css("visibility", "visible");
+	    $photoDescr.css("visibility", "visible");
+	},
+        function(){
+	    galleryButtons.css("visibility", "hidden");
+	    $photoDescr.css("visibility", "hidden");
+	}
+    );
 
     $.cacheImage(photoRef[1]);                   
 });

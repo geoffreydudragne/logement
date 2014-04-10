@@ -9,7 +9,8 @@
       </tr>
     </table>
   </section>
-  <div id='map_canvas'></div>
+  <div id='map_canvas'>
+  </div>
   <section id="house_list">
     {% include "housing/house_list.djhtml" %}
   </section>
