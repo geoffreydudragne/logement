@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 
         
 class House(models.Model):
-    accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name (if none, leave empty and it will be auto generated", unique=True, null=True, blank=True)
+    accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name", help_text="if none, leave empty and it will be auto generated", unique=True, null=True, blank=True)
     
     #principal characteristics
-    surface = models.PositiveSmallIntegerField(verbose_name="Surface Area *")
+    surface = models.PositiveSmallIntegerField(verbose_name="Surface Area *", help_text="in m2")
     ACCOMODATION_TYPES = ((1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (0,"other"))
     accomodation_type = models.PositiveSmallIntegerField(verbose_name="Accomodation type *", choices=ACCOMODATION_TYPES)
-    accomodation_type_other = models.CharField(max_length=20, verbose_name="Other accomodation type", null=True, blank=True)
-    number_persons = models.PositiveSmallIntegerField(verbose_name="Number of persons *")
+    accomodation_type_other = models.CharField(max_length=20, verbose_name="Other", help_text="Precise your accomodation type here if you have chosen other", null=True, blank=True)
+    number_persons = models.PositiveSmallIntegerField(verbose_name="Number of persons *", help_text="Number of persons the house can accomodate")
      
     
     def __unicode__(self):
@@ -31,7 +31,7 @@ class AdditionalInfo(models.Model):
 
     #general secondary
 
-    floor = models.PositiveSmallIntegerField(verbose_name="Floor (Considering the entrance door, and that the street is at 0) *")
+    floor = models.PositiveSmallIntegerField(verbose_name="Floor *", help_text="Considering the entrance door, and that the street is at 0")
     disabled_persons = models.BooleanField(verbose_name="Access for disabled persons")
     need_car = models.BooleanField(verbose_name="Need for at least one car")
     parking = models.BooleanField(verbose_name="Parking")
@@ -43,17 +43,17 @@ class AdditionalInfo(models.Model):
     furniture_appreciation = models.PositiveSmallIntegerField(verbose_name="Furniture appreciation *", choices=APPRECIATIONS)
 
     #around the accomodation
-    noise_comment = models.CharField(max_length=200, verbose_name="Comment the noise atmosphere arround the accomodation (quiet, unexpected noise...)", null=True, blank=True)
-    proximity_shops = models.CharField(max_length=200, verbose_name="Comment about the shops arround the (advantages of near shops, or drawbacks)", null=True, blank=True)
+    noise_comment = models.CharField(max_length=200, verbose_name="Noise comment", help_text="Comment the noise atmosphere arround the accomodation (quiet, unexpected noise...)", null=True, blank=True)
+    proximity_shops = models.CharField(max_length=200, verbose_name="Proximity shops", help_text="Comment about the shops arround the (advantages of near shops, or drawbacks)", null=True, blank=True)
 
     #internet
     internet_connexion = models.BooleanField(verbose_name="Internet connexion provided in the accomodation")
-    internet_details = models.CharField(max_length=200, verbose_name="Comment on the internet service provided (box, phone, TV...)", null=True, blank=True)
+    internet_details = models.CharField(max_length=200, verbose_name="Internet details", help_text="Comment on the internet service provided (box, phone, TV...)", null=True, blank=True)
 
     #outside equipment
     swimming_pool = models.BooleanField(verbose_name="Swimming pool")
     garden = models.BooleanField(verbose_name="Garden")
-    outside_equipment_comment = models.CharField(max_length= 200, verbose_name="Precise any other out-door equipment or infrastructure (e.g.: ping-pong, tennis...), or add here your comments on the garden and the swimming pool", null=True, blank=True)
+    outside_equipment_comment = models.CharField(max_length= 200, verbose_name="Outside equipment", help_text="Precise any other out-door equipment or infrastructure (e.g.: ping-pong, tennis...), or add here your comments on the garden and the swimming pool", null=True, blank=True)
 
 
 class Price(models.Model):

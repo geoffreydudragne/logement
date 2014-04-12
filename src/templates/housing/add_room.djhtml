@@ -5,7 +5,7 @@
       {% if room.other_type %}
 	({{ room.other_type }})
       {% endif %}
-      <button data-type="delete_room">Delete</button>
+      <button data-type="delete_room">X</button>
     </li>
   {% endfor %}
 </ul>

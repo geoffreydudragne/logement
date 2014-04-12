@@ -272,3 +272,7 @@ legend {
     background-color:#239CD3;
     color:#efefef;
 }
+
+.helptext {
+    visibility:hidden;
+}

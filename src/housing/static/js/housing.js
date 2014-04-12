@@ -26,11 +26,12 @@ $(document).ready(function() {
 			 '<div class="photo" data-id="',result.id,'">',
 			 '<img src="',result.thumbnail,'" alt="',result.descr,'"/>',
 			 '<label for="descr">Description</label><input id="descr" name="descr" data-type="set_photo_descr" data-id="',result.id,'" value="',result.descr,'" />',
-			 '<button data-type="delete_photo" data-id="',result.id,'">Delete</button>',
+			 '<button data-type="delete_photo" data-id="',result.id,'">X</button>',
 			 '</div>',
 			 '</li>'
 			].join('')
 		    );
+		    $("#sortable").find("li[data-id=" + data.id + "]").find("button").button();
 		    
 		    var overallProgress = $('#id_img').fileupload('progress');
 		    per = Math.round(100*overallProgress.loaded/overallProgress.total);
@@ -55,6 +56,25 @@ $(document).ready(function() {
 	
     });
     
+    $(document).tooltip({
+	items: "input, textarea, select, checkbox",
+	content: function() {
+	    var element = $(this);
+	    console.log($(this).next().text());
+	    if($(this).next()) {
+		return $(this).next().text();
+	    }
+	    return "No info";
+	},
+	track: true,
+    });
+    
+    /*
+    $("span.helptext").each(function() {
+	console.log($(this).prev());
+	
+    });
+    */
     
     //
     // Photo delete
@@ -112,12 +132,12 @@ $(document).ready(function() {
 	    var html;
 	    if(data.other) {
 		html = ['<li data-type="room" data-id="', data.id, '">', data.name, ' (', data.other, ')',
-			'<button data-type="delete_room">Delete</button></li>'
+			'<button data-type="delete_room">X</button></li>'
 		       ].join('');
 	    }
 	    else {
 		html = ['<li data-type="room" data-id="', data.id, '">', data.name,
-			'<button data-type="delete_room">Delete</button></li>'
+			'<button data-type="delete_room">X</button></li>'
 		       ].join('');
 	    }
 	
@@ -164,7 +184,7 @@ $(document).ready(function() {
 
     $("#accordion").accordion({
 	heightStyle: "content",
-	collapsible: true,
+	// collapsible: true,
     });
 
     $('body').on('click', "button[data-type=update]", function() {

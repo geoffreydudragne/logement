@@ -2,7 +2,7 @@
   {% for contributor in contributors %}
     <li>
       {{ contributor.user.username }} 
-      <button data-type="delete_contributor" data-user="{{ contributor.user.id }}">Delete</button>
+      <button data-type="delete_contributor" data-user="{{ contributor.user.id }}">X</button>
     </li>
   {% endfor %}
 </ul>

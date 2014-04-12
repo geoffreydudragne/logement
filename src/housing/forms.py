@@ -12,6 +12,12 @@ class AdditionalInfoForm(forms.ModelForm):
     class Meta:
         model = AdditionalInfo
         exclude = ('house',)
+        widgets = { 
+            'noise_comment': forms.Textarea(),
+            'proximity_shops': forms.Textarea(),
+            'internet_details': forms.Textarea(),
+            'outside_equipment_comment': forms.Textarea(),
+        }   
 
 class PriceForm(forms.ModelForm):
     class Meta:
