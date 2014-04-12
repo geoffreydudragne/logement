@@ -89,12 +89,30 @@ aside {
     color:#362B36;
 }
 
-aside ul {
-    list-style:none;
+aside h3 {
+    margin-top:0px;
+    text-align:center;
+    border-bottom:1px solid #239CD3;
+    padding-bottom:10px;
+    padding-top:10px;
+    background-color:#239CD3;
+    color:#ffffff;
 }
 
-aside ul li {
+aside table {
     font-weight:bold;
+}
+
+.general_info_left {
+    font-weight:bold;
+    margin-left:20px;
+}
+
+.general_info_right {
+    text-align:right;
+    margin-right:20px;
+    margin-bottom:25px;
+
 }
 
 #gallery {
