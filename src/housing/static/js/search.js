@@ -28,6 +28,8 @@ $(document).ready(function() {
 	}
     });
 
+
+
     $('#search').on('click', function() {
 
         var get_string = search_url;
@@ -77,9 +79,13 @@ $(document).ready(function() {
             $.each(data, function(i, item) {
                 $("#house_list table tbody").append([
                     '<tr>',
+		    '<td>','<img src="',item.thumbnail,'"/>','</td>',
                     '<td><a href="',house_url.replace('0', item.id),'">',item.name,'</a></td>',
-                    '<td>',item.surface,'</td>',
-                    '<td>',item.price,'</td>',
+                    '<td>',item.surface,' m²</td>',
+                    '<td>',item.price,' €</td>',
+		    '<td>',item.number_persons,'</td>',
+		    '<td>',item.city,'</td>',
+		    '<td>',item.distance,'</td>',
                     '</tr>'
                 ].join(''));
 

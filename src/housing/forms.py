@@ -1,8 +1,6 @@
 from django import forms
 from housing.models import House, AdditionalInfo, Price, Room, Furniture, Location, Travel, Contact, Appreciation, Photo, Contributor
 
-ACCOMODATION_TYPES = (('','Accomodation type :'), (1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (0,"other"))
-
 class HouseForm(forms.ModelForm):
     class Meta:
         model = House
@@ -78,8 +76,14 @@ class LoginForm(forms.Form):
 
 
 class SearchForm(forms.Form):
-    name__contains = forms.CharField(label="Name")
+    # Choices
+    ACCOMODATION_TYPES = (('','Accomodation type :'), (1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (0,"other"))
+    NUMBER_PERSONS = (("","") ,(1,"1"), (2,"2"), (3,"3"), (4,"4"),(5,"5"),(6,"6"))
+    BOOLEAN = (("", ""), (True, "Yes"), (False, "No"))
+    # Form
     price__rent_with_service_charge__lte = forms.IntegerField(label="Price (max)", min_value=0, max_value=9999)
     surface__gte = forms.IntegerField(label="Surface (min)", min_value=0, max_value=9999)
     accomodation_type = forms.ChoiceField(label="Accomodation type", choices=ACCOMODATION_TYPES)
+    number_persons = forms.ChoiceField(label="Number of persons", choices=NUMBER_PERSONS)
+    additionalinfo__need_car = forms.ChoiceField(label="Need for a car", choices=BOOLEAN)
     

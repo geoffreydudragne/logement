@@ -1,9 +1,13 @@
 <table>
   <thead>
     <tr>
+      <th>Picture</th>
       <th>Name</th>
       <th>Surface</th>
-      <th>Price</th>
+      <th>Rent</th>
+      <th>Number of persons</th>
+      <th>Address</th>
+      <th>Distance to Eurecom</th>
     </tr>
   </thead>
   <tbody>

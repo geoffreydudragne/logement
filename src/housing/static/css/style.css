@@ -122,10 +122,6 @@ aside table {
 #information {
     clear:both;
 }
-#map_canvas {
-    width: 600px;
-    height: 400px;
-}
 
 #main {
     display:block;
@@ -238,7 +234,37 @@ fieldset {
 }
 
 #criteria_search {
-    width: 300px;
+    width: 400px;
+    height: 400px;
+    background-color:#F2F5F7;
+    margin:auto;
+    border:1px solid #239CD3;
+    border-radius:3px;
+    padding:10px;
+    float:left;
+}
+
+#criteria_search th {
+    text-align:right;
+}
+
+#criteria_search button {
+    color:#362B36;
+    margin-left:300px;
+}
+
+#map_canvas {
+    width: 500px;
+    height: 400px;
+}
+
+#search_map {
+    padding:10px;
+    width:500px;
+    margin-left:430px;
+    background-color:#F2F5F7;
+    border:1px solid #239CD3;
+    border-radius:3px;
 }
 
 table {
@@ -247,7 +273,7 @@ table {
 }
 
 thead {
-    background-color:#aaaaaa;
+    background-color:#239CD3;
     color:#ffffff;
 }
 
@@ -258,17 +284,23 @@ td {
 #house_list {
     margin-top:20px;
     text-align:center;
+    width:950px;
+}
+
+#house_list table {
+    width:950px;
 }
 
 #house_list th {
-    border:1px solid #aaaaaa;
+    border:1px solid #239CD3;
     padding:10px;
     font-size:120%;
 }
 
 #house_list td {
-    border:1px solid #aaaaaa;
+    border:1px solid #239CD3;
     padding:10px;
+    background-color:#F2F5F7;
 }
 
 #furniture p {
