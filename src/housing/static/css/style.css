@@ -324,5 +324,5 @@ legend {
 }
 
 .helptext {
-    visibility:hidden;
+    display:none;
 }
