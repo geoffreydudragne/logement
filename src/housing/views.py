@@ -75,12 +75,20 @@ def search(request):
         """
 
         for (name,value) in request.GET.iteritems():
+            if value=="True":
+                value = True
+            elif value=="False":
+                value = False
+
             filter[name] = value
+            
 
         print "%s"%filter
             
         houses = House.objects.filter(**filter)
-
+        
+        print "%s"%str(houses)
+        
         data = []
         result_rank=1
 
@@ -90,6 +98,10 @@ def search(request):
                 "name" : house.accomodation_name,
                 "surface" : house.surface,
                 "price" : house.price.rent_with_service_charge,
+                "thumbnail" : house.photo_set.get(pos=1).thumbnail.url,
+                "number_persons" : house.number_persons,
+                "city" : house.location.city,
+                "distance" : house.location.distance_eurecom,
                 "latitude" : house.location.latitude,
                 "longitude" : house.location.longitude,
                 "result_rank" : result_rank

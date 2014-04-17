@@ -9,7 +9,7 @@
       {% if room.surface %}
 	Surface area :{{ room.surface }}m
       {% endif %}
-      <button data-type="delete_room">Delete</button>
+      <button data-type="delete_room">X</button>
     </li>
   {% endfor %}
 </ul>

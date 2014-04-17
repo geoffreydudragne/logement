@@ -5,7 +5,7 @@
     <button style="float:right" onclick="window.location='{% url 'housing.views.house_update' house.id %}'">Update</button>
   {% endif %}
   <h1>{{ house.accomodation_name }}</h1>
-    
+  
   {% comment %}
   ** Gallery
   * 
@@ -35,10 +35,49 @@
     </article>
 
     <aside id="general">
-      <ul>
-	<li>Type : {{ house.get_accomodation_type_display }}</li>
-	<li>Price : {{ house.price.rent_with_service_charge }} €</li>
-      </ul>
+      <h3>General Information</h3>
+      <!--
+      <table>
+	<tbody>
+	  <tr>
+	    <td>Type</td>
+	    <td>{{ house.get_accomodation_type_display }}</td>
+	  </tr>
+	  <tr>
+	    <td>Rent (with service charges)</td>
+	    <td>{{ house.price.rent_with_service_charge }} €</td>
+	  </tr>
+	  <tr>
+	    <td>Surface</td>
+	    <td>{{ house.surface }} m²</td>
+	  </tr>
+	  <tr>
+	    <td>Number of persons</td>
+	    <td>{{ house.number_persons }}</td>
+	  </tr>
+	  <tr>
+	    <td>Address</td>
+	    <td>{{ house.location.address }}, {{ house.location.city }}</td>
+	  </tr>
+	  <tr>
+	    <td>Distance to Eurecom</td>
+	    <td>{{ house.location.distance_eurecom }} km</td>
+	  </tr>
+	</tbody>
+      </table>
+      -->
+      <p class="general_info_left">Type</p>
+      <p class="general_info_right">{{ house.get_accomodation_type_display }}</p>
+      <p class="general_info_left">Rent (with service charges)</p>
+      <p class="general_info_right">{{ house.price.rent_with_service_charge }} €</p>
+      <p class="general_info_left">Surface</p>
+      <p class="general_info_right">{{ house.surface }} m²</p>
+      <p class="general_info_left">Number of persons</p>
+      <p class="general_info_right">{{ house.number_persons }}</p>
+      <p class="general_info_left">Address</p>
+      <p class="general_info_right">{{ house.location.address }}, {{ house.location.city }}</p>
+      <p class="general_info_left">Distance to Eurecom</p>
+      <p class="general_info_right">{{ house.location.distance_eurecom }} km</p>
     </aside>
 
   </section>
