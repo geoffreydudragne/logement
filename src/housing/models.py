@@ -85,6 +85,7 @@ class Room(models.Model):
     ROOM_TYPES = ((1,"bedroom"), (2,"living room"), (3,"kitchen"), (4,"studio all-in-one (main room with kitchen)"), (5,"bathroom without toilets"), (6,"bathroom with toilets"), (7,"toilets alone"), (8,"garage"), (9,"storeroom"), (10,"other"))
     room_type = models.PositiveSmallIntegerField(verbose_name="Room type", choices=ROOM_TYPES)
     other_type =  models.CharField(max_length=20, verbose_name="other", null=True, blank=True)
+    surface = models.PositiveSmallIntegerField(verbose_name="Estimation of surface area (if relevent)", null=True, blank=True)
 
 
 class Furniture(models.Model):
@@ -164,9 +165,9 @@ class Contact(models.Model):
     #landlord contact
     landlord_first_name = models.CharField(max_length=30, verbose_name="Landlord's first name", null=True, blank=True)
     landlord_last_name = models.CharField(max_length=30, verbose_name="Landlord's last name", null=True, blank=True)
-    landlord_email = models.CharField(max_length=30, verbose_name="Landlord's email", null=True, blank=True)
+    landlord_email = models.CharField(max_length=40, verbose_name="Landlord's email", null=True, blank=True)
     landlord_phone_number = models.CharField(max_length=15, verbose_name="Landlord's phone number", null=True, blank=True)
-    landlord_comment_field = models.CharField(max_length=90, verbose_name="Comment about the landlord", null=True, blank=True)
+    landlord_comment_field = models.CharField(max_length=200, verbose_name="Comment about the landlord", null=True, blank=True)
     
     #agency
     agency_name = models.CharField(max_length=30, verbose_name="Agency name", null=True, blank=True)

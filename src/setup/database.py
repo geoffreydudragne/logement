@@ -32,6 +32,8 @@ t1.save()
 ap1 = Appreciation(house=h1, general_description="This apartment is attached to a little building but is more like a house as the door opens directly on the outside, and there is an other opening on a patio and a private garden. The accommodation is within a very nice residence which is well maintained. The apartment is in good condition, well balanced and very convivial for collocation. We found a way to go to the school by bike when the weather is good, there are some bike lanes on the major part of the travel.", strong_points="Proximity to the school.\nVery litle trafic jam between it and Eurecom.\nVery good infrastructures, large swimming pool and tennis courts.\nMultiple bathrooms", weak_points="Difficulty to park more than one car.")
 ap1.save()
 
+contact1 = Contact(house=h1, landlord_first_name="Roxanna", landlord_last_name="Draycott", landlord_email="draycottr@aol.com", landlord_phone_number="+44 208 954 3818", landlord_comment_field="The landlord lives in London. She is super nice and always disposed to help us with anything we need. It's really a pleasure to have her as landlord.")
+
 p11 = Photo(img="housing/TCup-1.jpg", thumbnail="housing/thumbnails/TCup-1.jpg", descr="Living Room", house=h1, pos=2)
 p11.save()
 p12 = Photo(img="housing/TCup-2.jpg", thumbnail="housing/thumbnails/TCup-2.jpg", house=h1, pos=3)

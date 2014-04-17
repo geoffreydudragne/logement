@@ -5,6 +5,10 @@
       {% if room.other_type %}
 	({{ room.other_type }})
       {% endif %}
+
+      {% if room.surface %}
+	Surface area :{{ room.surface }}m
+      {% endif %}
       <button data-type="delete_room">Delete</button>
     </li>
   {% endfor %}
