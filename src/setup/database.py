@@ -3,7 +3,8 @@
 from housing.models import House, AdditionalInfo, Price, Room, Furniture, Location, Travel, Contact, Appreciation, Photo, Contributor
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
-from random import randint, gauss
+from random import randint
+import random
 
 # ADMIN
 u = User(username="WTFO", is_staff=True, is_superuser=True)
@@ -92,14 +93,19 @@ for num in range (20):
     h_type= randint(1,5)
     h_rand = House(accomodation_name=name, surface=surface, accomodation_type=h_type, number_persons=num_persons)
     h_rand.save()
-    AdditionalInfo(house=h_rand, floor=0, disabled_persons=False, need_car=True, parking=True, heating_type=1, climatisation=False, furniture_included=True, furniture_appreciation=3, internet_connexion=True, swimming_pool= True, garden= True).save()
+    
+    need_car = random.choice([True, False])
+    AdditionalInfo(house=h_rand, floor=0, disabled_persons=False, need_car=need_car, parking=True, heating_type=1, climatisation=False, furniture_included=True, furniture_appreciation=3, internet_connexion=True, swimming_pool= True, garden= True).save()
+    
     price= randint(20,300)*10
     Price(house=h_rand, rent_with_service_charge=price, council_tax=0, through_agency=False, agency_fees=0, included_gas=False, included_electricity=True, included_water=True, included_internet=True, included_telephone=True, included_cleaning=False, apl=90).save()
+    
     city=randint(0,6)
     distance= randint(1,30)
-    latitude=gauss(43.614252, 0.08)
-    longitude=gauss(7.072984, 0.08)
+    latitude=random.gauss(43.614252, 0.08)
+    longitude=random.gauss(7.072984, 0.08)
     Location(house=h_rand, address="Somewhere", city=cities[city], postal_code="00000", distance_eurecom=distance, latitude=latitude, longitude=longitude).save()
+    
     p16 = Photo(img="housing/TCup-6.jpg", thumbnail="housing/thumbnails/TCup-6.jpg", descr="Patio", house=h_rand, pos=1).save()
 
 """

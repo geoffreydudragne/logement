@@ -59,6 +59,8 @@ def search(request):
 
         # Dictionary containing the filter
         filter = {}
+        reverse=False
+        order_fields = ["price__rent_with_service_charge"]
 
         """
 
@@ -75,18 +77,28 @@ def search(request):
         """
 
         for (name,value) in request.GET.iteritems():
-            if value=="True":
-                value = True
-            elif value=="False":
-                value = False
+            if name=="order_by":
+                order_fields.insert(0,value)
 
-            filter[name] = value
+            elif name=="order":
+                reverse=True
+
+            else:
+                if value=="True":
+                    value = True
+                elif value=="False":
+                    value = False
+
+                filter[name] = value
             
 
         print "%s"%filter
             
-        houses = House.objects.filter(**filter)
+        if reverse:
+            order_fields[0] = "-" + order_fields[0]
         
+        houses = House.objects.filter(**filter).order_by(*order_fields)
+
         print "%s"%str(houses)
         
         data = []

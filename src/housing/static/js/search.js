@@ -80,12 +80,12 @@ $(document).ready(function() {
                 $("#house_list table tbody").append([
                     '<tr>',
 		    '<td>','<img src="',item.thumbnail,'"/>','</td>',
-                    '<td><a href="',house_url.replace('0', item.id),'">',item.name,'</a></td>',
-                    '<td>',item.surface,' m²</td>',
-                    '<td>',item.price,' €</td>',
+                    '<td><a href="',house_url.replace('0', item.id),'"><b>',item.name,'</b></a></td>',
 		    '<td>',item.number_persons,'</td>',
+                    '<td>',item.surface,' m²</td>',
 		    '<td>',item.city,'</td>',
-		    '<td>',item.distance,'</td>',
+		    '<td>',item.distance,' km</td>',
+                    '<td><b>',item.price,' €</b></td>',
                     '</tr>'
                 ].join(''));
 

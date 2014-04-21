@@ -23,7 +23,13 @@ $(document).ready(function() {
     previousButton.hide();
     galleryButtons.css("visibility", "hidden");
     $photoDescr.css("visibility", "hidden");
-    
+    if (numberphotos==1) {
+        nextButton.hide();
+    }
+    else {
+        $.cacheImage(photoRef[1]);                   
+    }
+
     previousButton.hover(
         function(){this.src=STATIC_URL+"img/left-arrow.png";},
         function(){this.src=STATIC_URL+"img/left-arrow-transp.png";}
@@ -45,7 +51,6 @@ $(document).ready(function() {
 	}
     );
 
-    $.cacheImage(photoRef[1]);                   
 });
 
 function loadphoto(photoNumber){
@@ -58,11 +63,17 @@ function loadphoto(photoNumber){
     thumbnails.removeClass("active");
     $("#thumbnail"+photoNumber).addClass("active");
 
-    bigPhoto.css("opacity",1);
+    /*bigPhoto.css("opacity",1);
     photoContainer.html(loader);
     bigPhoto.load(function(){
         photoContainer.html($(this).fadeIn(250, function(){
             photoContainer.append('<div id="photoDescr">'+photoDescr[photoNumber]+'</div>');}))
+    }).attr("src",target).attr("alt",photoDescr[photoNumber]);*/
+    
+    photoContainer.html("");
+    bigPhoto.load(function(){
+        photoContainer.html($(this));
+        photoContainer.append('<div id="photoDescr">'+photoDescr[photoNumber]+'</div>');
     }).attr("src",target).attr("alt",photoDescr[photoNumber]);
 
     if (photoNumber==0) {

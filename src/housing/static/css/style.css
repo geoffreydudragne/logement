@@ -234,14 +234,14 @@ fieldset {
 }
 
 #criteria_search {
-    width: 400px;
+    width: 370px;
     height: 400px;
     background-color:#F2F5F7;
-    margin:auto;
     border:1px solid #239CD3;
     border-radius:3px;
     padding:10px;
-    float:left;
+    display: inline-block;
+    vertical-align: top;
 }
 
 #criteria_search th {
@@ -254,17 +254,19 @@ fieldset {
 }
 
 #map_canvas {
-    width: 500px;
+    width: 522px;
     height: 400px;
 }
 
 #search_map {
     padding:10px;
-    width:500px;
-    margin-left:430px;
+    width:522px;
+    margin-left:10px;
     background-color:#F2F5F7;
     border:1px solid #239CD3;
     border-radius:3px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 table {
