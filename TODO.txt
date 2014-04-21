@@ -6,4 +6,7 @@ Things left to do
 - Write a script to add contributors from a file containing student list (such a file added in setup directory)
 - Change search form to avoid manual input.
 - Resize and reorganize search form to make more space for the map
+- Add a map in Location tab of a house
+- Present informations on rooms
+- Present student contacts (infos on contributors) 
 
