@@ -166,8 +166,8 @@ class Contact(models.Model):
     landlord_first_name = models.CharField(max_length=30, verbose_name="Landlord's first name", null=True, blank=True)
     landlord_last_name = models.CharField(max_length=30, verbose_name="Landlord's last name", null=True, blank=True)
     landlord_email = models.CharField(max_length=40, verbose_name="Landlord's email", null=True, blank=True)
-    landlord_phone_number = models.CharField(max_length=15, verbose_name="Landlord's phone number", null=True, blank=True)
-    landlord_comment_field = models.CharField(max_length=200, verbose_name="Comment about the landlord", null=True, blank=True)
+    landlord_phone_number = models.CharField(max_length=25, verbose_name="Landlord's phone number", null=True, blank=True)
+    landlord_comment_field = models.CharField(max_length=400, verbose_name="Comment about the landlord", null=True, blank=True)
     
     #agency
     agency_name = models.CharField(max_length=30, verbose_name="Agency name", null=True, blank=True)

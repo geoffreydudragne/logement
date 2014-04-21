@@ -3,7 +3,7 @@
 from housing.models import House, AdditionalInfo, Price, Room, Furniture, Location, Travel, Contact, Appreciation, Photo, Contributor
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
-
+from random import randint, gauss
 
 # ADMIN
 u = User(username="WTFO", is_staff=True, is_superuser=True)
@@ -17,7 +17,7 @@ c.save()
 h1 = House(accomodation_name="TCup", surface=95, accomodation_type=2, number_persons=4)
 h1.save()
 
-ad1 = AdditionalInfo(house=h1, floor=0, disabled_persons=False, need_car=True, parking=True, heating_type=1, climatisation=False, furniture_included=True, furniture_appreciation=3, noise_comment="The residence is very calm, the house is located far from the street, so almost always quiet.", proximity_shops="There is a grocery at 30m of the residence, useful for buying some bread without without having to take the car.", internet_connexion=True, internet_details="There is a SFR box providing TV and WIFI, phone is included as well. The internet speed is not very high \(350kB/s\)", swimming_pool= True, garden= True, outside_equipment_comment="We have access to two tennis courts, a ping-pong table in a room, and a petanque strip.")
+ad1 = AdditionalInfo(house=h1, floor=0, disabled_persons=False, need_car=True, parking=True, heating_type=1, climatisation=False, furniture_included=True, furniture_appreciation=3, noise_comment="The residence is very calm, the house is located far from the street, so almost always quiet.", proximity_shops="There is a grocery at 30m of the residence, useful for buying some bread without without having to take the car.", internet_connexion=True, internet_details="There is a SFR box providing TV and WIFI, phone is included as well. The internet speed is not very high (350kB/s)", swimming_pool= True, garden= True, outside_equipment_comment="We have access to two tennis courts, a ping-pong table in a room, and a petanque strip.")
 ad1.save()
 
 p1 = Price(house=h1, rent_only=1995, service_charge_only=0, rent_with_service_charge=1995, council_tax=0, through_agency=False, agency_fees=0, included_gas=False, included_electricity=True, included_water=True, included_internet=True, included_telephone=True, included_cleaning=False, other_expenses="No other expenses or service charge not included", apl=90)
@@ -33,6 +33,7 @@ ap1 = Appreciation(house=h1, general_description="This apartment is attached to 
 ap1.save()
 
 contact1 = Contact(house=h1, landlord_first_name="Roxanna", landlord_last_name="Draycott", landlord_email="draycottr@aol.com", landlord_phone_number="+44 208 954 3818", landlord_comment_field="The landlord lives in London. She is super nice and always disposed to help us with anything we need. It's really a pleasure to have her as landlord.")
+contact1.save()
 
 p11 = Photo(img="housing/TCup-1.jpg", thumbnail="housing/thumbnails/TCup-1.jpg", descr="Living Room", house=h1, pos=2)
 p11.save()
@@ -69,6 +70,37 @@ c1_2.save()
 c1_2.houses.add(h1)
 f1 = Furniture(house=h1, washing_machine=True, clothes_dryer=False, drying_rack=True, dish_washer=True, fridge=True, oven=True, freezer=True, micro_wave=True, toaster=True, dishes=True, baking_tray=True, desk=True, desk_chair=True, tv=True, couches=True, seats=True)
 f1.save()
+
+Room(house=h1, room_type=2, surface=25).save()
+Room(house=h1, room_type=3, surface=6).save()
+Room(house=h1, room_type=1, surface=12).save()
+Room(house=h1, room_type=1, surface=12).save()
+Room(house=h1, room_type=1, surface=12).save()
+Room(house=h1, room_type=5, surface=3).save()
+Room(house=h1, room_type=6, surface=3).save()
+Room(house=h1, room_type=6, surface=7).save()
+Room(house=h1, room_type=7).save()
+
+
+# Random houses for search
+cities=["Antibes", "Nice", "Cannes", "Valbonne", "Mougins", "Biot", "Roquefort-les-Pins"]
+
+for num in range (20):
+    num_persons = randint(1,6)
+    surface = randint(15,200)
+    name = "RandHouse"+str(num)
+    h_type= randint(1,5)
+    h_rand = House(accomodation_name=name, surface=surface, accomodation_type=h_type, number_persons=num_persons)
+    h_rand.save()
+    AdditionalInfo(house=h_rand, floor=0, disabled_persons=False, need_car=True, parking=True, heating_type=1, climatisation=False, furniture_included=True, furniture_appreciation=3, internet_connexion=True, swimming_pool= True, garden= True).save()
+    price= randint(20,300)*10
+    Price(house=h_rand, rent_with_service_charge=price, council_tax=0, through_agency=False, agency_fees=0, included_gas=False, included_electricity=True, included_water=True, included_internet=True, included_telephone=True, included_cleaning=False, apl=90).save()
+    city=randint(0,6)
+    distance= randint(1,30)
+    latitude=gauss(43.614252, 0.08)
+    longitude=gauss(7.072984, 0.08)
+    Location(house=h_rand, address="Somewhere", city=cities[city], postal_code="00000", distance_eurecom=distance, latitude=latitude, longitude=longitude).save()
+    p16 = Photo(img="housing/TCup-6.jpg", thumbnail="housing/thumbnails/TCup-6.jpg", descr="Patio", house=h_rand, pos=1).save()
 
 """
 h2 = House(accomodation_name="Antibes", surface=95, price=2995)
