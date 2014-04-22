@@ -8,7 +8,7 @@ class House(models.Model):
     
     #principal characteristics
     surface = models.PositiveSmallIntegerField(verbose_name="Surface Area *", help_text="in m2")
-    ACCOMODATION_TYPES = ((1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (0,"other"))
+    ACCOMODATION_TYPES = ((1,"House"), (2,"Apartment"), (3,"Studio"), (4,"Home stay (vie chez l'habitant)"), (5,"Student residence"), (0,"Other"))
     accomodation_type = models.PositiveSmallIntegerField(verbose_name="Accomodation type *", choices=ACCOMODATION_TYPES)
     accomodation_type_other = models.CharField(max_length=20, verbose_name="Other", help_text="Precise your accomodation type here if you have chosen other", null=True, blank=True)
     number_persons = models.PositiveSmallIntegerField(verbose_name="Number of persons *", help_text="Number of persons the house can accomodate")

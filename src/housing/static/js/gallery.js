@@ -4,6 +4,7 @@ $(document).ready(function() {
     
     photoContainer = $("#photoContainer");
     bigPhoto = photoContainer.children("img");
+    $photoDescr = $("#photoDescr");
     thumbList = $("#thumbnails");
     thumbLinks = thumbList.find("a");
     thumbnails = thumbList.find("img");
@@ -11,7 +12,6 @@ $(document).ready(function() {
     galleryButtons=$(".galleryButton");
     previousButton=$("#previousButton");
     nextButton=$("#nextButton");
-    var $photoDescr=$("#photoDescr");
 
     loader = $(document.createElement("img")).attr({
 	alt: "chargement en cours",
@@ -63,18 +63,14 @@ function loadphoto(photoNumber){
     thumbnails.removeClass("active");
     $("#thumbnail"+photoNumber).addClass("active");
 
-    /*bigPhoto.css("opacity",1);
-    photoContainer.html(loader);
-    bigPhoto.load(function(){
-        photoContainer.html($(this).fadeIn(250, function(){
-            photoContainer.append('<div id="photoDescr">'+photoDescr[photoNumber]+'</div>');}))
-    }).attr("src",target).attr("alt",photoDescr[photoNumber]);*/
-    
-    photoContainer.html("");
-    bigPhoto.load(function(){
-        photoContainer.html($(this));
-        photoContainer.append('<div id="photoDescr">'+photoDescr[photoNumber]+'</div>');
-    }).attr("src",target).attr("alt",photoDescr[photoNumber]);
+    $('<img src="'+target+'" alt="'+photoDescr[photoNumber]+'" />').load(function(){
+            photoContainer.prepend($(this));
+            bigPhoto.fadeOut(250, function(){
+                $(this).remove();
+            });
+            bigPhoto = photoContainer.children("img");
+            $photoDescr.html(photoDescr[photoNumber]);
+    });
 
     if (photoNumber==0) {
         //previousButton.disabled=true;

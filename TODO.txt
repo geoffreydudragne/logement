@@ -1,8 +1,7 @@
 Things left to do
 
 - Reorganize data presentation (vague but many things to do, to be precised)
-- Improve the gallery transition (white flash)
-- Fix the rendering of the description of photos on the gallery (and prevent it when null)
+- prevent the description of photos when none on gallery
 - Write a script to add contributors from a file containing student list (such a file added in setup directory)
 - Change search form to avoid manual input.
 - Resize and reorganize search form to make more space for the map
