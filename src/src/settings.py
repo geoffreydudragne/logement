@@ -110,7 +110,9 @@ LOGIN_URL = '/login/'
 
 # Images resize and thumbnails
 
-IMG_WIDTH = 639
-IMG_HEIGHT = 426
+#IMG_WIDTH = 639
+#IMG_HEIGHT = 426 previous size
+IMG_WIDTH = 678
+IMG_HEIGHT = 452
 THUMBNAIL_HEIGHT = 47
 THUMBNAIL_WIDTH = 70
