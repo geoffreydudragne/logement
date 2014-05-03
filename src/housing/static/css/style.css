@@ -245,7 +245,7 @@ fieldset {
 }
 
 #criteria_search {
-    width: 370px;
+    width: 200px;
     height: 400px;
     background-color:#F2F5F7;
     border:1px solid #239CD3;
@@ -253,6 +253,7 @@ fieldset {
     padding:10px;
     display: inline-block;
     vertical-align: top;
+    position: relative;
 }
 
 #criteria_search th {
@@ -260,18 +261,23 @@ fieldset {
 }
 
 #criteria_search button {
-    color:#362B36;
-    margin-left:300px;
+    position: absolute;
+    right: 20px;
+    margin-top:20px;
+}
+
+#criteria_search select {
+    width: 160px;
 }
 
 #map_canvas {
-    width: 522px;
+    width: 692px;
     height: 400px;
 }
 
 #search_map {
     padding:10px;
-    width:522px;
+    width:692px;
     margin-left:10px;
     background-color:#F2F5F7;
     border:1px solid #239CD3;

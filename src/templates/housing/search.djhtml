@@ -2,12 +2,32 @@
 
 {% block main %}
   <section id="criteria_search">
+  {% comment %}
     <table>
       {{ search_form.as_table }}
-    </table>
-    <button id="search">Search</button>
-    <p> general info</p>
+  </table>
+  change for a custom html
+  {% endcomment %}
+ 
+  <p>{{ search_form.accomodation_type }}</p>
+
+  <p>{{ search_form.price__rent_with_service_charge__lte }}</p>
+
+  <p>{{ search_form.number_persons.label }} <br>
+  {{ search_form.number_persons }}</p>
+
+  <p>{{ search_form.additionalinfo__need_car.label }} <br>
+  {{ search_form.additionalinfo__need_car }}</p>
+
+  <p>{{ search_form.order_by.label }} <br>
+  {{ search_form.order_by }}</p>
+
+  <p>{{ search_form.order.label }} <br>
+  {{ search_form.order }}</p>
+
+  <button id="search">Search</button>
   </section>
+
   <section id="search_map">
     <div id='map_canvas'>
     </div>

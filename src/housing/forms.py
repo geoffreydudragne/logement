@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 from django import forms
 from housing.models import House, AdditionalInfo, Price, Room, Furniture, Location, Travel, Contact, Appreciation, Photo, Contributor
 
@@ -77,14 +78,14 @@ class LoginForm(forms.Form):
 
 class SearchForm(forms.Form):
     # Choices
-    ACCOMODATION_TYPES = (('','Accomodation type :'), (1,"house"), (2,"apartment"), (3,"studio"), (4,"home stay (vie chez l'habitant)"), (5,"student residence"), (0,"other"))
+    ACCOMODATION_TYPES = (('','Accomodation type :'), (1,"House"), (2,"Apartment"), (3,"Studio"), (4,"Home stay (vie chez l'habitant)"), (5,"Student residence"), (0,"Other"))
     NUMBER_PERSONS = (("","Number of persons") ,(1,"1"), (2,"2"), (3,"3"), (4,"4"),(5,"5"),(6,"6"))
     BOOLEAN = (("", ""), (True, "Yes"), (False, "No"))
-    PRICE = (("","Price"), ("","<200"), ("","200< <300"), ("","300< <400"))
-    ORDER_BY = (("", "Criterion"), ("price__rent_with_service_charge", "Price"), ("number_persons", "Number of persons"), ("location__distance_eurecom", "Distance"))
+    PRICE = (("","Total price"), ("300","<300 €"), ("400","<400 €"), ("500","<500 €"))
+    ORDER_BY = (("price__rent_with_service_charge", "Price"), ("number_persons", "Number of persons"), ("location__distance_eurecom", "Distance"))
     ORDER = (("", "Increasing"), ("reverse", "Decreasing"))
     # Form
-    price__rent_with_service_charge__lte = forms.IntegerField(label="Total price (max)", min_value=0, max_value=9999)
+    price__rent_with_service_charge__lte = forms.ChoiceField(label="Total price (max)", choices=PRICE)
     surface__gte = forms.IntegerField(label="Surface (min)", min_value=0, max_value=9999)
     accomodation_type = forms.ChoiceField(label="Accomodation type", choices=ACCOMODATION_TYPES)
     number_persons = forms.ChoiceField(label="Number of persons", choices=NUMBER_PERSONS)

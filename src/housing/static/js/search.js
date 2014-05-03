@@ -36,7 +36,7 @@ $(document).ready(function() {
         var name, value, fields;
         first = true;
         // Construction of the GET request string
-        $("input").each(function() {
+        $("#criteria_search input").each(function() {
             name = this.name;
             value = this.value;
             if(this.type=="checkbox") {
@@ -88,6 +88,7 @@ $(document).ready(function() {
             $.each(data, function(i, item) {
                 $("#house_list table tbody").append([
                     '<tr>',
+                    '<td>',item.result_rank,'</td>',
                     '<td>','<img src="',item.thumbnail,'"/>','</td>',
                     '<td><a href="',house_url.replace('0', item.id),'"><b>',item.name,'</b></a></td>',
                     '<td>',item.number_persons,'</td>',

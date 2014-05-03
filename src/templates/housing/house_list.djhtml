@@ -1,11 +1,12 @@
 <table>
   <thead>
     <tr>
+      <th>N°</th>
       <th>Picture</th>
       <th>Name</th>
       <th>N° Persons</th>
       <th>Surface</th>
-      <th>Address</th>
+      <th>City</th>
       <th>To Eurecom</th>
       <th>Rent</th>
     </tr>
