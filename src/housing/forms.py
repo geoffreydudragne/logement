@@ -22,6 +22,9 @@ class PriceForm(forms.ModelForm):
     class Meta:
         model = Price
         exclude = ('house',)
+        widgets = { 
+            'other_expenses': forms.Textarea(),
+        }   
 
 
 class RoomForm(forms.ModelForm):
@@ -40,23 +43,40 @@ class LocationForm(forms.ModelForm):
     class Meta:
         model = Location
         exclude = ('house', )#'latitude', 'longitude', )
+        widgets = { 
+            'latitude': forms.TextInput(),
+            'longitude': forms.TextInput(),
+        }   
 
 class TravelForm(forms.ModelForm):
     class Meta:
         model = Travel
         exclude = ('house',)
+        widgets = { 
+            'bus_line_eurecom': forms.Textarea(),
+            'bus_line_railroad_station': forms.Textarea(),
+        }   
 
 
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         exclude = ('house',)
+        widgets = { 
+            'landlord_comment_field': forms.Textarea(),
+            'agency_comment_field': forms.Textarea(),
+        }   
 
 
 class AppreciationForm(forms.ModelForm):
     class Meta:
         model = Appreciation
         exclude = ('house',)
+        widgets = { 
+            'strong_points': forms.Textarea(),
+            'weak_points': forms.Textarea(),
+            'general_description': forms.Textarea(),
+        }   
 
         
 class ContributorForm(forms.ModelForm):

@@ -66,6 +66,6 @@ function calculateDistance(origin_location) {
 
 function callback(response, status) {
     if (status == google.maps.DistanceMatrixStatus.OK) {
-        distance_field.val(parseInt(response.rows[0].elements[0].distance.text));
+        distance_field.val(parseFloat(response.rows[0].elements[0].distance.text).toFixed(1));
             }
 }

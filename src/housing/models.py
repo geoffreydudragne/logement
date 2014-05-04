@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
         
 class House(models.Model):
-    accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name", help_text="if none, leave empty and it will be auto generated", unique=True, null=True, blank=True)
+    accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name", help_text="If you don't know what to put, you can write something including the accomodation type and the name of the landlord, like \"Apartment Smith\"", unique=True, null=True, blank=True)
     
     #principal characteristics
     surface = models.PositiveSmallIntegerField(verbose_name="Surface Area *", help_text="in m2")
@@ -32,7 +32,7 @@ class AdditionalInfo(models.Model):
 
     #general secondary
 
-    floor = models.PositiveSmallIntegerField(verbose_name="Floor *", help_text="Considering the entrance door, and that the street is at 0")
+    floor = models.PositiveSmallIntegerField(verbose_name="Floor *", help_text="Floor of the entrance door, considering that the street is on floor 0")
     disabled_persons = models.BooleanField(verbose_name="Access for disabled persons")
     need_car = models.BooleanField(verbose_name="Need for at least one car")
     parking = models.BooleanField(verbose_name="Parking")
@@ -78,6 +78,12 @@ class Price(models.Model):
     included_internet = models.BooleanField(verbose_name="Internet")
     included_telephone = models.BooleanField(verbose_name="Telephone")
     included_cleaning = models.BooleanField(verbose_name="Cleaning services")
+
+    def save(self):
+        #if self.rent_only and self.service_charge_only:
+        print "custom save method called"
+        self.rent_with_service_charge = 10 #self.rent_only + self.service_charge_only
+        super(Price, self).save()
 
 
 class Room(models.Model):
@@ -130,10 +136,10 @@ class Location(models.Model):
     address = models.CharField(max_length=30, verbose_name="Address *")
     city = models.CharField(max_length=30, verbose_name="City *")
     postal_code = models.CharField(max_length=5, verbose_name="Postal code *")
-    distance_eurecom = models.PositiveSmallIntegerField(verbose_name="Distance to travel from the accomodation to Eurecom (in km)", null=True, blank=True)
+    distance_eurecom = models.FloatField(verbose_name="Distance to travel from the accomodation to Eurecom (in km)", help_text="Auto-generate it by clicking your position on the map", null=True, blank=True)
     #coordinates
-    latitude = models.FloatField(verbose_name="latitude")
-    longitude = models.FloatField(verbose_name="longitude")
+    latitude = models.FloatField(verbose_name="latitude", help_text="Auto-generate it by clicking your position on the map")
+    longitude = models.FloatField(verbose_name="longitude", help_text="Auto-generate it by clicking your position on the map")
 
 
     def __unicode__(self):
