@@ -13,6 +13,8 @@ Things left to do
 - bigger thumbnail for search page
 - add "price per person" automagically computed for the database (because it is the relevant criterion for search)
 - Fix the update process after login (update button not working in "account")
+- In account : possibility to create a house
 - input errors feedback for the update forms
+- Feedback after update button is pressed
 - Add update time in model (or dealt with promo of contributor ?)
 

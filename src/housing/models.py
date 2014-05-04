@@ -26,6 +26,7 @@ class House(models.Model):
         output += '</table>'
         return output
 
+
 class AdditionalInfo(models.Model):
 
     house = models.OneToOneField(House)
@@ -65,6 +66,7 @@ class Price(models.Model):
     rent_only = models.PositiveSmallIntegerField(verbose_name="Rent only", null=True, blank=True)
     service_charge_only = models.PositiveSmallIntegerField(verbose_name="Service charge only (charges)", null=True, blank=True)
     rent_with_service_charge = models.PositiveSmallIntegerField(verbose_name="Rent with service charge *")
+    rent_charge_per_person = models.PositiveSmallIntegerField(verbose_name="Rent with service charge per person", editable=False)
     council_tax = models.PositiveSmallIntegerField(verbose_name="Council tax (taxe d'habitation) *")
     through_agency = models.BooleanField(verbose_name="Rent through an agency")
     agency_fees = models.PositiveSmallIntegerField(verbose_name="Angency fees", default=0)
@@ -80,9 +82,10 @@ class Price(models.Model):
     included_cleaning = models.BooleanField(verbose_name="Cleaning services")
 
     def save(self):
-        #if self.rent_only and self.service_charge_only:
-        print "custom save method called"
-        self.rent_with_service_charge = 10 #self.rent_only + self.service_charge_only
+        if self.rent_only and self.service_charge_only:
+            print "custom save method called"
+            self.rent_with_service_charge = self.rent_only + self.service_charge_only
+        self.rent_charge_per_person = self.rent_with_service_charge / self.house.number_persons
         super(Price, self).save()
 
 
@@ -92,7 +95,7 @@ class Room(models.Model):
     ROOM_TYPES = ((1,"bedroom"), (2,"living room"), (3,"kitchen"), (4,"studio all-in-one (main room with kitchen)"), (5,"bathroom without toilets"), (6,"bathroom with toilets"), (7,"toilets alone"), (8,"garage"), (9,"storeroom"), (10,"other"))
     room_type = models.PositiveSmallIntegerField(verbose_name="Room type", choices=ROOM_TYPES)
     other_type =  models.CharField(max_length=20, verbose_name="other", null=True, blank=True)
-    surface = models.PositiveSmallIntegerField(verbose_name="Estimation of surface area (if relevent)", null=True, blank=True)
+    room_surface = models.PositiveSmallIntegerField(verbose_name="Estimation of surface area (if relevent)", null=True, blank=True)
 
 
 class Furniture(models.Model):

@@ -103,6 +103,10 @@ aside h3 {
     color:#ffffff;
 }
 
+aside div {
+    padding: 0px 10px 0px 10px;
+}
+
 aside table {
     font-weight:bold;
 }
@@ -128,6 +132,24 @@ aside table {
 
 #information {
     clear:both;
+}
+
+.S_W_points {
+    display: inline-block;
+    width : 400px;
+    vertical-align: top;
+    padding: 0px 15px 0px 15px;
+    border-radius: 3px;
+    margin-top: 15px;
+}
+
+#strong_points {
+    background-color: #D1F9D3;
+}
+
+#weak_points {
+    background-color: #F9D1D1;
+    margin-left: 26px;
 }
 
 #main {

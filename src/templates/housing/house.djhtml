@@ -66,18 +66,20 @@
 	</tbody>
       </table>
       -->
-      <p class="general_info_left">Type</p>
-      <p class="general_info_right">{{ house.get_accomodation_type_display }}</p>
-      <p class="general_info_left">Rent (with service charges)</p>
-      <p class="general_info_right">{{ house.price.rent_with_service_charge }} €</p>
-      <p class="general_info_left">Surface</p>
-      <p class="general_info_right">{{ house.surface }} m²</p>
-      <p class="general_info_left">Number of persons</p>
-      <p class="general_info_right">{{ house.number_persons }}</p>
-      <p class="general_info_left">Address</p>
-      <p class="general_info_right">{{ house.location.address }}, {{ house.location.city }}</p>
-      <p class="general_info_left">Distance to Eurecom</p>
-      <p class="general_info_right">{{ house.location.distance_eurecom }} km</p>
+        <div>
+          <p class="general_info_left">Type</p>
+          <p class="general_info_right">{{ house.get_accomodation_type_display }}</p>
+          <p class="general_info_left">Rent (with service charges)</p>
+          <p class="general_info_right">{{ house.price.rent_with_service_charge }} €</p>
+          <p class="general_info_left">Surface</p>
+          <p class="general_info_right">{{ house.surface }} m²</p>
+          <p class="general_info_left">Number of persons</p>
+          <p class="general_info_right">{{ house.number_persons }}</p>
+          <p class="general_info_left">Address</p>
+          <p class="general_info_right">{{ house.location.address }}, {{ house.location.city }}</p>
+          <p class="general_info_left">Distance to Eurecom</p>
+          <p class="general_info_right">{{ house.location.distance_eurecom }} km</p>
+        </div>
     </aside>
 
   </section>
@@ -90,10 +92,37 @@
       <li><a href="#location">Location</a></li>
       <li><a href="#travel">Travel</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#appreciation">Appreciation</a></li>
     </ul>
     <article id="house">
-      
+    
+    {% if house.appreciation %}
+        <h3>General Description</h3>
+        {% if house.appreciation.general_description %}
+            <p>{{ house.appreciation.general_description|linebreaks }}</p>
+        {% else %}
+        <p><i>No general description</i></p>
+        {% endif %}
+        <div id="strong_points" class="S_W_points">
+            <h3>Strong points</h3>
+            {% if house.appreciation.strong_points %}
+                <p>{{ house.appreciation.strong_points|linebreaks }}</p>
+            {% else %}
+            <p><i>Empty strong points</i></p>
+            {% endif %}
+        </div>
+        <div id="weak_points" class="S_W_points">
+            <h3>Weak points</h3>
+            {% if house.appreciation.weak_points %}
+                <p>{{ house.appreciation.weak_points|linebreaks }}</p>
+            {% else %}
+            <p><i>Empty weak points</i></p>
+            {% endif %}
+        </div>
+    {% else %}
+    <h1>No information given</h1>
+    {% endif %}
+
+    {% comment %}
       {% for field in house_form %}
 	{% if field.name != 'accomodation_name' and field.value %}
 	  {% if field.name == 'accomodation_type' %}
@@ -102,7 +131,8 @@
 	    <p> {{ field.label }} : {{ field.value }} </p>
 	  {% endif %}
 	{% endif %}
-      {% endfor %}
+        {% endfor %}
+    {% endcomment %}
       
     </article>
     <article id="additional_info">
@@ -121,6 +151,9 @@
       
     </article>
     <article id="price">
+
+    <p>Price per person : {{house.price.rent_charge_per_person}}</p>
+
       
       {% for field in price_form %}
 	{% if field.value == True %}
@@ -173,16 +206,18 @@
       {% endfor %}
       
     </article>
+    {% comment %}
     <article id="appreciation">
       
       {% for field in appreciation_form %}
 	{% if field.value %}
 	  <p> {{ field.label }} : {{ field.value }} </p>
 	{% else %}
-	  <p> {{ field.label }} : No information :( </p>
+	  <p> {{ field.label }} : No information </p>
 	{% endif %}
       {% endfor %}
     </article>
+    {% endcomment %}
   </section>
   
 {% endblock %}
