@@ -371,3 +371,18 @@ legend {
 .helptext {
     display:none;
 }
+
+.error {
+    font-style: italic;
+    margin-left: 10px;
+    color: #D44B4B;
+}
+
+.error_input {
+    background-color:#D44B4B;
+    color:#FFFFFF;
+}
+
+#info {
+    text-align:center;
+}

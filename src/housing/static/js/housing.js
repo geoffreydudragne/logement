@@ -60,7 +60,6 @@ $(document).ready(function() {
 	items: "input, textarea, select, checkbox",
 	content: function() {
 	    var element = $(this);
-	    console.log($(this).next().text());
 	    if($(this).next()) {
 		return $(this).next().text();
 	    }
@@ -70,10 +69,10 @@ $(document).ready(function() {
     });
     
     /*
-    $("span.helptext").each(function() {
-	console.log($(this).prev());
-	
-    });
+      $("span.helptext").each(function() {
+      console.log($(this).prev());
+      
+      });
     */
     
     //
@@ -140,11 +139,11 @@ $(document).ready(function() {
 			'<button data-type="delete_room">X</button></li>'
 		       ].join('');
 	    }
-	
+	    
 	    $("#rooms").append(html);
 	    
 	    $("#rooms").find("li[data-id=" + data.id + "]").find("button").button();
-        
+            
 	});
 	
 	return false;
@@ -192,10 +191,49 @@ $(document).ready(function() {
 	var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
 	var model = $(this).parent().attr("id");
 	var form = $("#form").serializeArray();
+	$("body").append('<div id="info"></div>');
+	var $info = $("#info");
 	// form.push({name:'model', value:model});
 	// form.push({name:'csrfmiddlewaretoken', value:csrfmiddlewaretoken});
 	
 	$.post(house_update_url, form, function(data) {
+	    $(".error").each(function() {
+		console.log($(this));
+		$(this).prev().removeClass("error_input");
+		$(this).remove();
+		
+	    });
+	    if(data != "VALID") {
+		var $div;
+		var text = ['<h3>There are errors in the form!<h3/>'];
+		$.each(data, function(i, item) {
+		    $div = $("#id_" + i);
+		    console.log($div);
+		    $div.addClass("error_input");
+		    $div.after(
+			['<span class="error">',item,'</span>'].join("")
+		    );
+		    text.push("<p>");
+		    text.push(i);
+		    text.push(" : ");
+		    text.push(item);
+		    text.push("</p>");
+		});
+		$info.html(text.join(""));
+		
+	    }
+	    else {
+		$info.html("The house has just been updated!");		
+	    }
+	    $info.dialog({
+		modal: true,
+		buttons: {
+		    Ok: function() {
+			    $(this).dialog("destroy");
+		    }
+		},
+		width: 400,
+	    });
 
 	});
 	
