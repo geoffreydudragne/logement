@@ -1,3 +1,4 @@
+<p>Add all the rooms of your accomodation, with their type.</p> 
 <ul id="rooms">
   {% for room in rooms %}
     <li data-type="room" data-id="{{ room.id }}">
@@ -13,6 +14,8 @@
     </li>
   {% endfor %}
 </ul>
-{{ room_form.as_p }}
-<button data-type="add_room">Add</button>
+<div id="add_room_form">
+    {{ room_form.as_p }}
+    <button data-type="add_room">Add</button>
+</div>
 

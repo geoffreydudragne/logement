@@ -24,7 +24,7 @@ ad1.save()
 p1 = Price(house=h1, rent_only=1995, service_charge_only=0, rent_with_service_charge=1995, council_tax=0, through_agency=False, agency_fees=0, included_gas=False, included_electricity=True, included_water=True, included_internet=True, included_telephone=True, included_cleaning=False, other_expenses="No other expenses or service charge not included", apl=90)
 p1.save()
 
-l1 = Location(house=h1, address="760 Chemin de la Tire", city="Mougins", postal_code="06250", distance_eurecom=6, latitude=43.608522, longitude=7.012347)
+l1 = Location(house=h1, address="760 Chemin de la Tire", city="Mougins", postal_code="06250", distance_eurecom=6.8, latitude=43.608522, longitude=7.012347)
 l1.save()
 
 t1 = Travel(house=h1, bus_line_eurecom="It is possible to go to Eurecom by bus with the line 650, but there are very few buses which go to Eurecom", bus_line_railroad_station="Line 630 to go to the railroad station at Cannes", time_by_car_min=15, time_by_car_max=25, time_by_bus_min=20, time_by_bus_max=40, time_by_bike_min=20, time_by_bike_max=30)
@@ -69,7 +69,7 @@ c1.houses.add(h1)
 c1_2 = Contributor(user=u1_2)
 c1_2.save()
 c1_2.houses.add(h1)
-f1 = Furniture(house=h1, washing_machine=True, clothes_dryer=False, drying_rack=True, dish_washer=True, fridge=True, oven=True, freezer=True, micro_wave=True, toaster=True, dishes=True, baking_tray=True, desk=True, desk_chair=True, tv=True, couches=True, seats=True)
+f1 = Furniture(house=h1, washing_machine=True, clothes_dryer=False, drying_rack=True, dish_washer=True, fridge=True, oven=True, freezer=True, micro_wave=True, toaster=True, dishes=True, baking_tray=True, desk=True, desk_chair=True, tv=True)
 f1.save()
 
 Room(house=h1, room_type=2, room_surface=25).save()

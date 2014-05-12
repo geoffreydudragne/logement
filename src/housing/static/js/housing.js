@@ -185,6 +185,15 @@ $(document).ready(function() {
 	heightStyle: "content",
 	// collapsible: true,
     });
+    
+    //piece of code to ensure that the user doesn't have to scroll after changing acordion
+    $('#accordion h3').bind('click',function(){
+        var self = this;
+        setTimeout(function() {
+            theOffset = $(self).offset();
+            $('body,html').animate({ scrollTop: theOffset.top - 100 });
+        }, 500); // ensure the collapse animation is done
+    });
 
     $('body').on('click', "button[data-type=update]", function() {
 	
@@ -238,5 +247,17 @@ $(document).ready(function() {
 	});
 	
 	return false;
+    });
+
+    $otherFormField = $("#id_other_type").parent();
+    $otherFormField.hide();
+
+    $("#id_room_type").change(function(){
+        if ($(this).val()==10){
+            $otherFormField.show();
+        }
+        else {
+            $otherFormField.hide();
+        }
     });
 });

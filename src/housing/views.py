@@ -105,12 +105,16 @@ def search(request):
         result_rank=1
 
         for house in houses:
+            if house.photo_set.all():  #check if there are photos
+                thumbnail_url = house.photo_set.get(pos=1).thumbnail.url
+            else:
+                thumbnail_url =""
             data.append({
                 "id" : house.id,
                 "name" : house.accomodation_name,
                 "surface" : house.surface,
                 "price" : house.price.rent_with_service_charge,
-                "thumbnail" : house.photo_set.get(pos=1).thumbnail.url,
+                "thumbnail" : thumbnail_url,
                 "number_persons" : house.number_persons,
                 "city" : house.location.city,
                 "distance" : house.location.distance_eurecom,

@@ -63,15 +63,15 @@ class Price(models.Model):
     house = models.OneToOneField(House)
 
     #price category
-    rent_only = models.PositiveSmallIntegerField(verbose_name="Rent only", null=True, blank=True)
-    service_charge_only = models.PositiveSmallIntegerField(verbose_name="Service charge only (charges)", null=True, blank=True)
-    rent_with_service_charge = models.PositiveSmallIntegerField(verbose_name="Rent with service charge *")
+    rent_only = models.PositiveSmallIntegerField(verbose_name="Rent only", null=True, blank=True, help_text="Total rent (not divided by the number of persons), in euros")
+    service_charge_only = models.PositiveSmallIntegerField(verbose_name="Service charge only (charges)", null=True, blank=True, help_text="Total, in euros")
+    rent_with_service_charge = models.PositiveSmallIntegerField(verbose_name="Rent with service charge *", help_text="In euros. This field is only in case you don't have the detail of the rent and the service charge, leave it empty if you filled \"Rent only\" and \"Service charge only\" fields")
     rent_charge_per_person = models.PositiveSmallIntegerField(verbose_name="Rent with service charge per person", editable=False)
     council_tax = models.PositiveSmallIntegerField(verbose_name="Council tax (taxe d'habitation) *")
     through_agency = models.BooleanField(verbose_name="Rent through an agency")
     agency_fees = models.PositiveSmallIntegerField(verbose_name="Angency fees", default=0)
     other_expenses = models.CharField(max_length=200, verbose_name="Precise the price of a service charge not included or any other expense", null=True, blank=True)
-    apl = models.PositiveSmallIntegerField(verbose_name="APL (Housing Benefits)", null=True, blank=True)
+    apl = models.PositiveSmallIntegerField(verbose_name="APL (Housing Benefits)", null=True, blank=True, help_text="APL in euro, for 1 person (you only)")
 
     #included in price of rent+service charge
     included_gas = models.BooleanField(verbose_name="Gas")
@@ -82,8 +82,9 @@ class Price(models.Model):
     included_cleaning = models.BooleanField(verbose_name="Cleaning services")
 
     def save(self):
-        if self.rent_only and self.service_charge_only:
-            print "custom save method called"
+        print "custom save method called"
+        if self.rent_only!=None and self.service_charge_only!=None:
+            print "Autocomputing rent+service charges"
             self.rent_with_service_charge = self.rent_only + self.service_charge_only
         self.rent_charge_per_person = self.rent_with_service_charge / self.house.number_persons
         super(Price, self).save()
@@ -92,9 +93,9 @@ class Price(models.Model):
 class Room(models.Model):
     house = models.ForeignKey(House)
 
-    ROOM_TYPES = ((1,"bedroom"), (2,"living room"), (3,"kitchen"), (4,"studio all-in-one (main room with kitchen)"), (5,"bathroom without toilets"), (6,"bathroom with toilets"), (7,"toilets alone"), (8,"garage"), (9,"storeroom"), (10,"other"))
+    ROOM_TYPES = ((1,"Bedroom"), (2,"Living room"), (3,"Kitchen"), (4,"Studio all-in-one (main room with kitchen)"), (5,"Bathroom without toilets"), (6,"Bathroom with toilets"), (7,"Toilets alone"), (8,"Garage"), (9,"Storeroom"), (10,"Other"))
     room_type = models.PositiveSmallIntegerField(verbose_name="Room type", choices=ROOM_TYPES)
-    other_type =  models.CharField(max_length=20, verbose_name="other", null=True, blank=True)
+    other_type =  models.CharField(max_length=20, verbose_name="other", null=True, blank=True, help_text="Precise if you selected \"other\" as room type")
     room_surface = models.PositiveSmallIntegerField(verbose_name="Estimation of surface area (if relevent)", null=True, blank=True)
 
 
@@ -113,7 +114,7 @@ class Furniture(models.Model):
     freezer = models.BooleanField(verbose_name="Freezer", default=False)
     micro_wave = models.BooleanField(verbose_name="Micro-wave", default=False)
     toaster = models.BooleanField(verbose_name="Toaster", default=False)
-    dishes = models.BooleanField(verbose_name="dishes", default=False)
+    dishes = models.BooleanField(verbose_name="Dishes", default=False)
     baking_tray = models.BooleanField(verbose_name="Baking tray (plaque de cuisson)", default=False)
     
     #bedrooms
@@ -122,8 +123,9 @@ class Furniture(models.Model):
 
     #Living room
     tv = models.BooleanField(verbose_name="TV", default=False)
-    couches = models.BooleanField(verbose_name="Couches", default=False)
-    seats = models.BooleanField(verbose_name="Seats", default=False)
+    # Don't look relevant enough as it is
+    #couches = models.BooleanField(verbose_name="Couches", default=False)
+    #seats = models.BooleanField(verbose_name="Seats", default=False)
     
 
     def __unicode__(self):
@@ -189,9 +191,9 @@ class Appreciation(models.Model):
     house = models.OneToOneField(House)
     
     #General description fields
+    general_description = models.CharField(max_length=500, verbose_name="Give a general description of the accomodation, anything you want to talk about", null=True, blank=True)
     strong_points = models.CharField(max_length=200, verbose_name="Strong points of the accomodation", null=True, blank=True)
     weak_points = models.CharField(max_length=200, verbose_name="Weak points of the accomodation", null=True, blank=True)
-    general_description = models.CharField(max_length=500, verbose_name="Give a general description of the accomodation, anything you want to talk about", null=True, blank=True)
 
 
 class Photo(models.Model):
