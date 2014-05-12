@@ -230,14 +230,10 @@ def house_create(request):
 
         user = request.user
         house_form = HouseForm(request.POST, instance=House())
-        furniture_form = FurnitureForm(request.POST, instance=Furniture())
                 
-        if house_form.is_valid() and furniture_form.is_valid():
+        if house_form.is_valid():
             
             house = house_form.save()
-            furniture = furniture_form.save(commit=False)
-            furniture.house = house
-            furniture.save()
             
             if not house.accomodation_name:
 
@@ -267,7 +263,6 @@ def house_create(request):
 
     else:
         house_form = HouseForm()
-        furniture_form = FurnitureForm()
 
     return render(request, 'housing/house_create.djhtml', locals())
 
@@ -582,6 +577,7 @@ def add_room(request, id_house):
                 "id" : room.id,
                 "name" : room.get_room_type_display(),
                 "other" : room.other_type,
+                "surface" : room.room_surface,
             }
             
         else:

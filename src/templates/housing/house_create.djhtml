@@ -11,10 +11,6 @@
         <legend>General info</legend>
         {{ house_form.as_p }}
       </fieldset>
-      <fieldset>
-        <legend>Furniture</legend>
-        {{ furniture_form.as_p }}
-      </fieldset>
       <input type="submit" />
     </form>
   {% endif %}

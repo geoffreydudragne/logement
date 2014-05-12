@@ -126,22 +126,21 @@ $(document).ready(function() {
     $('body').on('click', "button[data-type=add_room]", function() {
 	var room_type = $("#id_room_type").val();
 	var other_type = $("#id_other_type").val();
+	var room_surface = $("#id_room_surface").val();
         var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
-        $.post(add_room_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, room_type:room_type, other_type:other_type}, function(data) {
+        $.post(add_room_url, {csrfmiddlewaretoken:csrfmiddlewaretoken, room_type:room_type, other_type:other_type, room_surface:room_surface}, function(data) {
 	    var html;
-	    if(data.other) {
-		html = ['<li data-type="room" data-id="', data.id, '">', data.name, ' (', data.other, ')',
-			'<button data-type="delete_room">X</button></li>'
-		       ].join('');
-	    }
-	    else {
-		html = ['<li data-type="room" data-id="', data.id, '">', data.name,
-			'<button data-type="delete_room">X</button></li>'
-		       ].join('');
-	    }
-	    
+            html = '<li data-type="room" data-id="'+ data.id + '">' + data.name;
+            if (data.other) {
+                html += ' (' + data.other + ')';
+            }
+
+            if (data.surface) {
+                html += ' : ' + data.surface + ' m² ';
+            }
+            html += '<button data-type="delete_room">X</button></li>';
+
 	    $("#rooms").append(html);
-	    
 	    $("#rooms").find("li[data-id=" + data.id + "]").find("button").button();
             
 	});

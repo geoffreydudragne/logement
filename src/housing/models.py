@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
         
 class House(models.Model):
-    accomodation_name = models.CharField(max_length=30, verbose_name="Accomadation Name", help_text="If you don't know what to put, you can write something including the accomodation type and the name of the landlord, like \"Apartment Smith\"", unique=True, null=True, blank=True)
+    accomodation_name = models.CharField(max_length=30, verbose_name="Accomodation Name", help_text="If you don't know what to put, you can write something including the accomodation type and the name of the landlord, like \"Apartment Smith\"", unique=True, null=True, blank=True)
     
     #principal characteristics
     surface = models.PositiveSmallIntegerField(verbose_name="Surface Area *", help_text="in m2")
@@ -97,6 +97,9 @@ class Room(models.Model):
     room_type = models.PositiveSmallIntegerField(verbose_name="Room type", choices=ROOM_TYPES)
     other_type =  models.CharField(max_length=20, verbose_name="other", null=True, blank=True, help_text="Precise if you selected \"other\" as room type")
     room_surface = models.PositiveSmallIntegerField(verbose_name="Estimation of surface area (if relevent)", null=True, blank=True)
+
+    class Meta:
+        ordering = ['room_type']
 
 
 class Furniture(models.Model):
@@ -202,6 +205,7 @@ class Photo(models.Model):
     thumbnail = models.ImageField(upload_to='housing/thumbnails', null=True, blank=True)
     descr = models.CharField(max_length=30, verbose_name="Description", null=True, blank=True)
     pos = models.PositiveSmallIntegerField(verbose_name="Position", null=True, blank=True)
+    validated = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['pos']

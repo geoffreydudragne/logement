@@ -18,7 +18,7 @@ class LocationAdmin(admin.ModelAdmin):
     ordering = ('latitude','longitude',)
         
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('img','descr','house',)
+    list_display = ('img','descr','house','validated',)
     list_filter = ('house',)
     ordering = ('house',)
     search_fields = ('house',)
@@ -26,9 +26,12 @@ class PhotoAdmin(admin.ModelAdmin):
 class ContributorAdmin(admin.ModelAdmin):
     list_display = ('user',)
 
+class RoomAdmin(admin.ModelAdmin):
+    list_display = ('house', 'room_type', 'room_surface',) 
     
 admin.site.register(House, HouseAdmin)
 admin.site.register(Furniture, FurnitureAdmin)
+admin.site.register(Room, RoomAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Contributor, ContributorAdmin)
