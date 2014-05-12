@@ -37,7 +37,7 @@ def user_permission_house(function):
     return new_function
 
 
-# Create your views here.
+@login_required
 def home(request):
     """
 
@@ -51,6 +51,7 @@ def home(request):
 #                                      #
 ########################################
 
+@login_required
 def search(request):
     """
 
@@ -126,6 +127,7 @@ def search(request):
             
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+@login_required
 def search_form(request):
     """
 
@@ -135,6 +137,7 @@ def search_form(request):
 
     return render(request, 'housing/search.djhtml', locals())
 
+@login_required
 def quick_search(request):
     """
 
@@ -158,6 +161,7 @@ def quick_search(request):
 #                                      #
 ########################################
 
+@login_required
 def house(request, id_house):
     """
 
@@ -689,19 +693,21 @@ def delete_contributor(request, id_house):
 #                                      #
 ########################################
 
-
+@login_required
 def map(request):
     """
     
     """
     return render(request, 'housing/map.djhtml')
-        
+
+@login_required
 def precise_position(request):
     """
     
     """
     return render(request, 'housing/precisePosition.djhtml')
 
+@login_required
 def mapMarkersAll(request):
     """
 
@@ -718,6 +724,7 @@ def mapMarkersAll(request):
     result = {"markers": markers}
     return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
+@login_required
 def mapMarkers(request, id_house):
     """
 
@@ -737,7 +744,7 @@ def mapMarkers(request, id_house):
 #                                      #
 ########################################
 
-
+@login_required
 def gallery(request, id_house):
     """
 
@@ -752,6 +759,7 @@ def gallery(request, id_house):
 # ACCOUNT                              #
 #                                      #
 ########################################
+
 @login_required
 def account(request):
     user = request.user
@@ -804,6 +812,7 @@ def user_logout(request):
     """
     logout(request)
     return redirect(reverse(user_login))
+
 
 
 def resize_and_crop(img_path, new_path, thumbnail_path):
