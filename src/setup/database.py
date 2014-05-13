@@ -88,17 +88,17 @@ cities=["Antibes", "Nice", "Cannes", "Valbonne", "Mougins", "Biot", "Roquefort-l
 
 for num in range (20):
     num_persons = randint(1,6)
-    surface = randint(15,200)
+    surface_per_person = randint(10,30)
     name = "RandHouse"+str(num)
     h_type= randint(1,5)
-    h_rand = House(accomodation_name=name, surface=surface, accomodation_type=h_type, number_persons=num_persons)
+    h_rand = House(accomodation_name=name, surface=surface_per_person*num_persons, accomodation_type=h_type, number_persons=num_persons)
     h_rand.save()
     
     need_car = random.choice([True, False])
     AdditionalInfo(house=h_rand, floor=0, disabled_persons=False, need_car=need_car, parking=True, heating_type=1, climatisation=False, furniture_included=True, furniture_appreciation=3, internet_connexion=True, swimming_pool= True, garden= True).save()
     
-    price= randint(20,300)*10
-    Price(house=h_rand, rent_with_service_charge=price, council_tax=0, through_agency=False, agency_fees=0, included_gas=False, included_electricity=True, included_water=True, included_internet=True, included_telephone=True, included_cleaning=False, apl=90).save()
+    price_per_person= randint(20,70)*10
+    Price(house=h_rand, rent_with_service_charge=price_per_person*num_persons, council_tax=0, through_agency=False, agency_fees=0, included_gas=False, included_electricity=True, included_water=True, included_internet=True, included_telephone=True, included_cleaning=False, apl=90).save()
     
     city=randint(0,6)
     distance= randint(1,30)

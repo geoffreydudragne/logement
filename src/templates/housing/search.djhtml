@@ -11,7 +11,7 @@
  
   <p>{{ search_form.accomodation_type }}</p>
 
-  <p>{{ search_form.price__rent_with_service_charge__lte }}</p>
+  <p>{{ search_form.price__rent_charge_per_person__lte }}</p>
 
   <p>{{ search_form.number_persons.label }} <br>
   {{ search_form.number_persons }}</p>

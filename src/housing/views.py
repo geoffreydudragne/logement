@@ -61,7 +61,7 @@ def search(request):
         # Dictionary containing the filter
         filter = {}
         reverse=False
-        order_fields = ["price__rent_with_service_charge"]
+        order_fields = ["price__rent_charge_per_person"]
 
         """
 
@@ -114,7 +114,7 @@ def search(request):
                 "id" : house.id,
                 "name" : house.accomodation_name,
                 "surface" : house.surface,
-                "price" : house.price.rent_with_service_charge,
+                "price" : house.price.rent_charge_per_person,
                 "thumbnail" : thumbnail_url,
                 "number_persons" : house.number_persons,
                 "city" : house.location.city,
