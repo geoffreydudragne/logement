@@ -161,11 +161,14 @@ $(document).ready(function() {
 	return false;
     });
 
-    $("#accordion").accordion({
-	heightStyle: "content",
-	// collapsible: true,
+    $("#accordion > div").accordion({
+        header: "h3",
+        heightStyle: "content",
+	collapsible: true,
+        active: false,
     });
     
+    /*
     //piece of code to ensure that the user doesn't have to scroll after changing acordion
     $('#accordion h3').bind('click',function(){
         var self = this;
@@ -173,7 +176,7 @@ $(document).ready(function() {
             theOffset = $(self).offset();
             $('body,html').animate({ scrollTop: theOffset.top - 100 });
         }, 500); // ensure the collapse animation is done
-    });
+    });*/
 
     $('body').on('click', "button[data-type=update]", function() {
 	
@@ -217,9 +220,12 @@ $(document).ready(function() {
 	    $info.dialog({
 		modal: true,
 		buttons: {
-		    Ok: function() {
+		    "Continue to edit": function() {
 			    $(this).dialog("destroy");
-		    }
+		    },
+                    "See Result [TODO]": function() {
+                            //window.location.href = "TODO: add URL";
+                    }
 		},
 		width: 400,
 	    });

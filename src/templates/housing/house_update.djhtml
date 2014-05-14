@@ -8,6 +8,8 @@
     {% if updated %}
       <h2>House updated!</h2>
     {% endif %}
+
+    <h1>Update the house</h1>
     <form id="form">
       {% csrf_token %}
       <div id="accordion" enctype="multipart/form-data" action="" method="post">
@@ -26,67 +28,82 @@
 	<li><a href="#contributor">Contributor</a></li>
 	</ul>
 	-->
-	<h3>General</h3>
-	<div id="house">
-	  {{ house_form.as_p }}
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
-	<h3>Additional</h3>
-	<div id="additional_info">
+         
+        <div>
+            <h3>General</h3>
+            <div id="house">
+              {{ house_form.as_p }}
+            </div>
+        </div>
+        <div>
+            <h3>Additional</h3>
+            <div id="additional_info">
 
-	  {{ additional_info_form.as_p }}
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
-	<h3>Price</h3>
-	<div id="price">
-          {{ price_form.as_p }}
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
-	<h3>Rooms</h3>
-	<div id="room" data-type="room">
-	  {% include "housing/add_room.djhtml" %}
-	</div>
-	<h3>Furniture</h3>
-	<div id="furniture">
-          {{ furniture_form.as_p }}
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
-	<h3>Location</h3>      
-	<div id="location">
-          {{ location_form.as_p }}
-          <p>Click on the map to precise the position of your accomodation :</p>
-          <button type="button" id='center_button'>Center the map on your address</button>
-          <div id="map_canvas"></div>
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
-	<h3>Travel</h3>
-	<div id="travel">
-          {{ travel_form.as_p }}
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
-	<h3>Contact</h3>
-	<div id="contact">
-          {{ contact_form.as_p }}
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
-	<h3>Appreciation</h3>
-	<div id="appreciation">
-          {{ appreciation_form.as_p }}
-	  <!-- <button data-type="update">Update</button> -->
-	</div>
-	
-	<!-- <form enctype="multipart/form-data" action="" method="post"></form>  -->
-	<h3>Photos</h3>
-	<div id="photo">
-	  <div  data-type="photo">
-	    {% include "housing/add_photo.djhtml" %}
-	  </div>
-	  <p><label for="id_img">Add photos </label><input id="id_img" type="file" accept="image/*" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
-	</div>
-	<h3>Contributors</h3>
-	<div id="contributor" data-type="contributor">
-	  {% include "housing/add_contributor.djhtml" %}
-	</div>
+              {{ additional_info_form.as_p }}
+            </div>
+        </div>
+        <div>
+            <h3>Price</h3>
+            <div id="price">
+              {{ price_form.as_p }}
+            </div>
+        </div>
+        <div>
+            <h3>Rooms</h3>
+            <div id="room" data-type="room">
+              {% include "housing/add_room.djhtml" %}
+            </div>
+        </div>
+        <div>
+            <h3>Furniture</h3>
+            <div id="furniture">
+              {{ furniture_form.as_p }}
+            </div>
+        </div>
+        <div>
+            <h3>Location</h3>      
+            <div id="location">
+              {{ location_form.as_p }}
+              <p>Click on the map to precise the position of your accomodation :</p>
+              <button type="button" id='center_button'>Center the map on your address</button>
+              <div id="map_canvas"></div>
+            </div>
+        </div>
+        <div>
+            <h3>Travel</h3>
+            <div id="travel">
+              {{ travel_form.as_p }}
+            </div>
+        </div>
+        <div>
+            <h3>Contact</h3>
+            <div id="contact">
+              {{ contact_form.as_p }}
+            </div>
+        </div>
+        <div>
+            <h3>Appreciation</h3>
+            <div id="appreciation">
+              {{ appreciation_form.as_p }}
+            </div>
+        </div>
+            
+            <!-- <form enctype="multipart/form-data" action="" method="post"></form>  -->
+        <div>
+            <h3>Photos</h3>
+            <div id="photo">
+              <div  data-type="photo">
+                {% include "housing/add_photo.djhtml" %}
+              </div>
+              <p><label for="id_img">Add photos </label><input id="id_img" type="file" accept="image/*" name="img" data-url="/housing/house/add_photo/1" multiple /></p>
+            </div>
+        </div>
+        <div>
+            <h3>Contributors</h3>
+            <div id="contributor" data-type="contributor">
+              {% include "housing/add_contributor.djhtml" %}
+            </div>
+        </div>
       </div>
       <button id="button_update" data-type="update">Update</button>
     </form>    

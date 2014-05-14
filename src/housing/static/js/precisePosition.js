@@ -7,7 +7,7 @@ $(document).ready(function() {
     distance_field = $('#id_distance_eurecom'); 
     map_canvas = $('#map_canvas');
 
-    $("#ui-accordion-accordion-header-5").click(function(){
+    $("#ui-accordion-6-header-0").click(function(){
         initializeMap();
         if (latitude_field.val()!='' && longitude_field.val()!=''){
             var location = new google.maps.LatLng(Number(latitude_field.val()), Number(longitude_field.val()));

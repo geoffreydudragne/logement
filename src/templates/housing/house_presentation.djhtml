@@ -237,5 +237,5 @@
 
   <script src="{{STATIC_URL}}js/jquery.cacheimage.js"></script>
   <script src="{{STATIC_URL}}js/gallery.js"></script>
-  <script src="{{STATIC_URL}}js/house.js"></script>
+  <script src="{{STATIC_URL}}js/house_presentation.js"></script>
 {% endblock %}
