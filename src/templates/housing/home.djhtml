@@ -1,5 +1,0 @@
-{% extends "housing/layout.djhtml" %}
-
-{% block main %}
-  <h1>WELCOME</h1>
-{% endblock %}

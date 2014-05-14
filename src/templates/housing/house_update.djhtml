@@ -113,7 +113,8 @@
    var house_update_url = '{% url 'housing.views.house_update' house.id %}';
 
   </script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/housing.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/helptext.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/house_update.js"></script>
   <script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.fileupload.js"></script>
   <script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.iframe-transport.js"></script>
   <script type="text/javascript" src="{{STATIC_URL}}js/fileupload/jquery.ui.widget.js"></script>

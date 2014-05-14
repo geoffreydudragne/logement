@@ -6,7 +6,7 @@ A : almost done
 * - Reorganize data presentation (vague but many things to do, to be precised)
 - prevent the description of photos when none on gallery
 * - Write a script to add contributors from a file containing student list (such a file added in setup directory)
-A - Change search form to avoid manual input.
+X - Change search form to avoid manual input.
 X - Resize and reorganize search form to make more space for the map
 - Add a map in Location tab of a house
 - Present informations on rooms
@@ -24,4 +24,5 @@ X - Feedback after update button is pressed
 * - Create folder for each house photos or will be a big mess
 * - Limit the number of characters in user forms so that it doesn't exceed the max of the model
 * - Give a clear indication of which fields are mandatory (maybe with automatic javascript)
+* - Switch django langage to English, enough with the "envoyer" buttons
 

@@ -222,7 +222,7 @@ def house(request, id_house):
     if user.has_perm('housing.update_house_{0}'.format(id_house)):
         can_update = True
 
-    return render(request, 'housing/house.djhtml', locals())
+    return render(request, 'housing/house_presentation.djhtml', locals())
 
 
 @login_required

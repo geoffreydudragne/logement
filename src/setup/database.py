@@ -49,26 +49,27 @@ p15.save()
 p16 = Photo(img="housing/TCup-6.jpg", thumbnail="housing/thumbnails/TCup-6.jpg", descr="Patio", house=h1, pos=1)
 p16.save()
 
-u1 = User(username="Bastien")
-u1.set_password("azerty")
-u1.save()
 # Adding permission to contributor
 content_type = ContentType.objects.get(app_label='housing', model='House')
 permission = Permission.objects.create(codename='update_house_{0}'.format(h1.id),
                                        name='Update house "{0}"'.format(h1.accomodation_name),
                                        content_type=content_type)
+u1 = User(username="Bastien")
+u1.set_password("azerty")
+u1.save()
 u1.user_permissions.add(permission)
-
-u1_2 = User(username="Geoffrey")
-u1_2.set_password("azerty")
-u1_2.save()
 c1 = Contributor(user=u1)
 c1.save()
 c1.houses.add(h1)
 
+u1_2 = User(username="Geoffrey")
+u1_2.set_password("azerty")
+u1_2.save()
+u1_2.user_permissions.add(permission)
 c1_2 = Contributor(user=u1_2)
 c1_2.save()
 c1_2.houses.add(h1)
+
 f1 = Furniture(house=h1, washing_machine=True, clothes_dryer=False, drying_rack=True, dish_washer=True, fridge=True, oven=True, freezer=True, micro_wave=True, toaster=True, dishes=True, baking_tray=True, desk=True, desk_chair=True, tv=True)
 f1.save()
 
