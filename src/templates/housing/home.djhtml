@@ -1,0 +1,10 @@
+{% extends "housing/layout.djhtml" %}
+
+{% block main %}
+  <h1>Welcome to the Eurecom Housing website</h1>
+  <h3><a href="{% url 'housing.views.user_login' %}">Login</a></h3>
+  <h3><a href="{% url 'housing.views.search_form' %}">Search</a></h3>
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}

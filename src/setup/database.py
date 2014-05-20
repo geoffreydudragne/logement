@@ -50,7 +50,7 @@ p16 = Photo(img="housing/TCup-6.jpg", thumbnail="housing/thumbnails/TCup-6.jpg",
 p16.save()
 
 # Adding permission to contributor
-content_type = ContentType.objects.get(app_label='housing', model='House')
+content_type = ContentType.objects.get(app_label='housing', model='house')
 permission = Permission.objects.create(codename='update_house_{0}'.format(h1.id),
                                        name='Update house "{0}"'.format(h1.accomodation_name),
                                        content_type=content_type)
