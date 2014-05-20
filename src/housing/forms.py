@@ -12,10 +12,10 @@ class AdditionalInfoForm(forms.ModelForm):
         model = AdditionalInfo
         exclude = ('house',)
         widgets = { 
-            'noise_comment': forms.Textarea(),
-            'proximity_shops': forms.Textarea(),
-            'internet_details': forms.Textarea(),
-            'outside_equipment_comment': forms.Textarea(),
+            'noise_comment': forms.Textarea(attrs={'maxlength': model._meta.get_field('noise_comment').max_length}),
+            'proximity_shops': forms.Textarea(attrs={'maxlength': model._meta.get_field('proximity_shops').max_length}),
+            'internet_details': forms.Textarea(attrs={'maxlength': model._meta.get_field('internet_details').max_length}),
+            'outside_equipment_comment': forms.Textarea(attrs={'maxlength': model._meta.get_field('outside_equipment_comment').max_length}),
         }   
 
 class PriceForm(forms.ModelForm):
@@ -23,7 +23,7 @@ class PriceForm(forms.ModelForm):
         model = Price
         exclude = ('house',)
         widgets = { 
-            'other_expenses': forms.Textarea(),
+            'other_expenses': forms.Textarea(attrs={'maxlength': model._meta.get_field('other_expenses').max_length}),
         }   
 
 
@@ -53,8 +53,8 @@ class TravelForm(forms.ModelForm):
         model = Travel
         exclude = ('house',)
         widgets = { 
-            'bus_line_eurecom': forms.Textarea(),
-            'bus_line_railroad_station': forms.Textarea(),
+            'bus_line_eurecom': forms.Textarea(attrs={'maxlength': model._meta.get_field('bus_line_eurecom').max_length}),
+            'bus_line_railroad_station': forms.Textarea(attrs={'maxlength': model._meta.get_field('bus_line_railroad_station').max_length}),
         }   
 
 
@@ -63,8 +63,8 @@ class ContactForm(forms.ModelForm):
         model = Contact
         exclude = ('house',)
         widgets = { 
-            'landlord_comment_field': forms.Textarea(),
-            'agency_comment_field': forms.Textarea(),
+            'landlord_comment_field': forms.Textarea(attrs={'maxlength': model._meta.get_field('landlord_comment_field').max_length}),
+            'agency_comment_field': forms.Textarea(attrs={'maxlength': model._meta.get_field('agency_comment_field').max_length}),
         }   
 
 
@@ -73,9 +73,9 @@ class AppreciationForm(forms.ModelForm):
         model = Appreciation
         exclude = ('house',)
         widgets = { 
-            'strong_points': forms.Textarea(),
-            'weak_points': forms.Textarea(),
-            'general_description': forms.Textarea(),
+            'strong_points': forms.Textarea(attrs={'maxlength': model._meta.get_field('strong_points').max_length}),
+            'weak_points': forms.Textarea(attrs={'maxlength': model._meta.get_field('weak_points').max_length}),
+            'general_description': forms.Textarea(attrs={'maxlength': model._meta.get_field('general_description').max_length}),
         }   
 
         
