@@ -1,6 +1,8 @@
 logement
 ========
 
+DEPRECATED, go to https://github.com/eurecombde/bde_website for the up to date version
+
 Git pour le site du logement
 
 Development
